@@ -1,6 +1,8 @@
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class StartServer {
 
@@ -15,10 +17,20 @@ public class StartServer {
 		System.out.println("Server running!");
 		System.out.println("Server started on: http://"+HOST+":"+PORT);
 
+		ServerSocket serverSocket = new ServerSocket(6789);
+/*
+		while(true) {
+			Socket connectionSocket = serverSocket.accept();
+			ServerThread thread = new ServerThread(connectionSocket);
+			thread.start();
+			System.out.println("Thread started");
+		}
+		*/
 		System.out.println("Hit return to stop...");
 		System.in.read();
 		System.out.println("Stopping server");
 		server.stop(0);
 		System.out.println("Server stopped");
+
 	}
 }

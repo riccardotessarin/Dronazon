@@ -1,7 +1,14 @@
 package amministratore;
 
+import beans.DroneInfo;
+import beans.DroneInfos;
+import beans.InitDroneInfo;
+import smartcity.Drone;
+
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("amministratore")
 public class ServerAmministratore {
@@ -19,12 +26,14 @@ public class ServerAmministratore {
 	@Path("insert")
 	@POST
 	@Consumes({"application/json", "application/xml"})
-	public Response insertDrone(/*Drone d*/) {
-		/*
-			// Forse uso una map però quindi occhio
-		*   Drones.getInstance().addDrone(d);
-		* */
-		return Response.ok().build();
+	public Response insertDrone(DroneInfo dInfo) {
+		List<DroneInfo> dronesInNetwork = DroneInfos.getInstance().getDronesInfo();
+		if(DroneInfos.getInstance().addDroneInfo(dInfo)) {
+			InitDroneInfo initDroneInfo = new InitDroneInfo(dronesInNetwork);
+			//GenericEntity<List<DroneInfo>> entity = new GenericEntity<List<DroneInfo>>(dronesInNetwork) {};
+			return Response.ok(initDroneInfo).build();
+		}
+		return Response.status(Response.Status.CONFLICT).build();
 	}
 
 	//La put potrebbe servire se faccio la recharge per metterlo a 0,0 e 100%

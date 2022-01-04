@@ -1,9 +1,18 @@
 package smartcity;
 
+import beans.DroneInfo;
+import beans.InitDroneInfo;
+import com.google.gson.Gson;
+import com.sun.jersey.api.client.*;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.eclipse.paho.client.mqttv3.*;
 
+import javax.ws.rs.core.GenericEntity;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -15,6 +24,9 @@ public class Drone {
 		String clientId = MqttClient.generateClientId();
 		String topic = "dronazon/smartcity/orders";
 		int qos = 2;
+
+		String ipAddress = "ciao";
+		int port = 6798;
 
 		try {
 			client = new MqttClient(broker, clientId);
@@ -61,6 +73,34 @@ public class Drone {
 				public void deliveryComplete(IMqttDeliveryToken token) { }
 			});
 
+			// Like an HTTP client
+			Client clientHTTP = Client.create();
+			String serverAddress = "http://localhost:1337";
+			ClientResponse clientResponse = null;
+
+			// Posting drone info
+			String postPath = "/amministratore/insert";
+			DroneInfo dInfo = new DroneInfo(clientId, ipAddress, port);
+			clientResponse = insertRequest(clientHTTP, serverAddress + postPath, dInfo);
+			//List<DroneInfo> dronesInNetwork = clientResponse.getEntity(new GenericType<List<DroneInfo>>(){});
+			InitDroneInfo initDroneInfo = clientResponse.getEntity(InitDroneInfo.class);
+			System.out.println(initDroneInfo);
+
+
+
+			// With Socket connection
+
+			/*
+			Socket clientSocket = new Socket("localhost", 6789);
+			DroneInfo droneInfo = DroneInfo.newBuilder()
+					.setDroneID(clientId).setIpAddress(ipAddress).setPort(port)
+					.build();
+
+			droneInfo.writeTo(clientSocket.getOutputStream());
+			System.out.println("Sent drone info to server");
+			clientSocket.close();
+			*/
+
 			System.out.println(clientId + " Subscribing ... - Thread PID: " + Thread.currentThread().getId());
 			client.subscribe(topic,qos);
 			System.out.println(clientId + " Subscribed to topics : " + topic);
@@ -78,6 +118,21 @@ public class Drone {
 			System.out.println("cause " + me.getCause());
 			System.out.println("excep " + me);
 			me.printStackTrace();
+		} /*catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+	}
+
+	public static ClientResponse insertRequest (Client client, String url, DroneInfo dInfo) {
+		WebResource webResource = client.resource(url);
+		String input = new Gson().toJson(dInfo);
+		try {
+			return webResource.type("application/json").post(ClientResponse.class, input);
+		} catch (ClientHandlerException e) {
+			System.out.println("Server unavailable");
+			return null;
 		}
 	}
 }
