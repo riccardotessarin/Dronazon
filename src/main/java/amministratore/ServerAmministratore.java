@@ -48,10 +48,15 @@ public class ServerAmministratore {
 	}
 
 	// This removes a drone from the smart city
-	@Path("remove/{drone}")
+	@Path("remove")
 	@DELETE
 	@Produces({"application/json", "application/xml"})
-	public Response removeDrone(@PathParam("drone") int id) {
-		return Response.ok().build();
+	public Response removeDrone(DroneInfo dInfo) {
+		System.out.println(dInfo.toString());
+		if(DroneInfos.getInstance().removeDroneInfo(dInfo)) {
+			System.out.println("Drone successfully removed from smart city.");
+			return Response.ok().build();
+		}
+		return Response.status(Response.Status.NOT_FOUND).build();
 	}
 }

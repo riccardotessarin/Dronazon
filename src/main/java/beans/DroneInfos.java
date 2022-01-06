@@ -46,6 +46,14 @@ public class DroneInfos {
 		return false;
 	}
 
+	public synchronized boolean removeDroneInfo(DroneInfo droneInfo) {
+		if (findDroneInfo(droneInfo.getDroneID()) != null) {
+			dronesInfo.remove(droneInfo);
+			return true;
+		}
+		return false;
+	}
+
 	// If it finds a drone with the same ID it returns the drone info
 	public DroneInfo findDroneInfo(int droneID) {
 		List<DroneInfo> dronesInfoCopy = getDronesInfo();

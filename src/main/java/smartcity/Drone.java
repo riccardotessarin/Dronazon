@@ -8,7 +8,9 @@ import com.sun.org.apache.xpath.internal.operations.Or;
 import org.eclipse.paho.client.mqttv3.*;
 
 import javax.ws.rs.core.GenericEntity;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
@@ -20,12 +22,46 @@ import static java.lang.System.exit;
 
 // The drone is a subscriber (for now). It will get the orders from Dronazon.
 public class Drone {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		// Drone properties
+		int batteryLevel = 100;
+		int[] dronePosition = new int[2];
 
 		// Drone info for the peer to peer connection
-		int droneID = 1; //(int) (Math.random() * 100); //The ID is generated between 0 and 99
+		/*
+		// For duplicate drones exception testing
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Insert the drone ID:");
+		int droneID = Integer.parseInt(bufferedReader.readLine());
+		 */
+		int droneID = (int) (Math.random() * 100); //The ID is generated between 0 and 99
 		String ipAddress = "ciao";
 		int port = 6798;
+
+		// Connection to the HTTP server
+		Client clientHTTP = Client.create();
+		String serverAddress = "http://localhost:1337";
+		ClientResponse clientResponse = null;
+
+		// Posting drone info
+		String postPath = "/amministratore/insert";
+		DroneInfo dInfo = new DroneInfo(droneID, ipAddress, port);
+		clientResponse = insertRequest(clientHTTP, serverAddress + postPath, dInfo);
+		if (clientResponse == null){
+			exit(0);
+		}
+		if (clientResponse.getStatus() == 409) {
+			System.out.println("A drone with the same ID is already in the network.");
+			exit(0);
+		}
+
+		InitDroneInfo initDroneInfo = clientResponse.getEntity(InitDroneInfo.class);
+		System.out.println(initDroneInfo);
+		// Assign drone starting point
+		dronePosition[0] = initDroneInfo.getX();
+		dronePosition[1] = initDroneInfo.getY();
+
+
 
 		// **** Start of MQTT stuff ****
 		// This will be active ONLY for the master drone
@@ -84,25 +120,7 @@ public class Drone {
 
 			// **** End of MQTT stuff ****
 
-			// Connection to the HTTP server
-			Client clientHTTP = Client.create();
-			String serverAddress = "http://localhost:1337";
-			ClientResponse clientResponse = null;
 
-			// Posting drone info
-			String postPath = "/amministratore/insert";
-			DroneInfo dInfo = new DroneInfo(droneID, ipAddress, port);
-			clientResponse = insertRequest(clientHTTP, serverAddress + postPath, dInfo);
-			if (clientResponse == null){
-				exit(0);
-			}
-			if (clientResponse.getStatus() == 409) {
-				System.out.println("A drone with the same ID is already in the network.");
-				exit(0);
-			}
-
-			InitDroneInfo initDroneInfo = clientResponse.getEntity(InitDroneInfo.class);
-			System.out.println(initDroneInfo);
 
 			// With Socket connection
 
@@ -146,6 +164,17 @@ public class Drone {
 		String input = new Gson().toJson(dInfo);
 		try {
 			return webResource.type("application/json").post(ClientResponse.class, input);
+		} catch (ClientHandlerException e) {
+			System.out.println("Server unavailable");
+			return null;
+		}
+	}
+
+	public static ClientResponse removeRequest (Client client, String url, DroneInfo dInfo) {
+		WebResource webResource = client.resource(url);
+		String input = new Gson().toJson(dInfo);
+		try {
+			return webResource.type("application/json").delete(ClientResponse.class, input);
 		} catch (ClientHandlerException e) {
 			System.out.println("Server unavailable");
 			return null;

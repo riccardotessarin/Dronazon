@@ -16,12 +16,12 @@ public class StartServer {
 
 		System.out.println("Server running!");
 		System.out.println("Server started on: http://"+HOST+":"+PORT);
-
+		/*
 		ServerSocket serverSocket = new ServerSocket(6789);
-/*
+
 		while(true) {
 			Socket connectionSocket = serverSocket.accept();
-			ServerThread thread = new ServerThread(connectionSocket);
+			Useless.ServerThread thread = new Useless.ServerThread(connectionSocket);
 			thread.start();
 			System.out.println("Thread started");
 		}
