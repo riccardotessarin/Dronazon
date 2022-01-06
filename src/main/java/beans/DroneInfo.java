@@ -4,23 +4,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class DroneInfo {
-	private String droneID;
+	private int droneID;
 	private String ipAddress;
 	private int port;
 
 	public DroneInfo(){}
 
-	public DroneInfo(String droneID, String ipAddress, int port) {
+	public DroneInfo(int droneID, String ipAddress, int port) {
 		this.droneID = droneID;
 		this.ipAddress = ipAddress;
 		this.port = port;
 	}
 
-	public String getDroneID() {
+	public int getDroneID() {
 		return droneID;
 	}
 
-	public void setDroneID(String droneID) {
+	public void setDroneID(int droneID) {
 		this.droneID = droneID;
 	}
 
@@ -38,5 +38,10 @@ public class DroneInfo {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	@Override
+	public String toString() {
+		return "\nDrone " + droneID + ".\nAvailable for connection on " + ipAddress + " with port " + port + "\n";
 	}
 }

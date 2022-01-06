@@ -47,10 +47,11 @@ public class DroneInfos {
 	}
 
 	// If it finds a drone with the same ID it returns the drone info
-	public DroneInfo findDroneInfo(String droneID) {
+	public DroneInfo findDroneInfo(int droneID) {
 		List<DroneInfo> dronesInfoCopy = getDronesInfo();
 		for (DroneInfo dInfo: dronesInfoCopy) {
-			if (dInfo.getDroneID().equalsIgnoreCase(droneID.toLowerCase())) {
+			//if (dInfo.getDroneID().equalsIgnoreCase(droneID.toLowerCase())) {
+			if (dInfo.getDroneID() == droneID) {
 				return dInfo;
 			}
 		}

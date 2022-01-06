@@ -20,8 +20,8 @@ public class InitDroneInfo {
 
 	public InitDroneInfo(List<DroneInfo> dronesInNetwork) {
 		this.dronesInNetwork = dronesInNetwork;
-		this.x = (int) (Math.random() * 10);;
-		this.y = (int) (Math.random() * 10);;
+		this.x = (int) (Math.random() * 10);
+		this.y = (int) (Math.random() * 10);
 	}
 
 	public List<DroneInfo> getDronesInNetwork() {

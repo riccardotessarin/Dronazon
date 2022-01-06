@@ -16,17 +16,26 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import static java.lang.System.exit;
+
 // The drone is a subscriber (for now). It will get the orders from Dronazon.
 public class Drone {
 	public static void main(String[] args) {
+
+		// Drone info for the peer to peer connection
+		int droneID = 1; //(int) (Math.random() * 100); //The ID is generated between 0 and 99
+		String ipAddress = "ciao";
+		int port = 6798;
+
+		// **** Start of MQTT stuff ****
+		// This will be active ONLY for the master drone
+
+		// Data for the MQTT subscriber
 		MqttClient client;
 		String broker = "tcp://localhost:1883";
 		String clientId = MqttClient.generateClientId();
 		String topic = "dronazon/smartcity/orders";
 		int qos = 2;
-
-		String ipAddress = "ciao";
-		int port = 6798;
 
 		try {
 			client = new MqttClient(broker, clientId);
@@ -73,20 +82,27 @@ public class Drone {
 				public void deliveryComplete(IMqttDeliveryToken token) { }
 			});
 
-			// Like an HTTP client
+			// **** End of MQTT stuff ****
+
+			// Connection to the HTTP server
 			Client clientHTTP = Client.create();
 			String serverAddress = "http://localhost:1337";
 			ClientResponse clientResponse = null;
 
 			// Posting drone info
 			String postPath = "/amministratore/insert";
-			DroneInfo dInfo = new DroneInfo(clientId, ipAddress, port);
+			DroneInfo dInfo = new DroneInfo(droneID, ipAddress, port);
 			clientResponse = insertRequest(clientHTTP, serverAddress + postPath, dInfo);
-			//List<DroneInfo> dronesInNetwork = clientResponse.getEntity(new GenericType<List<DroneInfo>>(){});
+			if (clientResponse == null){
+				exit(0);
+			}
+			if (clientResponse.getStatus() == 409) {
+				System.out.println("A drone with the same ID is already in the network.");
+				exit(0);
+			}
+
 			InitDroneInfo initDroneInfo = clientResponse.getEntity(InitDroneInfo.class);
 			System.out.println(initDroneInfo);
-
-
 
 			// With Socket connection
 

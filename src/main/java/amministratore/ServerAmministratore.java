@@ -27,10 +27,11 @@ public class ServerAmministratore {
 	@POST
 	@Consumes({"application/json", "application/xml"})
 	public Response insertDrone(DroneInfo dInfo) {
+		System.out.println(dInfo.toString());
 		List<DroneInfo> dronesInNetwork = DroneInfos.getInstance().getDronesInfo();
 		if(DroneInfos.getInstance().addDroneInfo(dInfo)) {
+			System.out.println("Drone placed in the smart city.");
 			InitDroneInfo initDroneInfo = new InitDroneInfo(dronesInNetwork);
-			//GenericEntity<List<DroneInfo>> entity = new GenericEntity<List<DroneInfo>>(dronesInNetwork) {};
 			return Response.ok(initDroneInfo).build();
 		}
 		return Response.status(Response.Status.CONFLICT).build();
