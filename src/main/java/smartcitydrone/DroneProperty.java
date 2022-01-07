@@ -54,6 +54,10 @@ public class DroneProperty {
 		isMaster = true;
 		this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
 	}
+
+	public void quit() {
+		//TODO: Start thread that handles the safe drone removal from network
+	}
 	//endregion
 
 	//region Getters & Setters
