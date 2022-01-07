@@ -53,6 +53,8 @@ public class DroneProperty {
 		// Set the master as itself so it will know not to send message to self
 		isMaster = true;
 		this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
+		DroneMasterThread droneMaster = new DroneMasterThread(this);
+		droneMaster.start();
 	}
 
 	public void quit() {
