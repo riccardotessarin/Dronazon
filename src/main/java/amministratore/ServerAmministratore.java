@@ -3,10 +3,8 @@ package amministratore;
 import beans.DroneInfo;
 import beans.DroneInfos;
 import beans.InitDroneInfo;
-import smartcity.Drone;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -28,9 +26,13 @@ public class ServerAmministratore {
 	@Consumes({"application/json", "application/xml"})
 	public Response insertDrone(DroneInfo dInfo) {
 		System.out.println(dInfo.toString());
+		/*
+		// It may be better to just send the whole list after drone insert
 		List<DroneInfo> dronesInNetwork = DroneInfos.getInstance().getDronesInfo();
+		 */
 		if(DroneInfos.getInstance().addDroneInfo(dInfo)) {
 			System.out.println("Drone placed in the smart city.");
+			List<DroneInfo> dronesInNetwork = DroneInfos.getInstance().getDronesInfo();
 			InitDroneInfo initDroneInfo = new InitDroneInfo(dronesInNetwork);
 			return Response.ok(initDroneInfo).build();
 		}

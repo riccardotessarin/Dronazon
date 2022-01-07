@@ -1,20 +1,14 @@
-package smartcity;
+package smartcitydrone;
 
 import beans.DroneInfo;
 import beans.InitDroneInfo;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.*;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.eclipse.paho.client.mqttv3.*;
+import smartcity.OrderData;
 
-import javax.ws.rs.core.GenericEntity;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -24,28 +18,33 @@ import static java.lang.System.exit;
 public class Drone {
 	public static void main(String[] args) throws IOException {
 		// Drone properties
-		int batteryLevel = 100;
-		int[] dronePosition = new int[2];
-
-		// Drone info for the peer to peer connection
-		/*
-		// For duplicate drones exception testing
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Insert the drone ID:");
-		int droneID = Integer.parseInt(bufferedReader.readLine());
-		 */
-		int droneID = (int) (Math.random() * 100); //The ID is generated between 0 and 99
-		String ipAddress = "ciao";
-		int port = 6798;
+		DroneProperty droneProperty;
 
 		// Connection to the HTTP server
 		Client clientHTTP = Client.create();
 		String serverAddress = "http://localhost:1337";
 		ClientResponse clientResponse = null;
 
+		droneProperty = new DroneProperty(clientHTTP);
+
+		//region ID & port set by user
+		/*
+		// For duplicate drones exception testing
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Insert the drone ID:");
+		int droneID = Integer.parseInt(bufferedReader.readLine());
+
+		// For explicit port assignment
+		System.out.println("Insert the drone ID:");
+		int port = Integer.parseInt(bufferedReader.readLine());
+
+		droneProperty = new DroneProperty(droneID, port, clientHTTP);
+		 */
+		//endregion
+
 		// Posting drone info
 		String postPath = "/amministratore/insert";
-		DroneInfo dInfo = new DroneInfo(droneID, ipAddress, port);
+		DroneInfo dInfo = new DroneInfo(droneProperty.getDroneID(), droneProperty.getIpAddress(), droneProperty.getPort());
 		clientResponse = insertRequest(clientHTTP, serverAddress + postPath, dInfo);
 		if (clientResponse == null){
 			exit(0);
@@ -56,10 +55,18 @@ public class Drone {
 		}
 
 		InitDroneInfo initDroneInfo = clientResponse.getEntity(InitDroneInfo.class);
-		System.out.println(initDroneInfo);
 		// Assign drone starting point
-		dronePosition[0] = initDroneInfo.getX();
-		dronePosition[1] = initDroneInfo.getY();
+		droneProperty.setDronePosition(initDroneInfo.getX(), initDroneInfo.getY());
+		// Set the list of drones in the smart city received by the server
+		droneProperty.setDronesInNetwork(initDroneInfo.getDronesInNetwork());
+
+		// If it's the only drone in the network it automatically becomes master
+		if (droneProperty.getDronesInNetwork().size() == 1) {
+			droneProperty.makeMaster();
+		}
+
+		DroneServerThread serverThread = new DroneServerThread(droneProperty);
+		serverThread.start();
 
 
 
@@ -119,21 +126,6 @@ public class Drone {
 			});
 
 			// **** End of MQTT stuff ****
-
-
-
-			// With Socket connection
-
-			/*
-			Socket clientSocket = new Socket("localhost", 6789);
-			DroneInfo droneInfo = DroneInfo.newBuilder()
-					.setDroneID(clientId).setIpAddress(ipAddress).setPort(port)
-					.build();
-
-			droneInfo.writeTo(clientSocket.getOutputStream());
-			System.out.println("Sent drone info to server");
-			clientSocket.close();
-			*/
 
 			System.out.println(clientId + " Subscribing ... - Thread PID: " + Thread.currentThread().getId());
 			client.subscribe(topic,qos);

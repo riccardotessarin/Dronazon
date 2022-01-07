@@ -1,6 +1,6 @@
 package Useless;
 
-import smartcity.Drone;
+import smartcitydrone.Drone;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
