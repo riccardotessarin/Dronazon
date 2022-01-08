@@ -18,8 +18,7 @@ public class DroneServerThread extends Thread {
 	public void run() {
 
 		try {
-			server = ServerBuilder.forPort(droneProperty.getPort())/*.addService(new QualcosaTipoDroneMessageImpl())*/.build();
-
+			server = ServerBuilder.forPort(droneProperty.getPort()).addService(new DroneServiceImpl(droneProperty)).build();
 			server.start();
 
 			System.out.println("Drone server started!");
@@ -33,9 +32,8 @@ public class DroneServerThread extends Thread {
 	}
 
 	public void closeServer() {
-		if (server == null) {
-			return;
+		if (server != null) {
+			server.shutdown();
 		}
-		server.shutdown();
 	}
 }

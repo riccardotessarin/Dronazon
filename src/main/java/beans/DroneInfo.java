@@ -8,6 +8,10 @@ public class DroneInfo {
 	private String ipAddress;
 	private int port;
 
+	// Stats useless for init but used for the network list that each drone keeps
+	private int batteryLevel = 100;
+	private int[] dronePosition = new int[]{-1,-1};
+
 	public DroneInfo(){}
 
 	public DroneInfo(int droneID, String ipAddress, int port) {
@@ -38,6 +42,22 @@ public class DroneInfo {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public int getBatteryLevel() {
+		return batteryLevel;
+	}
+
+	public void setBatteryLevel(int batteryLevel) {
+		this.batteryLevel = batteryLevel;
+	}
+
+	public int[] getDronePosition() {
+		return dronePosition;
+	}
+
+	public void setDronePosition(int[] dronePosition) {
+		this.dronePosition = dronePosition;
 	}
 
 	@Override
