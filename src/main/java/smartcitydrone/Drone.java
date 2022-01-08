@@ -59,6 +59,11 @@ public class Drone {
 		// Set the list of drones in the smart city received by the server
 		droneProperty.setDronesInNetwork(initDroneInfo.getDronesInNetwork());
 
+		// By sorting the drones we will have a base for the ring network
+		droneProperty.sortDronesInNetwork();
+		// We need to keep the position updated also inside the drone list (anyone could become master)
+		droneProperty.updatePositionInNetwork();
+
 		// If it's the only drone in the network it automatically becomes master
 		// It also starts the master drone thread with the MQTT subscriber
 		if (droneProperty.getDronesInNetwork().size() == 1) {
@@ -67,6 +72,9 @@ public class Drone {
 
 		DroneServerThread serverThread = new DroneServerThread(droneProperty);
 		serverThread.start();
+
+		DroneConsoleThread consoleThread = new DroneConsoleThread(droneProperty);
+		consoleThread.start();
 
 	}
 

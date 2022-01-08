@@ -58,7 +58,6 @@ public class DroneInfos {
 	public DroneInfo findDroneInfo(int droneID) {
 		List<DroneInfo> dronesInfoCopy = getDronesInfo();
 		for (DroneInfo dInfo: dronesInfoCopy) {
-			//if (dInfo.getDroneID().equalsIgnoreCase(droneID.toLowerCase())) {
 			if (dInfo.getDroneID() == droneID) {
 				return dInfo;
 			}

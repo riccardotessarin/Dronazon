@@ -19,6 +19,8 @@ public class DroneMasterThread extends Thread {
 
 	@Override
 	public void run() {
+		System.out.println("I've become master!");
+
 		// Data for the MQTT subscriber
 		String broker = "tcp://localhost:1883";
 		String clientId = MqttClient.generateClientId();

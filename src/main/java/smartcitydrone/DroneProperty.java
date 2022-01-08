@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.Client;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.Comparator;
 import java.util.List;
 
 public class DroneProperty {
@@ -49,12 +50,37 @@ public class DroneProperty {
 	//endregion
 
 	//region Drone functions
+	public void sortDronesInNetwork() {
+		synchronized (dronesInNetwork) {
+			dronesInNetwork.sort(Comparator.comparingInt(DroneInfo::getDroneID));
+		}
+	}
+
+	// If it finds a drone with the same ID it returns the drone info
+	public DroneInfo findDroneInfoByID(int droneID) {
+		List<DroneInfo> dronesInfoCopy = getDronesInNetwork();
+		for (DroneInfo dInfo: dronesInfoCopy) {
+			if (dInfo.getDroneID() == droneID) {
+				return dInfo;
+			}
+		}
+		return null;
+	}
+
+	// TODO: Put some locks while making master
 	public void makeMaster() {
 		// Set the master as itself so it will know not to send message to self
 		isMaster = true;
 		this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
 		DroneMasterThread droneMaster = new DroneMasterThread(this);
 		droneMaster.start();
+	}
+
+	public void updatePositionInNetwork() {
+		synchronized (dronesInNetwork) {
+			dronesInNetwork.get(dronesInNetwork.indexOf(findDroneInfoByID(this.droneID)))
+					.setDronePosition(this.dronePosition);
+		}
 	}
 
 	public void quit() {
@@ -112,7 +138,9 @@ public class DroneProperty {
 	}
 
 	public List<DroneInfo> getDronesInNetwork() {
-		return dronesInNetwork;
+		synchronized (dronesInNetwork) {
+			return dronesInNetwork;
+		}
 	}
 
 	public void setDronesInNetwork(List<DroneInfo> dronesInNetwork) {
