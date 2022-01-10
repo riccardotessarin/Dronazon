@@ -13,7 +13,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 
 	@Override
-	public void join(JoinRequest request, StreamObserver<JoinResponse> responseObserver) {
+	public void joinNetwork(JoinRequest request, StreamObserver<JoinResponse> responseObserver) {
 		System.out.println(request);
 
 		JoinResponse response = JoinResponse.newBuilder().build();

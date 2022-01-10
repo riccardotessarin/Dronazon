@@ -21,12 +21,13 @@ message JoinResponse {
   int32 droneID = 1;
   int32 dronePositionX = 2;
   int32 dronePositionY = 3;
-  bool isMaster = 4;
-  bool isElecting = 5;
+  int32 batteryLevel = 4;
+  bool isMaster = 5;
+  bool isElecting = 6;
 }
 
 // Defining a Service, a Service can have multiple RPC operations
 service DroneService {
-  rpc join(JoinRequest) returns (JoinResponse);
+  rpc joinNetwork(JoinRequest) returns (JoinResponse);
 
 }

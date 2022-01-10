@@ -15,7 +15,7 @@ public class DroneConsoleThread extends Thread {
 	@Override
 	public void run() {
 		while(!quit) {
-			//System.out.println("Input a command for the drone:");
+			System.out.println("Drone ready for console input:");
 			try {
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				String consoleInput = br.readLine();
@@ -28,7 +28,15 @@ public class DroneConsoleThread extends Thread {
 				}
 				/*
 				TODO: recharge console input
-				else if (consoleInput.equalsIgnoreCase("recharge"))
+				else if (consoleInput.equalsIgnoreCase("recharge")) {
+					// If the drone isn't charging already and is not into the process of
+					// safely exiting from the network, it will try to start the charge
+					// Something on the line of:
+					if (!droneProperty.getIsCharging() && !droneProperty.getIsQuitting()) {
+						droneProperty.startCharging();
+						// NO quit = true, because after the charge it will still be in the network
+					}
+				}
 
 				 */
 			} catch (IOException e) {

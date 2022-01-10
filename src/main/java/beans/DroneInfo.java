@@ -12,6 +12,10 @@ public class DroneInfo {
 	private int batteryLevel = 100;
 	private int[] dronePosition = new int[]{-1,-1};
 
+	// Useful variables for message exchange
+	private boolean isCharging;
+	private boolean isDelivering;
+
 	public DroneInfo(){}
 
 	public DroneInfo(int droneID, String ipAddress, int port) {

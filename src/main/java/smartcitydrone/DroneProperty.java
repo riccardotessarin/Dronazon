@@ -23,6 +23,10 @@ public class DroneProperty {
 	private boolean isMaster = false;
 	private DroneInfo masterDrone = null;
 
+
+	// Variables for mutex lock
+	private Object masterMux = new Object();
+
 	//region Constructors
 	// Constructor with randomly generated ID and socket port
 	public DroneProperty(Client clientHTTP) {
@@ -49,7 +53,8 @@ public class DroneProperty {
 	}
 	//endregion
 
-	//region Drone functions
+	//region Utility functions
+	// This will make the ring construction and communication easier
 	public void sortDronesInNetwork() {
 		synchronized (dronesInNetwork) {
 			dronesInNetwork.sort(Comparator.comparingInt(DroneInfo::getDroneID));
@@ -67,21 +72,33 @@ public class DroneProperty {
 		return null;
 	}
 
-	// TODO: Put some locks while making master
-	public void makeMaster() {
-		// Set the master as itself so it will know not to send message to self
-		isMaster = true;
-		this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
-		DroneMasterThread droneMaster = new DroneMasterThread(this);
-		droneMaster.start();
-	}
-
+	// It updates the position of the drone inside the list of drones
 	public void updatePositionInNetwork() {
 		synchronized (dronesInNetwork) {
 			dronesInNetwork.get(dronesInNetwork.indexOf(findDroneInfoByID(this.droneID)))
 					.setDronePosition(this.dronePosition);
 		}
 	}
+	//endregion
+
+	//region Drone network functions
+	public void makeMaster() {
+		// Set the master as itself, it will be useful when new drones want to know who's master
+		synchronized (masterMux) {
+			isMaster = true;
+			this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
+		}
+
+		// All of the deliveries meanwhile will just be ignored, so no need to exchange them
+		// BUT we still need to get the stats produced by the drones while there was no master
+		// TODO: Send to drones the end of election message (send all the network info to new master)
+		// TODO: New master gets the stats produced from drones while there was no master
+
+		DroneMasterThread droneMaster = new DroneMasterThread(this);
+		droneMaster.start();
+	}
+
+
 
 	public void quit() {
 		//TODO: Start thread that handles the safe drone removal from network
