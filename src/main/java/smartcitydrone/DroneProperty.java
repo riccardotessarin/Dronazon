@@ -22,6 +22,7 @@ public class DroneProperty {
 	private List<DroneInfo> dronesInNetwork;
 	private boolean isMaster = false;
 	private DroneInfo masterDrone = null;
+	private boolean isElecting = false;
 
 
 	// Variables for mutex lock
@@ -82,11 +83,31 @@ public class DroneProperty {
 	//endregion
 
 	//region Drone network functions
+	public void addToNetwork(DroneInfo droneInfo) {
+		if (dronesInNetwork.contains(droneInfo)) {
+			System.out.println("Drone " + droneInfo.getDroneID() + " already in network");
+			return;
+		}
+		System.out.println("GRPC network is adding drone " + droneInfo.getDroneID());
+		synchronized (dronesInNetwork) {
+			dronesInNetwork.add(droneInfo);
+		}
+		sortDronesInNetwork();
+	}
+
+	public void removeFromNetwork(DroneInfo droneInfo) {
+		System.out.println("GRPC network is removing drone " + droneInfo.getDroneID());
+		synchronized (dronesInNetwork) {
+			dronesInNetwork.remove(droneInfo);
+		}
+	}
+
 	public void makeMaster() {
 		// Set the master as itself, it will be useful when new drones want to know who's master
 		synchronized (masterMux) {
 			isMaster = true;
-			this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
+			//this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
+			this.masterDrone = findDroneInfoByID(this.droneID);
 		}
 
 		// All of the deliveries meanwhile will just be ignored, so no need to exchange them
@@ -163,5 +184,44 @@ public class DroneProperty {
 	public void setDronesInNetwork(List<DroneInfo> dronesInNetwork) {
 		this.dronesInNetwork = dronesInNetwork;
 	}
+
+	public boolean isMaster() {
+		return isMaster;
+	}
+
+	public void setMaster(boolean master) {
+		isMaster = master;
+	}
+
+	public DroneInfo getMasterDrone() {
+		return masterDrone;
+	}
+
+	public void setMasterDrone(DroneInfo masterDrone) {
+		if (dronesInNetwork.contains(masterDrone)) {
+			synchronized (masterMux) {
+				this.masterDrone = masterDrone;
+			}
+		}
+	}
+
+	// Custom setter
+	public void setMasterDroneByID(int masterDroneID) {
+		DroneInfo masterDrone = findDroneInfoByID(droneID);
+		if (masterDrone != null) {
+			synchronized (masterMux) {
+				this.masterDrone = masterDrone;
+			}
+		}
+	}
+
+	public boolean isElecting() {
+		return isElecting;
+	}
+
+	public void setElecting(boolean electing) {
+		isElecting = electing;
+	}
+
 	//endregion
 }

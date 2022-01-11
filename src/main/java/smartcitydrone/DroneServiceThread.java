@@ -53,11 +53,26 @@ public class DroneServiceThread extends Thread {
 			public void onNext(JoinResponse value) {
 				List<DroneInfo> dronesInNetworkCopy = senderDrone.getDronesInNetwork();
 				DroneInfo droneInfo = dronesInNetworkCopy.stream()
-						.filter(dInfo -> dInfo.getDroneID() == receiverDrone.getDroneID()).findFirst().get();
+						.filter(dInfo -> dInfo.getDroneID() == value.getDroneID()).findFirst().orElse(null);
+				if (droneInfo == null) {
+					System.out.println("ID of drone not found in network");
+					channel.shutdownNow();
+					return;
+				}
 				droneInfo.setBatteryLevel(value.getBatteryLevel());
 
-				// TODO: set the master
-				// TODO: set if there is an ongoing election
+				// If the drone who wants to join doesn't already know the master
+				// and the one who is talking with it is master, set the master
+				if (senderDrone.getMasterDrone() == null && value.getIsMaster()) {
+					//senderDrone.setMasterDroneByID(value.getDroneID());
+					senderDrone.setMasterDrone(receiverDrone);
+				}
+
+				// If the drone who wants to join doesn't already know there is an ongoing election
+				// and the one who is talking with it is in election, set the election true
+				if (!senderDrone.isElecting() && value.getIsElecting()) {
+					senderDrone.setElecting(true);
+				}
 
 			}
 
@@ -65,7 +80,7 @@ public class DroneServiceThread extends Thread {
 			@Override
 			public void onError(Throwable t) {
 				System.out.println("Error! " + t.getMessage());
-				// TODO: remove drone from network
+				senderDrone.removeFromNetwork(receiverDrone);
 				channel.shutdownNow();
 			}
 

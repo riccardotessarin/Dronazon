@@ -9,6 +9,8 @@ import smartcity.OrderData;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -75,6 +77,28 @@ public class Drone {
 
 		DroneConsoleThread consoleThread = new DroneConsoleThread(droneProperty);
 		consoleThread.start();
+
+		// Sending to the drones GRPC network the join request message in broadcast
+		List<DroneServiceThread> threads = new ArrayList<>();
+		List<DroneInfo> dronesInNetworkCopy = droneProperty.getDronesInNetwork();
+
+		for (DroneInfo droneInfo : dronesInNetworkCopy) {
+			if (droneInfo.getDroneID() != droneProperty.getDroneID()) {
+				DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneInfo);
+				serviceThread.start();
+				threads.add(serviceThread);
+			}
+		}
+
+		// Joining all threads
+		for (DroneServiceThread thread : threads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
 
 	}
 
