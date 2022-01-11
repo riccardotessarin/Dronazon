@@ -73,6 +73,7 @@ public class Drone {
 		}
 
 		DroneServerThread serverThread = new DroneServerThread(droneProperty);
+		droneProperty.setServerThread(serverThread);
 		serverThread.start();
 
 		DroneConsoleThread consoleThread = new DroneConsoleThread(droneProperty);

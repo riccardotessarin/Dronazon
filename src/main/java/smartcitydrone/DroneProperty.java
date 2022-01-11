@@ -23,10 +23,18 @@ public class DroneProperty {
 	private boolean isMaster = false;
 	private DroneInfo masterDrone = null;
 	private boolean isElecting = false;
+	private boolean isDelivering = false;
 
+	// Variables useful for shorter functions
+	private DroneInfo thisDroneInfo;
+	private int droneNetworkIdx;
 
 	// Variables for mutex lock
 	private Object masterMux = new Object();
+
+	// Invoked threads handlers, used to call class functions from outside class
+	private DroneMasterThread masterThread = null;
+	private DroneServerThread serverThread = null;
 
 	//region Constructors
 	// Constructor with randomly generated ID and socket port
@@ -55,6 +63,7 @@ public class DroneProperty {
 	//endregion
 
 	//region Utility functions
+
 	// This will make the ring construction and communication easier
 	public void sortDronesInNetwork() {
 		synchronized (dronesInNetwork) {
@@ -110,19 +119,20 @@ public class DroneProperty {
 			this.masterDrone = findDroneInfoByID(this.droneID);
 		}
 
-		// All of the deliveries meanwhile will just be ignored, so no need to exchange them
+		// All of the new deliveries produced by publisher meanwhile will just be ignored, so no need to get them
 		// BUT we still need to get the stats produced by the drones while there was no master
 		// TODO: Send to drones the end of election message (send all the network info to new master)
 		// TODO: New master gets the stats produced from drones while there was no master
 
-		DroneMasterThread droneMaster = new DroneMasterThread(this);
-		droneMaster.start();
+		masterThread = new DroneMasterThread(this);
+		masterThread.start();
 	}
 
 
-
+	// Check if some locks are needed
 	public void quit() {
-		//TODO: Start thread that handles the safe drone removal from network
+		DroneSafeQuitThread safeQuitThread = new DroneSafeQuitThread(this);
+		safeQuitThread.start();
 	}
 	//endregion
 
@@ -221,6 +231,46 @@ public class DroneProperty {
 
 	public void setElecting(boolean electing) {
 		isElecting = electing;
+	}
+
+	public boolean isDelivering() {
+		return isDelivering;
+	}
+
+	public void setDelivering(boolean delivering) {
+		isDelivering = delivering;
+	}
+
+	public DroneInfo getThisDroneInfo() {
+		return thisDroneInfo;
+	}
+
+	public void setThisDroneInfo(DroneInfo thisDroneInfo) {
+		this.thisDroneInfo = thisDroneInfo;
+	}
+
+	public int getDroneNetworkIdx() {
+		return droneNetworkIdx;
+	}
+
+	public void setDroneNetworkIdx(int droneNetworkIdx) {
+		this.droneNetworkIdx = droneNetworkIdx;
+	}
+
+	public DroneMasterThread getMasterThread() {
+		return masterThread;
+	}
+
+	public void setMasterThread(DroneMasterThread masterThread) {
+		this.masterThread = masterThread;
+	}
+
+	public DroneServerThread getServerThread() {
+		return serverThread;
+	}
+
+	public void setServerThread(DroneServerThread serverThread) {
+		this.serverThread = serverThread;
 	}
 
 	//endregion

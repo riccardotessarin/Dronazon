@@ -20,7 +20,7 @@ public class DroneConsoleThread extends Thread {
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				String consoleInput = br.readLine();
 				if (consoleInput.equalsIgnoreCase("quit")) {
-					System.out.println("Preparing to remove drone from network...");
+					System.out.println("Preparing to safely remove drone from network...");
 					droneProperty.quit();
 					quit = true;
 				} else {

@@ -34,6 +34,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		// Complete and end communication
 		responseObserver.onCompleted();
+
+		// TODO: ensure that at least one drone will stay inside the network while a new drone joins
 	}
 
 
