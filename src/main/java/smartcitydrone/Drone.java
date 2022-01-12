@@ -114,9 +114,9 @@ public class Drone {
 		}
 	}
 
-	public static ClientResponse removeRequest (Client client, String url, DroneInfo dInfo) {
+	public static ClientResponse removeRequest (Client client, String url, int droneID) {
 		WebResource webResource = client.resource(url);
-		String input = new Gson().toJson(dInfo);
+		String input = new Gson().toJson(droneID);
 		try {
 			return webResource.type("application/json").delete(ClientResponse.class, input);
 		} catch (ClientHandlerException e) {

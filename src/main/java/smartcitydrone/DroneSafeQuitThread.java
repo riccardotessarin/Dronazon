@@ -36,9 +36,7 @@ public class DroneSafeQuitThread extends Thread {
 		// Ask Server Amministratore permission to exit
 		String serverAddress = "http://localhost:1337";
 		String deletePath = "/amministratore/remove";
-		// The function needs a new DroneInfo since the list managed by S.A. is all of new (it wouldn't find it)
-		DroneInfo droneInfo = new DroneInfo(droneProperty.getDroneID(), droneProperty.getIpAddress(), droneProperty.getPort());
-		Drone.removeRequest(droneProperty.getClientHTTP(), serverAddress + deletePath, droneInfo);
+		Drone.removeRequest(droneProperty.getClientHTTP(), serverAddress + deletePath, droneProperty.getDroneID());
 
 		// Terminate the process
 		System.exit(0);

@@ -13,8 +13,27 @@ public class DroneInfo {
 	private int[] dronePosition = new int[]{-1,-1};
 
 	// Useful variables for message exchange
-	private boolean isCharging;
-	private boolean isDelivering;
+	/*
+	private boolean isCharging = false;
+	private boolean isDelivering = false;
+
+	public boolean isCharging() {
+		return isCharging;
+	}
+
+	public void setCharging(boolean charging) {
+		isCharging = charging;
+	}
+
+	public boolean isDelivering() {
+		return isDelivering;
+	}
+
+	public void setDelivering(boolean delivering) {
+		isDelivering = delivering;
+	}
+
+	 */
 
 	public DroneInfo(){}
 

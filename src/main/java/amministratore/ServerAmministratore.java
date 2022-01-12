@@ -53,9 +53,9 @@ public class ServerAmministratore {
 	@Path("remove")
 	@DELETE
 	@Produces({"application/json", "application/xml"})
-	public Response removeDrone(DroneInfo dInfo) {
-		System.out.println(dInfo.toString());
-		if(DroneInfos.getInstance().removeDroneInfo(dInfo)) {
+	public Response removeDrone(int droneID) {
+		System.out.println("Server is removing drone " + droneID);
+		if(DroneInfos.getInstance().removeDroneInfo(droneID)) {
 			System.out.println("Drone successfully removed from smart city.");
 			return Response.ok().build();
 		}

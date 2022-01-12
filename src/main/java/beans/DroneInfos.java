@@ -46,11 +46,14 @@ public class DroneInfos {
 		return false;
 	}
 
-	public synchronized boolean removeDroneInfo(DroneInfo droneInfo) {
-		if (findDroneInfo(droneInfo.getDroneID()) != null) {
-			dronesInfo.remove(droneInfo);
+	public synchronized boolean removeDroneInfo(int droneID) {
+		DroneInfo droneToRemove = findDroneInfo(droneID);
+		if (droneToRemove != null) {
+			System.out.println("Got it!");
+			dronesInfo.remove(droneToRemove);
 			return true;
 		}
+		System.out.println("Nope :c");
 		return false;
 	}
 

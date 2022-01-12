@@ -36,7 +36,8 @@ public class DroneServiceThread extends Thread {
 	private void joinNetwork() throws InterruptedException {
 		System.out.println("Sending a request to join the grpc network");
 
-		final ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8080").usePlaintext().build();
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
 
 		//creating an asynchronous stub on the channel
 		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
