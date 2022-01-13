@@ -1,5 +1,6 @@
 package beans;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -12,28 +13,12 @@ public class DroneInfo {
 	private int batteryLevel = 100;
 	private int[] dronePosition = new int[]{-1,-1};
 
+
 	// Useful variables for message exchange
-	/*
-	private boolean isCharging = false;
-	private boolean isDelivering = false;
-
-	public boolean isCharging() {
-		return isCharging;
-	}
-
-	public void setCharging(boolean charging) {
-		isCharging = charging;
-	}
-
-	public boolean isDelivering() {
-		return isDelivering;
-	}
-
-	public void setDelivering(boolean delivering) {
-		isDelivering = delivering;
-	}
-
-	 */
+	@XmlAttribute
+	private boolean isDelivering;
+	@XmlAttribute
+	private boolean isCharging;
 
 	public DroneInfo(){}
 
@@ -41,6 +26,8 @@ public class DroneInfo {
 		this.droneID = droneID;
 		this.ipAddress = ipAddress;
 		this.port = port;
+		this.isDelivering = false;
+		this.isCharging = false;
 	}
 
 	public int getDroneID() {
@@ -81,6 +68,22 @@ public class DroneInfo {
 
 	public void setDronePosition(int[] dronePosition) {
 		this.dronePosition = dronePosition;
+	}
+
+	public boolean isDelivering() {
+		return isDelivering;
+	}
+
+	public void setDelivering(boolean delivering) {
+		isDelivering = delivering;
+	}
+
+	public boolean isCharging() {
+		return isCharging;
+	}
+
+	public void setCharging(boolean charging) {
+		isCharging = charging;
 	}
 
 	@Override
