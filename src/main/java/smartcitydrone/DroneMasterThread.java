@@ -1,5 +1,6 @@
 package smartcitydrone;
 
+import beans.DroneInfo;
 import org.eclipse.paho.client.mqttv3.*;
 import smartcity.OrderData;
 
@@ -64,7 +65,12 @@ public class DroneMasterThread extends Thread {
 					OrderData order = new OrderData(orderID, new int[]{x1,y1}, new int[]{x2,y2});
 					System.out.println(order);
 
-					//TODO: Dispatch order to nearest drone and start thread for GRPC
+					//TODO: Place the orders in a list and retrieve from list
+					//TODO: Handle null pointer exception if no drone is available
+					DroneInfo bestDrone = droneProperty.getBestDeliveryDrone(order.getPickUpPoint());
+					DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, bestDrone, order);
+					serviceThread.start();
+
 				}
 
 				// Not useful for now
@@ -88,6 +94,7 @@ public class DroneMasterThread extends Thread {
 
 	public void disconnectMQTT() {
 		try {
+			System.out.println("Disconnecting master from MQTT broker...");
 			client.disconnect();
 		} catch (MqttException me ) {
 			System.out.println("reason " + me.getReasonCode());

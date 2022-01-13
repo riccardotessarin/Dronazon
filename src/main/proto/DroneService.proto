@@ -26,8 +26,17 @@ message JoinResponse {
   bool isElecting = 6;
 }
 
+message OrderRequest {
+  string orderInfo = 1;
+}
+
+message OrderResponse {
+  string droneAvailable = 1;
+}
+
 // Defining a Service, a Service can have multiple RPC operations
 service DroneService {
   rpc joinNetwork(JoinRequest) returns (JoinResponse);
+  rpc dispatchOrder(OrderRequest) returns (OrderResponse);
 
 }

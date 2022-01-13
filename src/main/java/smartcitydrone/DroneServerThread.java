@@ -33,6 +33,7 @@ public class DroneServerThread extends Thread {
 
 	public void closeServer() {
 		if (server != null) {
+			System.out.println("Closing drone's grpc server...");
 			server.shutdown();
 		}
 	}

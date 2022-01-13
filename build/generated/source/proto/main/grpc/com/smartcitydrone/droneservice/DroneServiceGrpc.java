@@ -61,6 +61,37 @@ public final class DroneServiceGrpc {
     return getJoinNetworkMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse> getDispatchOrderMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "dispatchOrder",
+      requestType = com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest.class,
+      responseType = com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse> getDispatchOrderMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse> getDispatchOrderMethod;
+    if ((getDispatchOrderMethod = DroneServiceGrpc.getDispatchOrderMethod) == null) {
+      synchronized (DroneServiceGrpc.class) {
+        if ((getDispatchOrderMethod = DroneServiceGrpc.getDispatchOrderMethod) == null) {
+          DroneServiceGrpc.getDispatchOrderMethod = getDispatchOrderMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "dispatchOrder"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DroneServiceMethodDescriptorSupplier("dispatchOrder"))
+              .build();
+        }
+      }
+    }
+    return getDispatchOrderMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -98,6 +129,13 @@ public final class DroneServiceGrpc {
       asyncUnimplementedUnaryCall(getJoinNetworkMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void dispatchOrder(com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDispatchOrderMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -107,6 +145,13 @@ public final class DroneServiceGrpc {
                 com.smartcitydrone.droneservice.DroneServiceOuterClass.JoinRequest,
                 com.smartcitydrone.droneservice.DroneServiceOuterClass.JoinResponse>(
                   this, METHODID_JOIN_NETWORK)))
+          .addMethod(
+            getDispatchOrderMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest,
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse>(
+                  this, METHODID_DISPATCH_ORDER)))
           .build();
     }
   }
@@ -139,6 +184,14 @@ public final class DroneServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getJoinNetworkMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void dispatchOrder(com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getDispatchOrderMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -167,6 +220,13 @@ public final class DroneServiceGrpc {
     public com.smartcitydrone.droneservice.DroneServiceOuterClass.JoinResponse joinNetwork(com.smartcitydrone.droneservice.DroneServiceOuterClass.JoinRequest request) {
       return blockingUnaryCall(
           getChannel(), getJoinNetworkMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse dispatchOrder(com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getDispatchOrderMethod(), getCallOptions(), request);
     }
   }
 
@@ -198,9 +258,18 @@ public final class DroneServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getJoinNetworkMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse> dispatchOrder(
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getDispatchOrderMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_JOIN_NETWORK = 0;
+  private static final int METHODID_DISPATCH_ORDER = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -222,6 +291,10 @@ public final class DroneServiceGrpc {
         case METHODID_JOIN_NETWORK:
           serviceImpl.joinNetwork((com.smartcitydrone.droneservice.DroneServiceOuterClass.JoinRequest) request,
               (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.JoinResponse>) responseObserver);
+          break;
+        case METHODID_DISPATCH_ORDER:
+          serviceImpl.dispatchOrder((com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -285,6 +358,7 @@ public final class DroneServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new DroneServiceFileDescriptorSupplier())
               .addMethod(getJoinNetworkMethod())
+              .addMethod(getDispatchOrderMethod())
               .build();
         }
       }

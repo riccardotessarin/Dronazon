@@ -1,9 +1,11 @@
 package smartcitydrone;
 
 import beans.DroneInfo;
+import com.google.gson.Gson;
 import com.smartcitydrone.droneservice.DroneServiceGrpc.DroneServiceImplBase;
 import com.smartcitydrone.droneservice.DroneServiceOuterClass.*;
 import io.grpc.stub.StreamObserver;
+import smartcity.OrderData;
 
 public class DroneServiceImpl extends DroneServiceImplBase {
 	private DroneProperty droneProperty;
@@ -38,8 +40,26 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		// TODO: ensure that at least one drone will stay inside the network while a new drone joins
 	}
 
+	@Override
+	public void dispatchOrder(OrderRequest request, StreamObserver<OrderResponse> responseObserver) {
+		System.out.println(request);
 
+		// First condition: it is not delivering. If it is, we just answer no and close connection
+		if (droneProperty.isDelivering()) {
+			System.out.println("This drone is already delivering, try another one");
+			OrderResponse orderResponse = OrderResponse.newBuilder().setDroneAvailable("BUSY").build();
+			responseObserver.onNext(orderResponse);
+			responseObserver.onCompleted();
+			return;
+		}
 
+		OrderData orderData = new Gson().fromJson(request.getOrderInfo(), OrderData.class);
+		OrderResponse orderResponse = OrderResponse.newBuilder().setDroneAvailable("AVAILABLE").build();
+		responseObserver.onNext(orderResponse);
+		responseObserver.onCompleted();
+
+		// TODO: Start delivery thread
+	}
 
 	public DroneProperty getDroneProperty() {
 		return droneProperty;

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DroneProperty {
 	// Drone info for the peer to peer connection
@@ -89,6 +90,12 @@ public class DroneProperty {
 					.setDronePosition(this.dronePosition);
 		}
 	}
+
+	public double distance(int[] dronePosition, int[] pickUpPoint) {
+		double x = Math.pow((pickUpPoint[0] - dronePosition[0]), 2);
+		double y = Math.pow((pickUpPoint[1] - dronePosition[1]), 2);
+		return Math.sqrt(x + y);
+	}
 	//endregion
 
 	//region Drone network functions
@@ -133,6 +140,62 @@ public class DroneProperty {
 	public void quit() {
 		DroneSafeQuitThread safeQuitThread = new DroneSafeQuitThread(this);
 		safeQuitThread.start();
+	}
+
+	// This function returns a list of drones currently not delivering nor charging
+	public List<DroneInfo> getAvailableDronesInNetwork() {
+		List<DroneInfo> dronesInNetworkCopy = getDronesInNetwork();
+		return dronesInNetworkCopy.stream()
+				.filter(droneInfo -> !droneInfo.isDelivering() && !droneInfo.isCharging())
+				.collect(Collectors.toList());
+	}
+
+	public DroneInfo getBestDeliveryDrone(int[] pickUpPoint) {
+		List<DroneInfo> availableDrones = getAvailableDronesInNetwork();
+
+		// If no drone is currently free it returns null
+		if (availableDrones.size() == 0) {
+			return null;
+		} else if (availableDrones.size() == 1) {
+			return availableDrones.get(0);  // If there is just one drone, no point in making calculations
+		}
+
+		DroneInfo bestDrone = null;
+		double min = Double.MAX_VALUE;
+		for (DroneInfo droneInfo : availableDrones) {
+			double newDistance = distance(droneInfo.getDronePosition(), pickUpPoint);
+			if (newDistance < min) {
+				min = newDistance;
+				bestDrone = droneInfo;
+			} else if (newDistance == min) {
+				if (bestDrone == null) {
+					System.out.println("Uh-oh, something went wrong");
+					return null;
+				}
+				if (droneInfo.getBatteryLevel() < bestDrone.getBatteryLevel()) {
+					min = newDistance;
+					bestDrone = droneInfo;
+				} else if (droneInfo.getBatteryLevel() == bestDrone.getBatteryLevel()) {
+					if (bestDrone.getDroneID() < droneInfo.getDroneID()) {
+						min = newDistance;
+						bestDrone = droneInfo;
+					}
+				}
+			}
+
+		}
+		return bestDrone;
+	}
+
+	public void setDroneIsDelivering(DroneInfo droneInfo, boolean start) {
+		DroneInfo droneDelivery = findDroneInfoByID(droneInfo.getDroneID());
+		if (droneDelivery == null) {
+			System.out.println("Couldn't find the drone inside the list, can't update delivery status");
+			return;
+		}
+		synchronized (dronesInNetwork) {
+			droneDelivery.setDelivering(start);
+		}
 	}
 	//endregion
 
