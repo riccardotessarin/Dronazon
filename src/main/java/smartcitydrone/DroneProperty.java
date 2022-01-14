@@ -2,6 +2,7 @@ package smartcitydrone;
 
 import beans.DroneInfo;
 import com.sun.jersey.api.client.Client;
+import sensors.Measurement;
 import smartcity.OrderData;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class DroneProperty {
 	private boolean isElecting = false;
 	private boolean isDelivering = false;
 	private List<OrderData> ordersQueue;
+	private List<Double> averageBufferPM;
 
 	// Variables useful for shorter functions
 	private DroneInfo thisDroneInfo;
@@ -55,6 +57,7 @@ public class DroneProperty {
 		}
 		this.clientHTTP = clientHTTP;
 		this.ordersQueue = new ArrayList<>();
+		this.averageBufferPM = new ArrayList<>();
 	}
 
 
@@ -65,6 +68,7 @@ public class DroneProperty {
 		this.port = port;
 		this.clientHTTP = clientHTTP;
 		this.ordersQueue = new ArrayList<>();
+		this.averageBufferPM = new ArrayList<>();
 	}
 	//endregion
 
@@ -231,6 +235,25 @@ public class DroneProperty {
 			return orderData;
 		}
 	}
+
+	public void addSensorMeasurement(List<Measurement> bufferPM) {
+		if (bufferPM.size() == 0) {
+			System.out.println("PM Buffer error!");
+			return;
+		} else if (bufferPM.size() < 8) {
+			System.out.println("Buffer has less than 8 elements, the average may be incorrect");
+		}
+
+		double sum = 0;
+		for (Measurement measurement : bufferPM) {
+			sum += measurement.getValue();
+		}
+		double average = sum/bufferPM.size();
+
+		synchronized (averageBufferPM) {
+			averageBufferPM.add(average);
+		}
+	}
 	//endregion
 
 	//region Getters & Setters
@@ -375,6 +398,27 @@ public class DroneProperty {
 
 	public void setServerThread(DroneServerThread serverThread) {
 		this.serverThread = serverThread;
+	}
+
+	public List<OrderData> getOrdersQueue() {
+		return ordersQueue;
+	}
+
+	public void setOrdersQueue(List<OrderData> ordersQueue) {
+		this.ordersQueue = ordersQueue;
+	}
+
+	// Whenever we need to retrieve the buffer, we also want to clear it (every completed delivery)
+	public List<Double> getAverageBufferPM() {
+		synchronized (averageBufferPM) {
+			List<Double> averageBufferPMCopy = averageBufferPM;
+			averageBufferPM.clear();
+			return averageBufferPMCopy;
+		}
+	}
+
+	public void setAverageBufferPM(List<Double> averageBufferPM) {
+		this.averageBufferPM = averageBufferPM;
 	}
 
 	//endregion
