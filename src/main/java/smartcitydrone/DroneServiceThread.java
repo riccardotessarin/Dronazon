@@ -126,7 +126,8 @@ public class DroneServiceThread extends Thread {
 			@Override
 			public void onNext(OrderResponse value) {
 				if (value.getDroneAvailable().equalsIgnoreCase("BUSY")) {
-					//TODO: Add order back to the queue
+					System.out.println("Drone answered with BUSY response, adding order to queue");
+					senderDrone.addToOrdersQueue(orderData);
 					channel.shutdownNow();
 					return;
 				}
@@ -139,8 +140,9 @@ public class DroneServiceThread extends Thread {
 			@Override
 			public void onError(Throwable t) {
 				System.out.println("Error! " + t.getMessage());
+				System.out.println("Drone unavailable, adding order to queue and removing drone from network");
 				senderDrone.removeFromNetwork(receiverDrone);
-				//TODO: Add order back to the queue
+				senderDrone.addToOrdersQueue(orderData);
 				channel.shutdownNow();
 			}
 

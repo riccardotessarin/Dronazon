@@ -65,15 +65,19 @@ public class DroneMasterThread extends Thread {
 					OrderData order = new OrderData(orderID, new int[]{x1,y1}, new int[]{x2,y2});
 					System.out.println(order);
 
-					//TODO: Place the orders in a list and retrieve from list
-					//TODO: Handle null pointer exception if no drone is available
+					// Master tries to immediately distribute orders as soon as it gets them
+					// If it can't find anyone then it just adds the order to the pending orders list
 					DroneInfo bestDrone = droneProperty.getBestDeliveryDrone(order.getPickUpPoint());
-					DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, bestDrone, order);
-					serviceThread.start();
-
+					if (bestDrone == null) {
+						System.out.println("No drone currently available for delivery");
+						droneProperty.addToOrdersQueue(order);
+					} else {
+						DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, bestDrone, order);
+						serviceThread.start();
+					}
 				}
 
-				// Not useful for now
+				// Not useful
 				@Override
 				public void deliveryComplete(IMqttDeliveryToken token) { }
 			});

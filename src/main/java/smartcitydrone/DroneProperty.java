@@ -2,9 +2,11 @@ package smartcitydrone;
 
 import beans.DroneInfo;
 import com.sun.jersey.api.client.Client;
+import smartcity.OrderData;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,7 @@ public class DroneProperty {
 	private DroneInfo masterDrone = null;
 	private boolean isElecting = false;
 	private boolean isDelivering = false;
+	private List<OrderData> ordersQueue;
 
 	// Variables useful for shorter functions
 	private DroneInfo thisDroneInfo;
@@ -51,6 +54,7 @@ public class DroneProperty {
 			System.out.println("No available sockets.");
 		}
 		this.clientHTTP = clientHTTP;
+		this.ordersQueue = new ArrayList<>();
 	}
 
 
@@ -60,6 +64,7 @@ public class DroneProperty {
 		this.ipAddress = "localhost";
 		this.port = port;
 		this.clientHTTP = clientHTTP;
+		this.ordersQueue = new ArrayList<>();
 	}
 	//endregion
 
@@ -88,6 +93,20 @@ public class DroneProperty {
 		synchronized (dronesInNetwork) {
 			dronesInNetwork.get(dronesInNetwork.indexOf(findDroneInfoByID(this.droneID)))
 					.setDronePosition(this.dronePosition);
+		}
+	}
+
+	public void updateBatteryLevelInNetwork() {
+		synchronized (dronesInNetwork) {
+			dronesInNetwork.get(dronesInNetwork.indexOf(findDroneInfoByID(this.droneID)))
+					.setBatteryLevel(this.batteryLevel);
+		}
+	}
+
+	public void updateIsDeliveringInNetwork(boolean delivering) {
+		synchronized (dronesInNetwork) {
+			dronesInNetwork.get(dronesInNetwork.indexOf(findDroneInfoByID(this.droneID)))
+					.setDelivering(this.isDelivering);
 		}
 	}
 
@@ -197,6 +216,21 @@ public class DroneProperty {
 			droneDelivery.setDelivering(start);
 		}
 	}
+
+	public void addToOrdersQueue(OrderData orderData) {
+		synchronized (ordersQueue) {
+			ordersQueue.add(orderData);
+		}
+		System.out.println("Order added to the queue");
+	}
+
+	public OrderData getOrderFromQueue() {
+		synchronized (ordersQueue) {
+			OrderData orderData = ordersQueue.get(0);
+			ordersQueue.remove(0);
+			return orderData;
+		}
+	}
 	//endregion
 
 	//region Getters & Setters
@@ -212,6 +246,12 @@ public class DroneProperty {
 		return dronePosition;
 	}
 
+	public void setDronePosition(int[] dronePosition) {
+		this.dronePosition = dronePosition;
+		updatePositionInNetwork();
+	}
+
+	// Setter used on drone initialization
 	public void setDronePosition(int dronePositionX, int dronePositionY) {
 		this.dronePosition = new int[]{dronePositionX, dronePositionY};
 	}
@@ -302,6 +342,7 @@ public class DroneProperty {
 
 	public void setDelivering(boolean delivering) {
 		isDelivering = delivering;
+		updateIsDeliveringInNetwork(delivering);
 	}
 
 	public DroneInfo getThisDroneInfo() {

@@ -58,7 +58,10 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		responseObserver.onNext(orderResponse);
 		responseObserver.onCompleted();
 
-		// TODO: Start delivery thread
+		// Set the drone is now delivering and start delivery thread
+		droneProperty.setDelivering(true);
+		DroneDeliveryThread deliveryThread = new DroneDeliveryThread(droneProperty, orderData);
+		deliveryThread.start();
 	}
 
 	public DroneProperty getDroneProperty() {
