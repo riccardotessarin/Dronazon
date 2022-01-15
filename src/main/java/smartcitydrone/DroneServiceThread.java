@@ -18,6 +18,7 @@ public class DroneServiceThread extends Thread {
 	private DroneProperty senderDrone;
 	private DroneInfo receiverDrone;
 	private OrderData orderData;
+	private DroneStat droneStat;
 
 	public DroneServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone) {
 		this.senderDrone = senderDrone;
@@ -32,6 +33,12 @@ public class DroneServiceThread extends Thread {
 		this.message = "delivery";
 	}
 
+	public DroneServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone, DroneStat droneStat) {
+		this.senderDrone = senderDrone;
+		this.receiverDrone = receiverDrone;
+		this.droneStat = droneStat;
+		this.message = "stat";
+	}
 
 
 	@Override
@@ -41,6 +48,8 @@ public class DroneServiceThread extends Thread {
 				joinNetwork();
 			} else if (message.equalsIgnoreCase("delivery")) {
 				dispatchOrder();
+			} else if (message.equalsIgnoreCase("stat")) {
+				sendDroneStat();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -132,7 +141,7 @@ public class DroneServiceThread extends Thread {
 					return;
 				}
 				//Set the drone is now delivering inside master's network list
-				senderDrone.setDroneIsDelivering(receiverDrone, true);
+				senderDrone.setDroneIsDelivering(receiverDrone.getDroneID(), true);
 
 			}
 
@@ -154,5 +163,50 @@ public class DroneServiceThread extends Thread {
 
 		//you need this. otherwise the method will terminate before that answers from the server are received
 		channel.awaitTermination(10, TimeUnit.SECONDS);
+	}
+
+	// The drone sends the stats to the master, if it gives an error the master is down
+	public void sendDroneStat() throws InterruptedException {
+		// If the master made the delivery, there's no point in opening the connection
+		if (senderDrone.getDroneID() == receiverDrone.getDroneID()) {
+			System.out.println("Master made the delivery, saving stats");
+			senderDrone.addDroneStat(droneStat);
+			// If this is master, then position, battery and delivery status are already updated inside DeliveryThread
+			return;
+		}
+
+		System.out.println("Sending stats to master with ID " + receiverDrone.getDroneID());
+
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
+
+		String statGson = new Gson().toJson(droneStat);
+		StatRequest request = StatRequest.newBuilder()
+				.setDroneID(senderDrone.getDroneID()).setDroneStat(statGson).build();
+
+		stub.sendDroneStat(request, new StreamObserver<StatResponse>() {
+			@Override
+			public void onNext(StatResponse value) {
+				if (value.getMasterResponse().equalsIgnoreCase("OK")) {
+					System.out.println("Received ok from master");
+				}
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				System.out.println("Master is down! Starting an election...");
+				//TODO: Place stats in a pending place, remove master local info and start an election
+				channel.shutdownNow();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdownNow();
+			}
+		});
+
 	}
 }

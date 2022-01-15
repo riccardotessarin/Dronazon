@@ -64,6 +64,45 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		deliveryThread.start();
 	}
 
+	// This is for the master, it receives the message from the drones after they end a delivery
+	@Override
+	public void sendDroneStat(StatRequest request, StreamObserver<StatResponse> responseObserver) {
+		System.out.println(request);
+
+		// Master gives ok signal to drone, meaning it's still online
+		StatResponse response = StatResponse.newBuilder().setMasterResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+		DroneStat droneStat = new Gson().fromJson(request.getDroneStat(), DroneStat.class);
+		int droneID = request.getDroneID();
+
+		droneProperty.addDroneStat(droneStat);
+		droneProperty.updateDroneBatteryLevel(request.getDroneID(), droneStat.getBatteryLeft());
+		droneProperty.updateDronePosition(request.getDroneID(), droneStat.getDronePosition());
+		droneProperty.setDroneIsDelivering(request.getDroneID(), false);
+
+
+		// After we receive stats from a drone we need to look for pending orders inside the queue
+
+		if (droneProperty.getOrdersQueue().size() == 0) {
+			System.out.println("No orders in pending list");
+			return;
+		}
+
+		System.out.println("Sending new order from pending list...");
+		OrderData order = droneProperty.getOrderFromQueue();
+
+		DroneInfo bestDrone = droneProperty.getBestDeliveryDrone(order.getPickUpPoint());
+		if (bestDrone == null) {
+			System.out.println("No drone currently available for delivery");
+			droneProperty.addToOrdersQueue(order);
+		} else {
+			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, bestDrone, order);
+			serviceThread.start();
+		}
+	}
+
 	public DroneProperty getDroneProperty() {
 		return droneProperty;
 	}

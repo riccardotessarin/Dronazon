@@ -32,6 +32,7 @@ public class DroneProperty {
 	private List<Double> averageBufferPM;
 	private double traveledKM = 0.0;
 	private int deliveryCount = 0;
+	private List<DroneStat> dronesStatistics;
 
 	// Variables useful for shorter functions
 	private DroneInfo thisDroneInfo;
@@ -62,6 +63,7 @@ public class DroneProperty {
 		this.clientHTTP = clientHTTP;
 		this.ordersQueue = new ArrayList<>();
 		this.averageBufferPM = new ArrayList<>();
+		this.dronesStatistics = new ArrayList<>();
 	}
 
 
@@ -73,6 +75,7 @@ public class DroneProperty {
 		this.clientHTTP = clientHTTP;
 		this.ordersQueue = new ArrayList<>();
 		this.averageBufferPM = new ArrayList<>();
+		this.dronesStatistics = new ArrayList<>();
 	}
 	//endregion
 
@@ -214,8 +217,30 @@ public class DroneProperty {
 		return bestDrone;
 	}
 
-	public void setDroneIsDelivering(DroneInfo droneInfo, boolean start) {
-		DroneInfo droneDelivery = findDroneInfoByID(droneInfo.getDroneID());
+	public void updateDroneBatteryLevel(int droneID, int batteryLeft) {
+		DroneInfo droneDelivery = findDroneInfoByID(droneID);
+		if (droneDelivery == null) {
+			System.out.println("Couldn't find the drone inside the list, can't update battery level");
+			return;
+		}
+		synchronized (dronesInNetwork) {
+			droneDelivery.setBatteryLevel(batteryLeft);
+		}
+	}
+
+	public void updateDronePosition(int droneID, int[] dronePosition) {
+		DroneInfo droneDelivery = findDroneInfoByID(droneID);
+		if (droneDelivery == null) {
+			System.out.println("Couldn't find the drone inside the list, can't update position");
+			return;
+		}
+		synchronized (dronesInNetwork) {
+			droneDelivery.setDronePosition(dronePosition);
+		}
+	}
+
+	public void setDroneIsDelivering(int droneID, boolean start) {
+		DroneInfo droneDelivery = findDroneInfoByID(droneID);
 		if (droneDelivery == null) {
 			System.out.println("Couldn't find the drone inside the list, can't update delivery status");
 			return;
@@ -268,6 +293,13 @@ public class DroneProperty {
 	public void incrementDeliveryCount() {
 		synchronized (delCountMux) {
 			this.deliveryCount ++;
+		}
+	}
+
+	// We don't need to know the drone id when giving the average stats to S.A.
+	public void addDroneStat(DroneStat droneStat) {
+		synchronized (dronesStatistics) {
+			dronesStatistics.add(droneStat);
 		}
 	}
 	//endregion
@@ -455,6 +487,16 @@ public class DroneProperty {
 
 	public void setDeliveryCount(int deliveryCount) {
 		this.deliveryCount = deliveryCount;
+	}
+
+	public List<DroneStat> getDronesStatistics() {
+		synchronized (dronesStatistics) {
+			return dronesStatistics;
+		}
+	}
+
+	public void setDronesStatistics(List<DroneStat> dronesStatistics) {
+		this.dronesStatistics = dronesStatistics;
 	}
 	//endregion
 }

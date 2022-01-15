@@ -43,13 +43,21 @@ public class DroneDeliveryThread extends Thread {
 				droneProperty.getDronePosition(), orderKM,
 				droneProperty.getAverageBufferPM(), droneProperty.getBatteryLevel());
 
-		//TODO: Send data to master and update drones status in network
+		DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), droneStat);
+		serviceThread.start();
+
+		try {
+			serviceThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		// Since the master could be using this as well, we wait for the thread that sends stats to finish before upd
 		droneProperty.setDelivering(false);
 
 		if (batteryLeft < 15) {
 			System.out.println("Low battery detected!");
+			//TODO: Send charge request message (make a function inside DroneProperty with a thread)
 		}
 	}
 }
