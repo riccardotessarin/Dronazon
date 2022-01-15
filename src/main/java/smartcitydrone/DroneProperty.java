@@ -30,6 +30,8 @@ public class DroneProperty {
 	private boolean isDelivering = false;
 	private List<OrderData> ordersQueue;
 	private List<Double> averageBufferPM;
+	private double traveledKM = 0.0;
+	private int deliveryCount = 0;
 
 	// Variables useful for shorter functions
 	private DroneInfo thisDroneInfo;
@@ -37,6 +39,8 @@ public class DroneProperty {
 
 	// Variables for mutex lock
 	private Object masterMux = new Object();
+	private Object kmMux = new Object();
+	private Object delCountMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
@@ -254,6 +258,18 @@ public class DroneProperty {
 			averageBufferPM.add(average);
 		}
 	}
+
+	public void incrementTraveledKM(double orderKM) {
+		synchronized (kmMux) {
+			this.traveledKM += orderKM;
+		}
+	}
+
+	public void incrementDeliveryCount() {
+		synchronized (delCountMux) {
+			this.deliveryCount ++;
+		}
+	}
 	//endregion
 
 	//region Getters & Setters
@@ -421,5 +437,24 @@ public class DroneProperty {
 		this.averageBufferPM = averageBufferPM;
 	}
 
+	public double getTraveledKM() {
+		synchronized (kmMux) {
+			return traveledKM;
+		}
+	}
+
+	public void setTraveledKM(double traveledKM) {
+		this.traveledKM = traveledKM;
+	}
+
+	public int getDeliveryCount() {
+		synchronized (delCountMux) {
+			return deliveryCount;
+		}
+	}
+
+	public void setDeliveryCount(int deliveryCount) {
+		this.deliveryCount = deliveryCount;
+	}
 	//endregion
 }

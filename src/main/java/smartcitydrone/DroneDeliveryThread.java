@@ -22,25 +22,30 @@ public class DroneDeliveryThread extends Thread {
 			e.printStackTrace();
 		}
 
+		String timeOfArrival = new Timestamp(System.currentTimeMillis()).toString();
+		System.out.println("Delivery completed");
+
 		// Or maybe send them separate?
 		double orderKM = droneProperty.distance(droneProperty.getDronePosition(), orderData.getPickUpPoint()) +
 				droneProperty.distance(orderData.getPickUpPoint(), orderData.getDeliveryPoint());
+		droneProperty.incrementTraveledKM(orderKM);
 
 		// This also updates position inside network
 		droneProperty.setDronePosition(orderData.getDeliveryPoint());
-		String deliveryTime = new Timestamp(System.currentTimeMillis()).toString();
+		droneProperty.incrementDeliveryCount();
 
 		// After every delivery the drone loses 10% of battery
 		int batteryLeft = droneProperty.getBatteryLevel() - 10;
 		droneProperty.setBatteryLevel(batteryLeft);
 		droneProperty.updateBatteryLevelInNetwork();
 
-		//TODO: Add PM measurements
-
-		System.out.println("Delivery completed");
+		DroneStat droneStat = new DroneStat(timeOfArrival,
+				droneProperty.getDronePosition(), orderKM,
+				droneProperty.getAverageBufferPM(), droneProperty.getBatteryLevel());
 
 		//TODO: Send data to master and update drones status in network
 
+		// Since the master could be using this as well, we wait for the thread that sends stats to finish before upd
 		droneProperty.setDelivering(false);
 
 		if (batteryLeft < 15) {
