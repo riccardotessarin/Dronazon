@@ -33,6 +33,7 @@ public class DroneProperty {
 	private double traveledKM = 0.0;
 	private int deliveryCount = 0;
 	private List<DroneStat> dronesStatistics;
+	private DroneStat pendingDroneStat = null;
 
 	// Variables useful for shorter functions
 	private DroneInfo thisDroneInfo;
@@ -42,6 +43,7 @@ public class DroneProperty {
 	private Object masterMux = new Object();
 	private Object kmMux = new Object();
 	private Object delCountMux = new Object();
+	private Object pendingStatMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
@@ -399,6 +401,12 @@ public class DroneProperty {
 		}
 	}
 
+	public void setNoMasterDrone() {
+		synchronized (masterMux) {
+			this.masterDrone = null;
+		}
+	}
+
 	public boolean isElecting() {
 		return isElecting;
 	}
@@ -498,5 +506,18 @@ public class DroneProperty {
 	public void setDronesStatistics(List<DroneStat> dronesStatistics) {
 		this.dronesStatistics = dronesStatistics;
 	}
+
+	public DroneStat getPendingDroneStat() {
+		synchronized (pendingStatMux) {
+			return pendingDroneStat;
+		}
+	}
+
+	public void setPendingDroneStat(DroneStat pendingDroneStat) {
+		synchronized (pendingStatMux) {
+			this.pendingDroneStat = pendingDroneStat;
+		}
+	}
+
 	//endregion
 }

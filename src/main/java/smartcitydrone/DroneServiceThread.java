@@ -198,7 +198,9 @@ public class DroneServiceThread extends Thread {
 			@Override
 			public void onError(Throwable t) {
 				System.out.println("Master is down! Starting an election...");
-				//TODO: Place stats in a pending place, remove master local info and start an election
+				senderDrone.setPendingDroneStat(droneStat);
+				senderDrone.setNoMasterDrone();
+				//TODO: Start an election
 				channel.shutdownNow();
 			}
 
