@@ -123,7 +123,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		if (droneProperty.getDroneID() == bestID) {
 			System.out.println("I'm the designed master! Sending elected message...");
 			droneProperty.setParticipant(false);
-			//TODO: Send elected message
+			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), bestID);
+			serviceThread.start();
 		} else if (batteryLevel > bestBattery && !droneProperty.isParticipant()) {
 			System.out.println("My battery is higher, sending my info in election");
 			droneProperty.setParticipant(true);
@@ -149,7 +150,27 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 	@Override
 	public void elected(ElectedRequest request, StreamObserver<ElectedResponse> responseObserver) {
-		super.elected(request, responseObserver);
+		// Drone gives ok signal to its preceding in the ring, meaning it's still online
+		ElectedResponse response = ElectedResponse.newBuilder().setDroneResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+		int electedID = request.getDroneID();
+		droneProperty.setParticipant(false);
+
+		// When this is true, the elected message chain stops
+		if (droneProperty.getDroneID() == electedID) {
+			System.out.println("I'm becoming the new master after the election");
+			droneProperty.makeMaster();
+			return;
+		}
+
+		droneProperty.setMasterDroneByID(electedID);
+		DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), electedID);
+		serviceThread.start();
+		//TODO: Start thread that sends pending stats and updated drone info to new master
+
+
 	}
 
 	public DroneProperty getDroneProperty() {

@@ -172,8 +172,14 @@ public class DroneProperty {
 
 		// All of the new deliveries produced by publisher meanwhile will just be ignored, so no need to get them
 		// BUT we still need to get the stats produced by the drones while there was no master
-		// TODO: Send to drones the end of election message (send all the network info to new master)
-		// TODO: New master gets the stats produced from drones while there was no master
+		// If the new master had pending stats to send, we just save them to the list, the other stats will come
+		// with grpc messages
+		synchronized (pendingStatMux) {
+			if (pendingDroneStat != null) {
+				addDroneStat(pendingDroneStat);
+				setPendingDroneStat(null);
+			}
+		}
 
 		masterThread = new DroneMasterThread(this);
 		masterThread.start();

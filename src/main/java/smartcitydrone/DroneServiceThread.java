@@ -21,6 +21,7 @@ public class DroneServiceThread extends Thread {
 	private DroneStat droneStat;
 	private int bestBattery;
 	private int bestID;
+	private int electedID;
 
 	public DroneServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone) {
 		this.senderDrone = senderDrone;
@@ -48,6 +49,13 @@ public class DroneServiceThread extends Thread {
 		this.bestBattery = bestBattery;
 		this.bestID = bestID;
 		this.message = "election";
+	}
+
+	public DroneServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone, int electedID) {
+		this.senderDrone = senderDrone;
+		this.receiverDrone = receiverDrone;
+		this.electedID = electedID;
+		this.message = "elected";
 	}
 
 
@@ -214,7 +222,9 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Master is down! Starting an election...");
 				senderDrone.setPendingDroneStat(droneStat);
 				senderDrone.setNoMasterDrone();
-				//TODO: Start an election
+				DroneServiceThread serviceThread =
+						new DroneServiceThread(senderDrone, senderDrone.getNextInRing(), senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+				serviceThread.start();
 				channel.shutdownNow();
 			}
 
@@ -254,7 +264,7 @@ public class DroneServiceThread extends Thread {
 
 				/*
 				// Code to test for crashes
-				if (receiverDrone.getDroneID() == bestID || senderDrone.findDroneInfoByID(bestID) == null) {
+				if (receiverDrone.getDroneID() == bestID) {
 					System.out.println("Drone designed to be master crashed! Restarting election...");
 					DroneServiceThread serviceThread =
 							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
@@ -276,6 +286,48 @@ public class DroneServiceThread extends Thread {
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
 
-	private void elected() {
+	private void elected() throws InterruptedException {
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
+
+		ElectedRequest request = ElectedRequest.newBuilder().setDroneID(electedID).build();
+
+		stub.elected(request, new StreamObserver<ElectedResponse>() {
+			@Override
+			public void onNext(ElectedResponse value) {
+				System.out.println(value.getDroneResponse());
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				System.out.println("Next drone crashed! Removing and sending to next in ring...");
+				senderDrone.removeFromNetwork(receiverDrone);
+				DroneInfo nextDrone = senderDrone.getNextInRing();
+
+				// If the one who had to receive was the new master, start a new election (everyone already not participant)
+				if (senderDrone.getMasterDrone() != null && senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
+					System.out.println("Elected master down! Starting new election...");
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					serviceThread.start();
+				} else {
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, nextDrone, electedID);
+					serviceThread.start();
+				}
+				channel.shutdown();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdown();
+			}
+		});
+
+		//you need this. otherwise the method will terminate before that answers from the server are received
+		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
 }
