@@ -43,10 +43,30 @@ message StatResponse {
   string masterResponse = 1;
 }
 
+message ElectionRequest {
+  int32 batteryLevel = 1;
+  int32 droneID = 2;
+}
+
+message ElectionResponse {
+  string droneResponse = 1;
+}
+
+// Here we just need the ID since the battery is known to be the highest
+message ElectedRequest {
+  int32 droneID = 1;
+}
+
+message ElectedResponse {
+  string droneResponse = 1;
+}
+
 // Defining a Service, a Service can have multiple RPC operations
 service DroneService {
   rpc joinNetwork(JoinRequest) returns (JoinResponse);
   rpc dispatchOrder(OrderRequest) returns (OrderResponse);
   rpc sendDroneStat(StatRequest) returns (StatResponse);
+  rpc election(ElectionRequest) returns (ElectionResponse);
+  rpc elected(ElectedRequest) returns (ElectedResponse);
 
 }

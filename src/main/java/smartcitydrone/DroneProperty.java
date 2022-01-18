@@ -26,7 +26,7 @@ public class DroneProperty {
 	private List<DroneInfo> dronesInNetwork;
 	private boolean isMaster = false;
 	private DroneInfo masterDrone = null;
-	private boolean isElecting = false;
+	private boolean isParticipant = false;
 	private boolean isDelivering = false;
 	private List<OrderData> ordersQueue;
 	private List<Double> averageBufferPM;
@@ -44,6 +44,7 @@ public class DroneProperty {
 	private Object kmMux = new Object();
 	private Object delCountMux = new Object();
 	private Object pendingStatMux = new Object();
+	private Object batteryMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
@@ -82,6 +83,17 @@ public class DroneProperty {
 	//endregion
 
 	//region Utility functions
+	public DroneInfo getNextInRing() {
+		DroneInfo thisDrone = findDroneInfoByID(this.getDroneID());
+		synchronized (dronesInNetwork) {
+			if (dronesInNetwork.size() > 1) {
+				int idx = dronesInNetwork.indexOf(thisDrone);
+				return dronesInNetwork.get(idx + 1);
+			} else {
+				return thisDrone;
+			}
+		}
+	}
 
 	// This will make the ring construction and communication easier
 	public void sortDronesInNetwork() {
@@ -308,11 +320,15 @@ public class DroneProperty {
 
 	//region Getters & Setters
 	public int getBatteryLevel() {
-		return batteryLevel;
+		synchronized (batteryMux) {
+			return batteryLevel;
+		}
 	}
 
 	public void setBatteryLevel(int batteryLevel) {
-		this.batteryLevel = batteryLevel;
+		synchronized (batteryMux) {
+			this.batteryLevel = batteryLevel;
+		}
 	}
 
 	public int[] getDronePosition() {
@@ -407,12 +423,12 @@ public class DroneProperty {
 		}
 	}
 
-	public boolean isElecting() {
-		return isElecting;
+	public boolean isParticipant() {
+		return isParticipant;
 	}
 
-	public void setElecting(boolean electing) {
-		isElecting = electing;
+	public void setParticipant(boolean participant) {
+		isParticipant = participant;
 	}
 
 	public boolean isDelivering() {
@@ -518,6 +534,5 @@ public class DroneProperty {
 			this.pendingDroneStat = pendingDroneStat;
 		}
 	}
-
 	//endregion
 }

@@ -29,7 +29,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		JoinResponse response = JoinResponse.newBuilder()
 				.setDroneID(droneProperty.getDroneID()).setDronePositionX(droneProperty.getDronePosition()[0])
 				.setDronePositionY(droneProperty.getDronePosition()[1]).setBatteryLevel(droneProperty.getBatteryLevel())
-				.setIsMaster(droneProperty.isMaster()).setIsElecting(droneProperty.isElecting()).build();
+				.setIsMaster(droneProperty.isMaster()).setIsElecting(droneProperty.isParticipant()).build();
 
 		// Give response to stream
 		responseObserver.onNext(response);
@@ -101,6 +101,55 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, bestDrone, order);
 			serviceThread.start();
 		}
+	}
+
+	@Override
+	public void election(ElectionRequest request, StreamObserver<ElectionResponse> responseObserver) {
+		int bestBattery = request.getBatteryLevel();
+		int bestID = request.getDroneID();
+
+		// Drone gives ok signal to its preceding in the ring, meaning it's still online
+		ElectionResponse response = ElectionResponse.newBuilder().setDroneResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+		int batteryLevel = 0;
+		if (!droneProperty.isDelivering()) {
+			batteryLevel = droneProperty.getBatteryLevel();
+		} else {
+			batteryLevel = droneProperty.getBatteryLevel() - 10;
+		}
+
+		if (droneProperty.getDroneID() == bestID) {
+			System.out.println("I'm the designed master! Sending elected message...");
+			droneProperty.setParticipant(false);
+			//TODO: Send elected message
+		} else if (batteryLevel > bestBattery && !droneProperty.isParticipant()) {
+			System.out.println("My battery is higher, sending my info in election");
+			droneProperty.setParticipant(true);
+			DroneServiceThread serviceThread =
+					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), batteryLevel, droneProperty.getDroneID());
+			serviceThread.start();
+		} else if (batteryLevel == bestBattery && droneProperty.getDroneID() > bestID && !droneProperty.isParticipant()) {
+			System.out.println("Same battery but higher ID, sending my info in election");
+			droneProperty.setParticipant(true);
+			DroneServiceThread serviceThread =
+					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), batteryLevel, droneProperty.getDroneID());
+			serviceThread.start();
+		} else if (batteryLevel < bestBattery || (batteryLevel == bestBattery && droneProperty.getDroneID() < bestID)) {
+			System.out.println("Battery/ID worse, forwarding");
+			droneProperty.setParticipant(true);
+			DroneServiceThread serviceThread =
+					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), bestBattery, bestID);
+			serviceThread.start();
+		} else {
+			System.out.println("Stopping election message, better and already participant");
+		}
+	}
+
+	@Override
+	public void elected(ElectedRequest request, StreamObserver<ElectedResponse> responseObserver) {
+		super.elected(request, responseObserver);
 	}
 
 	public DroneProperty getDroneProperty() {
