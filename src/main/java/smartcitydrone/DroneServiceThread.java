@@ -114,11 +114,15 @@ public class DroneServiceThread extends Thread {
 					senderDrone.setMasterDrone(receiverDrone);
 				}
 
+				//TODO: Check if this is right
+				/*
 				// If the drone who wants to join doesn't already know there is an ongoing election
 				// and the one who is talking with it is in election, set the election true
 				if (!senderDrone.isParticipant() && value.getIsElecting()) {
 					senderDrone.setParticipant(true);
 				}
+
+				 */
 
 			}
 
@@ -222,6 +226,8 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Master is down! Starting an election...");
 				senderDrone.setPendingDroneStat(droneStat);
 				senderDrone.setNoMasterDrone();
+				senderDrone.removeFromNetwork(receiverDrone);
+				senderDrone.setParticipant(true);
 				DroneServiceThread serviceThread =
 						new DroneServiceThread(senderDrone, senderDrone.getNextInRing(), senderDrone.getBatteryLevel(), senderDrone.getDroneID());
 				serviceThread.start();
@@ -246,7 +252,7 @@ public class DroneServiceThread extends Thread {
 		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
 
 		ElectionRequest request = ElectionRequest.newBuilder()
-				.setBatteryLevel(senderDrone.getBatteryLevel()).setDroneID(senderDrone.getDroneID()).build();
+				.setBatteryLevel(bestBattery).setDroneID(bestID).build();
 
 		stub.election(request, new StreamObserver<ElectionResponse>() {
 			@Override
@@ -310,6 +316,8 @@ public class DroneServiceThread extends Thread {
 				// If the one who had to receive was the new master, start a new election (everyone already not participant)
 				if (senderDrone.getMasterDrone() != null && senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
 					System.out.println("Elected master down! Starting new election...");
+					senderDrone.setNoMasterDrone();
+					senderDrone.setParticipant(true);
 					DroneServiceThread serviceThread =
 							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
 					serviceThread.start();

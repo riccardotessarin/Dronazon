@@ -88,7 +88,11 @@ public class DroneProperty {
 		synchronized (dronesInNetwork) {
 			if (dronesInNetwork.size() > 1) {
 				int idx = dronesInNetwork.indexOf(thisDrone);
-				return dronesInNetwork.get(idx + 1);
+				if (idx == dronesInNetwork.size()-1) {
+					return dronesInNetwork.get(0);
+				} else {
+					return dronesInNetwork.get(idx + 1);
+				}
 			} else {
 				return thisDrone;
 			}
@@ -322,6 +326,15 @@ public class DroneProperty {
 			dronesStatistics.add(droneStat);
 		}
 	}
+
+	/*
+	public void  clearPendingStat() {
+		synchronized (pendingStatMux) {
+			this.pendingDroneStat = null;
+		}
+	}
+
+	 */
 	//endregion
 
 	//region Getters & Setters
@@ -415,7 +428,7 @@ public class DroneProperty {
 
 	// Custom setter
 	public void setMasterDroneByID(int masterDroneID) {
-		DroneInfo masterDrone = findDroneInfoByID(droneID);
+		DroneInfo masterDrone = findDroneInfoByID(masterDroneID);
 		if (masterDrone != null) {
 			synchronized (masterMux) {
 				this.masterDrone = masterDrone;

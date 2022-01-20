@@ -120,6 +120,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			batteryLevel = droneProperty.getBatteryLevel() - 10;
 		}
 
+		//System.out.println("Drone: " + droneProperty.getDroneID() + " Best: " + bestID);
+
 		if (droneProperty.getDroneID() == bestID) {
 			System.out.println("I'm the designed master! Sending elected message...");
 			droneProperty.setParticipant(false);
