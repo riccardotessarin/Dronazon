@@ -2864,6 +2864,4936 @@ public final class DroneServiceOuterClass {
 
   }
 
+  public interface StatRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.StatRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    int getDroneID();
+
+    /**
+     * <code>string droneStat = 2;</code>
+     * @return The droneStat.
+     */
+    java.lang.String getDroneStat();
+    /**
+     * <code>string droneStat = 2;</code>
+     * @return The bytes for droneStat.
+     */
+    com.google.protobuf.ByteString
+        getDroneStatBytes();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.droneservice.StatRequest}
+   */
+  public  static final class StatRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.StatRequest)
+      StatRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use StatRequest.newBuilder() to construct.
+    private StatRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private StatRequest() {
+      droneStat_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StatRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StatRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              droneID_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              droneStat_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.Builder.class);
+    }
+
+    public static final int DRONEID_FIELD_NUMBER = 1;
+    private int droneID_;
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    public int getDroneID() {
+      return droneID_;
+    }
+
+    public static final int DRONESTAT_FIELD_NUMBER = 2;
+    private volatile java.lang.Object droneStat_;
+    /**
+     * <code>string droneStat = 2;</code>
+     * @return The droneStat.
+     */
+    public java.lang.String getDroneStat() {
+      java.lang.Object ref = droneStat_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        droneStat_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string droneStat = 2;</code>
+     * @return The bytes for droneStat.
+     */
+    public com.google.protobuf.ByteString
+        getDroneStatBytes() {
+      java.lang.Object ref = droneStat_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        droneStat_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (droneID_ != 0) {
+        output.writeInt32(1, droneID_);
+      }
+      if (!getDroneStatBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, droneStat_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (droneID_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, droneID_);
+      }
+      if (!getDroneStatBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, droneStat_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest) obj;
+
+      if (getDroneID()
+          != other.getDroneID()) return false;
+      if (!getDroneStat()
+          .equals(other.getDroneStat())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneID();
+      hash = (37 * hash) + DRONESTAT_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneStat().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.droneservice.StatRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.StatRequest)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneID_ = 0;
+
+        droneStat_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest(this);
+        result.droneID_ = droneID_;
+        result.droneStat_ = droneStat_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.getDefaultInstance()) return this;
+        if (other.getDroneID() != 0) {
+          setDroneID(other.getDroneID());
+        }
+        if (!other.getDroneStat().isEmpty()) {
+          droneStat_ = other.droneStat_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int droneID_ ;
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return The droneID.
+       */
+      public int getDroneID() {
+        return droneID_;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @param value The droneID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneID(int value) {
+        
+        droneID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneID() {
+        
+        droneID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object droneStat_ = "";
+      /**
+       * <code>string droneStat = 2;</code>
+       * @return The droneStat.
+       */
+      public java.lang.String getDroneStat() {
+        java.lang.Object ref = droneStat_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          droneStat_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string droneStat = 2;</code>
+       * @return The bytes for droneStat.
+       */
+      public com.google.protobuf.ByteString
+          getDroneStatBytes() {
+        java.lang.Object ref = droneStat_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          droneStat_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string droneStat = 2;</code>
+       * @param value The droneStat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneStat(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        droneStat_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneStat = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneStat() {
+        
+        droneStat_ = getDefaultInstance().getDroneStat();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneStat = 2;</code>
+       * @param value The bytes for droneStat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneStatBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        droneStat_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.StatRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.StatRequest)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<StatRequest>
+        PARSER = new com.google.protobuf.AbstractParser<StatRequest>() {
+      @java.lang.Override
+      public StatRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StatRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<StatRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StatRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface StatResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.StatResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The masterResponse.
+     */
+    java.lang.String getMasterResponse();
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The bytes for masterResponse.
+     */
+    com.google.protobuf.ByteString
+        getMasterResponseBytes();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.droneservice.StatResponse}
+   */
+  public  static final class StatResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.StatResponse)
+      StatResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use StatResponse.newBuilder() to construct.
+    private StatResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private StatResponse() {
+      masterResponse_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StatResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StatResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              masterResponse_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.Builder.class);
+    }
+
+    public static final int MASTERRESPONSE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object masterResponse_;
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The masterResponse.
+     */
+    public java.lang.String getMasterResponse() {
+      java.lang.Object ref = masterResponse_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        masterResponse_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The bytes for masterResponse.
+     */
+    public com.google.protobuf.ByteString
+        getMasterResponseBytes() {
+      java.lang.Object ref = masterResponse_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        masterResponse_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getMasterResponseBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, masterResponse_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getMasterResponseBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, masterResponse_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse) obj;
+
+      if (!getMasterResponse()
+          .equals(other.getMasterResponse())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MASTERRESPONSE_FIELD_NUMBER;
+      hash = (53 * hash) + getMasterResponse().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.droneservice.StatResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.StatResponse)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        masterResponse_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_StatResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse(this);
+        result.masterResponse_ = masterResponse_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.getDefaultInstance()) return this;
+        if (!other.getMasterResponse().isEmpty()) {
+          masterResponse_ = other.masterResponse_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object masterResponse_ = "";
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @return The masterResponse.
+       */
+      public java.lang.String getMasterResponse() {
+        java.lang.Object ref = masterResponse_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          masterResponse_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @return The bytes for masterResponse.
+       */
+      public com.google.protobuf.ByteString
+          getMasterResponseBytes() {
+        java.lang.Object ref = masterResponse_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          masterResponse_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @param value The masterResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMasterResponse(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        masterResponse_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMasterResponse() {
+        
+        masterResponse_ = getDefaultInstance().getMasterResponse();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @param value The bytes for masterResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMasterResponseBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        masterResponse_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.StatResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.StatResponse)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<StatResponse>
+        PARSER = new com.google.protobuf.AbstractParser<StatResponse>() {
+      @java.lang.Override
+      public StatResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StatResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<StatResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StatResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ElectionRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.ElectionRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 batteryLevel = 1;</code>
+     * @return The batteryLevel.
+     */
+    int getBatteryLevel();
+
+    /**
+     * <code>int32 droneID = 2;</code>
+     * @return The droneID.
+     */
+    int getDroneID();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.droneservice.ElectionRequest}
+   */
+  public  static final class ElectionRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.ElectionRequest)
+      ElectionRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ElectionRequest.newBuilder() to construct.
+    private ElectionRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ElectionRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ElectionRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ElectionRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              batteryLevel_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              droneID_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.Builder.class);
+    }
+
+    public static final int BATTERYLEVEL_FIELD_NUMBER = 1;
+    private int batteryLevel_;
+    /**
+     * <code>int32 batteryLevel = 1;</code>
+     * @return The batteryLevel.
+     */
+    public int getBatteryLevel() {
+      return batteryLevel_;
+    }
+
+    public static final int DRONEID_FIELD_NUMBER = 2;
+    private int droneID_;
+    /**
+     * <code>int32 droneID = 2;</code>
+     * @return The droneID.
+     */
+    public int getDroneID() {
+      return droneID_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (batteryLevel_ != 0) {
+        output.writeInt32(1, batteryLevel_);
+      }
+      if (droneID_ != 0) {
+        output.writeInt32(2, droneID_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (batteryLevel_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, batteryLevel_);
+      }
+      if (droneID_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, droneID_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest) obj;
+
+      if (getBatteryLevel()
+          != other.getBatteryLevel()) return false;
+      if (getDroneID()
+          != other.getDroneID()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + BATTERYLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + getBatteryLevel();
+      hash = (37 * hash) + DRONEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneID();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.droneservice.ElectionRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.ElectionRequest)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        batteryLevel_ = 0;
+
+        droneID_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest(this);
+        result.batteryLevel_ = batteryLevel_;
+        result.droneID_ = droneID_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.getDefaultInstance()) return this;
+        if (other.getBatteryLevel() != 0) {
+          setBatteryLevel(other.getBatteryLevel());
+        }
+        if (other.getDroneID() != 0) {
+          setDroneID(other.getDroneID());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int batteryLevel_ ;
+      /**
+       * <code>int32 batteryLevel = 1;</code>
+       * @return The batteryLevel.
+       */
+      public int getBatteryLevel() {
+        return batteryLevel_;
+      }
+      /**
+       * <code>int32 batteryLevel = 1;</code>
+       * @param value The batteryLevel to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBatteryLevel(int value) {
+        
+        batteryLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 batteryLevel = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBatteryLevel() {
+        
+        batteryLevel_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int droneID_ ;
+      /**
+       * <code>int32 droneID = 2;</code>
+       * @return The droneID.
+       */
+      public int getDroneID() {
+        return droneID_;
+      }
+      /**
+       * <code>int32 droneID = 2;</code>
+       * @param value The droneID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneID(int value) {
+        
+        droneID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 droneID = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneID() {
+        
+        droneID_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.ElectionRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.ElectionRequest)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ElectionRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ElectionRequest>() {
+      @java.lang.Override
+      public ElectionRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ElectionRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ElectionRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ElectionRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ElectionResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.ElectionResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The droneResponse.
+     */
+    java.lang.String getDroneResponse();
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The bytes for droneResponse.
+     */
+    com.google.protobuf.ByteString
+        getDroneResponseBytes();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.droneservice.ElectionResponse}
+   */
+  public  static final class ElectionResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.ElectionResponse)
+      ElectionResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ElectionResponse.newBuilder() to construct.
+    private ElectionResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ElectionResponse() {
+      droneResponse_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ElectionResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ElectionResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              droneResponse_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.Builder.class);
+    }
+
+    public static final int DRONERESPONSE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object droneResponse_;
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The droneResponse.
+     */
+    public java.lang.String getDroneResponse() {
+      java.lang.Object ref = droneResponse_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        droneResponse_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The bytes for droneResponse.
+     */
+    public com.google.protobuf.ByteString
+        getDroneResponseBytes() {
+      java.lang.Object ref = droneResponse_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        droneResponse_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDroneResponseBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, droneResponse_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDroneResponseBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, droneResponse_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse) obj;
+
+      if (!getDroneResponse()
+          .equals(other.getDroneResponse())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONERESPONSE_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneResponse().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.droneservice.ElectionResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.ElectionResponse)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneResponse_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectionResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse(this);
+        result.droneResponse_ = droneResponse_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.getDefaultInstance()) return this;
+        if (!other.getDroneResponse().isEmpty()) {
+          droneResponse_ = other.droneResponse_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object droneResponse_ = "";
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @return The droneResponse.
+       */
+      public java.lang.String getDroneResponse() {
+        java.lang.Object ref = droneResponse_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          droneResponse_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @return The bytes for droneResponse.
+       */
+      public com.google.protobuf.ByteString
+          getDroneResponseBytes() {
+        java.lang.Object ref = droneResponse_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          droneResponse_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @param value The droneResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneResponse(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        droneResponse_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneResponse() {
+        
+        droneResponse_ = getDefaultInstance().getDroneResponse();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @param value The bytes for droneResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneResponseBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        droneResponse_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.ElectionResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.ElectionResponse)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ElectionResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ElectionResponse>() {
+      @java.lang.Override
+      public ElectionResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ElectionResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ElectionResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ElectionResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ElectedRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.ElectedRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    int getDroneID();
+  }
+  /**
+   * <pre>
+   * Here we just need the ID since the battery is known to be the highest
+   * </pre>
+   *
+   * Protobuf type {@code com.smartcitydrone.droneservice.ElectedRequest}
+   */
+  public  static final class ElectedRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.ElectedRequest)
+      ElectedRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ElectedRequest.newBuilder() to construct.
+    private ElectedRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ElectedRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ElectedRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ElectedRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              droneID_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.Builder.class);
+    }
+
+    public static final int DRONEID_FIELD_NUMBER = 1;
+    private int droneID_;
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    public int getDroneID() {
+      return droneID_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (droneID_ != 0) {
+        output.writeInt32(1, droneID_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (droneID_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, droneID_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest) obj;
+
+      if (getDroneID()
+          != other.getDroneID()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneID();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Here we just need the ID since the battery is known to be the highest
+     * </pre>
+     *
+     * Protobuf type {@code com.smartcitydrone.droneservice.ElectedRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.ElectedRequest)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneID_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest(this);
+        result.droneID_ = droneID_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.getDefaultInstance()) return this;
+        if (other.getDroneID() != 0) {
+          setDroneID(other.getDroneID());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int droneID_ ;
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return The droneID.
+       */
+      public int getDroneID() {
+        return droneID_;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @param value The droneID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneID(int value) {
+        
+        droneID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneID() {
+        
+        droneID_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.ElectedRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.ElectedRequest)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ElectedRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ElectedRequest>() {
+      @java.lang.Override
+      public ElectedRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ElectedRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ElectedRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ElectedRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ElectedResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.ElectedResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The droneResponse.
+     */
+    java.lang.String getDroneResponse();
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The bytes for droneResponse.
+     */
+    com.google.protobuf.ByteString
+        getDroneResponseBytes();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.droneservice.ElectedResponse}
+   */
+  public  static final class ElectedResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.ElectedResponse)
+      ElectedResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ElectedResponse.newBuilder() to construct.
+    private ElectedResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ElectedResponse() {
+      droneResponse_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ElectedResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ElectedResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              droneResponse_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.Builder.class);
+    }
+
+    public static final int DRONERESPONSE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object droneResponse_;
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The droneResponse.
+     */
+    public java.lang.String getDroneResponse() {
+      java.lang.Object ref = droneResponse_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        droneResponse_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string droneResponse = 1;</code>
+     * @return The bytes for droneResponse.
+     */
+    public com.google.protobuf.ByteString
+        getDroneResponseBytes() {
+      java.lang.Object ref = droneResponse_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        droneResponse_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDroneResponseBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, droneResponse_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDroneResponseBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, droneResponse_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse) obj;
+
+      if (!getDroneResponse()
+          .equals(other.getDroneResponse())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONERESPONSE_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneResponse().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.droneservice.ElectedResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.ElectedResponse)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneResponse_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_ElectedResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse(this);
+        result.droneResponse_ = droneResponse_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.getDefaultInstance()) return this;
+        if (!other.getDroneResponse().isEmpty()) {
+          droneResponse_ = other.droneResponse_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object droneResponse_ = "";
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @return The droneResponse.
+       */
+      public java.lang.String getDroneResponse() {
+        java.lang.Object ref = droneResponse_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          droneResponse_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @return The bytes for droneResponse.
+       */
+      public com.google.protobuf.ByteString
+          getDroneResponseBytes() {
+        java.lang.Object ref = droneResponse_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          droneResponse_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @param value The droneResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneResponse(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        droneResponse_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneResponse() {
+        
+        droneResponse_ = getDefaultInstance().getDroneResponse();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneResponse = 1;</code>
+       * @param value The bytes for droneResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneResponseBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        droneResponse_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.ElectedResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.ElectedResponse)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ElectedResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ElectedResponse>() {
+      @java.lang.Override
+      public ElectedResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ElectedResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ElectedResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ElectedResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PendingStatRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.PendingStatRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    int getDroneID();
+
+    /**
+     * <code>int32 dronePositionX = 2;</code>
+     * @return The dronePositionX.
+     */
+    int getDronePositionX();
+
+    /**
+     * <code>int32 dronePositionY = 3;</code>
+     * @return The dronePositionY.
+     */
+    int getDronePositionY();
+
+    /**
+     * <code>int32 batteryLevel = 4;</code>
+     * @return The batteryLevel.
+     */
+    int getBatteryLevel();
+
+    /**
+     * <code>bool isDelivering = 5;</code>
+     * @return The isDelivering.
+     */
+    boolean getIsDelivering();
+
+    /**
+     * <code>bool isCharging = 6;</code>
+     * @return The isCharging.
+     */
+    boolean getIsCharging();
+
+    /**
+     * <code>string droneStat = 7;</code>
+     * @return The droneStat.
+     */
+    java.lang.String getDroneStat();
+    /**
+     * <code>string droneStat = 7;</code>
+     * @return The bytes for droneStat.
+     */
+    com.google.protobuf.ByteString
+        getDroneStatBytes();
+  }
+  /**
+   * <pre>
+   * We need to know all of the updated drone properties along with pending stats (if any)
+   * </pre>
+   *
+   * Protobuf type {@code com.smartcitydrone.droneservice.PendingStatRequest}
+   */
+  public  static final class PendingStatRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.PendingStatRequest)
+      PendingStatRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PendingStatRequest.newBuilder() to construct.
+    private PendingStatRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PendingStatRequest() {
+      droneStat_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PendingStatRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PendingStatRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              droneID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              dronePositionX_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              dronePositionY_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              batteryLevel_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              isDelivering_ = input.readBool();
+              break;
+            }
+            case 48: {
+
+              isCharging_ = input.readBool();
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              droneStat_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.Builder.class);
+    }
+
+    public static final int DRONEID_FIELD_NUMBER = 1;
+    private int droneID_;
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    public int getDroneID() {
+      return droneID_;
+    }
+
+    public static final int DRONEPOSITIONX_FIELD_NUMBER = 2;
+    private int dronePositionX_;
+    /**
+     * <code>int32 dronePositionX = 2;</code>
+     * @return The dronePositionX.
+     */
+    public int getDronePositionX() {
+      return dronePositionX_;
+    }
+
+    public static final int DRONEPOSITIONY_FIELD_NUMBER = 3;
+    private int dronePositionY_;
+    /**
+     * <code>int32 dronePositionY = 3;</code>
+     * @return The dronePositionY.
+     */
+    public int getDronePositionY() {
+      return dronePositionY_;
+    }
+
+    public static final int BATTERYLEVEL_FIELD_NUMBER = 4;
+    private int batteryLevel_;
+    /**
+     * <code>int32 batteryLevel = 4;</code>
+     * @return The batteryLevel.
+     */
+    public int getBatteryLevel() {
+      return batteryLevel_;
+    }
+
+    public static final int ISDELIVERING_FIELD_NUMBER = 5;
+    private boolean isDelivering_;
+    /**
+     * <code>bool isDelivering = 5;</code>
+     * @return The isDelivering.
+     */
+    public boolean getIsDelivering() {
+      return isDelivering_;
+    }
+
+    public static final int ISCHARGING_FIELD_NUMBER = 6;
+    private boolean isCharging_;
+    /**
+     * <code>bool isCharging = 6;</code>
+     * @return The isCharging.
+     */
+    public boolean getIsCharging() {
+      return isCharging_;
+    }
+
+    public static final int DRONESTAT_FIELD_NUMBER = 7;
+    private volatile java.lang.Object droneStat_;
+    /**
+     * <code>string droneStat = 7;</code>
+     * @return The droneStat.
+     */
+    public java.lang.String getDroneStat() {
+      java.lang.Object ref = droneStat_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        droneStat_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string droneStat = 7;</code>
+     * @return The bytes for droneStat.
+     */
+    public com.google.protobuf.ByteString
+        getDroneStatBytes() {
+      java.lang.Object ref = droneStat_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        droneStat_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (droneID_ != 0) {
+        output.writeInt32(1, droneID_);
+      }
+      if (dronePositionX_ != 0) {
+        output.writeInt32(2, dronePositionX_);
+      }
+      if (dronePositionY_ != 0) {
+        output.writeInt32(3, dronePositionY_);
+      }
+      if (batteryLevel_ != 0) {
+        output.writeInt32(4, batteryLevel_);
+      }
+      if (isDelivering_ != false) {
+        output.writeBool(5, isDelivering_);
+      }
+      if (isCharging_ != false) {
+        output.writeBool(6, isCharging_);
+      }
+      if (!getDroneStatBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, droneStat_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (droneID_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, droneID_);
+      }
+      if (dronePositionX_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, dronePositionX_);
+      }
+      if (dronePositionY_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, dronePositionY_);
+      }
+      if (batteryLevel_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, batteryLevel_);
+      }
+      if (isDelivering_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isDelivering_);
+      }
+      if (isCharging_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, isCharging_);
+      }
+      if (!getDroneStatBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, droneStat_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest) obj;
+
+      if (getDroneID()
+          != other.getDroneID()) return false;
+      if (getDronePositionX()
+          != other.getDronePositionX()) return false;
+      if (getDronePositionY()
+          != other.getDronePositionY()) return false;
+      if (getBatteryLevel()
+          != other.getBatteryLevel()) return false;
+      if (getIsDelivering()
+          != other.getIsDelivering()) return false;
+      if (getIsCharging()
+          != other.getIsCharging()) return false;
+      if (!getDroneStat()
+          .equals(other.getDroneStat())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneID();
+      hash = (37 * hash) + DRONEPOSITIONX_FIELD_NUMBER;
+      hash = (53 * hash) + getDronePositionX();
+      hash = (37 * hash) + DRONEPOSITIONY_FIELD_NUMBER;
+      hash = (53 * hash) + getDronePositionY();
+      hash = (37 * hash) + BATTERYLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + getBatteryLevel();
+      hash = (37 * hash) + ISDELIVERING_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsDelivering());
+      hash = (37 * hash) + ISCHARGING_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsCharging());
+      hash = (37 * hash) + DRONESTAT_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneStat().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * We need to know all of the updated drone properties along with pending stats (if any)
+     * </pre>
+     *
+     * Protobuf type {@code com.smartcitydrone.droneservice.PendingStatRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.PendingStatRequest)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneID_ = 0;
+
+        dronePositionX_ = 0;
+
+        dronePositionY_ = 0;
+
+        batteryLevel_ = 0;
+
+        isDelivering_ = false;
+
+        isCharging_ = false;
+
+        droneStat_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest(this);
+        result.droneID_ = droneID_;
+        result.dronePositionX_ = dronePositionX_;
+        result.dronePositionY_ = dronePositionY_;
+        result.batteryLevel_ = batteryLevel_;
+        result.isDelivering_ = isDelivering_;
+        result.isCharging_ = isCharging_;
+        result.droneStat_ = droneStat_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.getDefaultInstance()) return this;
+        if (other.getDroneID() != 0) {
+          setDroneID(other.getDroneID());
+        }
+        if (other.getDronePositionX() != 0) {
+          setDronePositionX(other.getDronePositionX());
+        }
+        if (other.getDronePositionY() != 0) {
+          setDronePositionY(other.getDronePositionY());
+        }
+        if (other.getBatteryLevel() != 0) {
+          setBatteryLevel(other.getBatteryLevel());
+        }
+        if (other.getIsDelivering() != false) {
+          setIsDelivering(other.getIsDelivering());
+        }
+        if (other.getIsCharging() != false) {
+          setIsCharging(other.getIsCharging());
+        }
+        if (!other.getDroneStat().isEmpty()) {
+          droneStat_ = other.droneStat_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int droneID_ ;
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return The droneID.
+       */
+      public int getDroneID() {
+        return droneID_;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @param value The droneID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneID(int value) {
+        
+        droneID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneID() {
+        
+        droneID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int dronePositionX_ ;
+      /**
+       * <code>int32 dronePositionX = 2;</code>
+       * @return The dronePositionX.
+       */
+      public int getDronePositionX() {
+        return dronePositionX_;
+      }
+      /**
+       * <code>int32 dronePositionX = 2;</code>
+       * @param value The dronePositionX to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDronePositionX(int value) {
+        
+        dronePositionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 dronePositionX = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDronePositionX() {
+        
+        dronePositionX_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int dronePositionY_ ;
+      /**
+       * <code>int32 dronePositionY = 3;</code>
+       * @return The dronePositionY.
+       */
+      public int getDronePositionY() {
+        return dronePositionY_;
+      }
+      /**
+       * <code>int32 dronePositionY = 3;</code>
+       * @param value The dronePositionY to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDronePositionY(int value) {
+        
+        dronePositionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 dronePositionY = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDronePositionY() {
+        
+        dronePositionY_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int batteryLevel_ ;
+      /**
+       * <code>int32 batteryLevel = 4;</code>
+       * @return The batteryLevel.
+       */
+      public int getBatteryLevel() {
+        return batteryLevel_;
+      }
+      /**
+       * <code>int32 batteryLevel = 4;</code>
+       * @param value The batteryLevel to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBatteryLevel(int value) {
+        
+        batteryLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 batteryLevel = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBatteryLevel() {
+        
+        batteryLevel_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isDelivering_ ;
+      /**
+       * <code>bool isDelivering = 5;</code>
+       * @return The isDelivering.
+       */
+      public boolean getIsDelivering() {
+        return isDelivering_;
+      }
+      /**
+       * <code>bool isDelivering = 5;</code>
+       * @param value The isDelivering to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsDelivering(boolean value) {
+        
+        isDelivering_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isDelivering = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsDelivering() {
+        
+        isDelivering_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean isCharging_ ;
+      /**
+       * <code>bool isCharging = 6;</code>
+       * @return The isCharging.
+       */
+      public boolean getIsCharging() {
+        return isCharging_;
+      }
+      /**
+       * <code>bool isCharging = 6;</code>
+       * @param value The isCharging to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsCharging(boolean value) {
+        
+        isCharging_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isCharging = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsCharging() {
+        
+        isCharging_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object droneStat_ = "";
+      /**
+       * <code>string droneStat = 7;</code>
+       * @return The droneStat.
+       */
+      public java.lang.String getDroneStat() {
+        java.lang.Object ref = droneStat_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          droneStat_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string droneStat = 7;</code>
+       * @return The bytes for droneStat.
+       */
+      public com.google.protobuf.ByteString
+          getDroneStatBytes() {
+        java.lang.Object ref = droneStat_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          droneStat_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string droneStat = 7;</code>
+       * @param value The droneStat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneStat(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        droneStat_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneStat = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneStat() {
+        
+        droneStat_ = getDefaultInstance().getDroneStat();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string droneStat = 7;</code>
+       * @param value The bytes for droneStat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneStatBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        droneStat_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.PendingStatRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.PendingStatRequest)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PendingStatRequest>
+        PARSER = new com.google.protobuf.AbstractParser<PendingStatRequest>() {
+      @java.lang.Override
+      public PendingStatRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PendingStatRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PendingStatRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PendingStatRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PendingStatResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.droneservice.PendingStatResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The masterResponse.
+     */
+    java.lang.String getMasterResponse();
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The bytes for masterResponse.
+     */
+    com.google.protobuf.ByteString
+        getMasterResponseBytes();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.droneservice.PendingStatResponse}
+   */
+  public  static final class PendingStatResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.droneservice.PendingStatResponse)
+      PendingStatResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PendingStatResponse.newBuilder() to construct.
+    private PendingStatResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PendingStatResponse() {
+      masterResponse_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PendingStatResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PendingStatResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              masterResponse_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.Builder.class);
+    }
+
+    public static final int MASTERRESPONSE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object masterResponse_;
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The masterResponse.
+     */
+    public java.lang.String getMasterResponse() {
+      java.lang.Object ref = masterResponse_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        masterResponse_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string masterResponse = 1;</code>
+     * @return The bytes for masterResponse.
+     */
+    public com.google.protobuf.ByteString
+        getMasterResponseBytes() {
+      java.lang.Object ref = masterResponse_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        masterResponse_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getMasterResponseBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, masterResponse_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getMasterResponseBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, masterResponse_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse other = (com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse) obj;
+
+      if (!getMasterResponse()
+          .equals(other.getMasterResponse())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MASTERRESPONSE_FIELD_NUMBER;
+      hash = (53 * hash) + getMasterResponse().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.droneservice.PendingStatResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.droneservice.PendingStatResponse)
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.class, com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        masterResponse_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.internal_static_com_smartcitydrone_droneservice_PendingStatResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse getDefaultInstanceForType() {
+        return com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse build() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse buildPartial() {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse result = new com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse(this);
+        result.masterResponse_ = masterResponse_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse) {
+          return mergeFrom((com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse other) {
+        if (other == com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.getDefaultInstance()) return this;
+        if (!other.getMasterResponse().isEmpty()) {
+          masterResponse_ = other.masterResponse_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object masterResponse_ = "";
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @return The masterResponse.
+       */
+      public java.lang.String getMasterResponse() {
+        java.lang.Object ref = masterResponse_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          masterResponse_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @return The bytes for masterResponse.
+       */
+      public com.google.protobuf.ByteString
+          getMasterResponseBytes() {
+        java.lang.Object ref = masterResponse_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          masterResponse_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @param value The masterResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMasterResponse(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        masterResponse_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMasterResponse() {
+        
+        masterResponse_ = getDefaultInstance().getMasterResponse();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string masterResponse = 1;</code>
+       * @param value The bytes for masterResponse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMasterResponseBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        masterResponse_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.droneservice.PendingStatResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.droneservice.PendingStatResponse)
+    private static final com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse();
+    }
+
+    public static com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PendingStatResponse>
+        PARSER = new com.google.protobuf.AbstractParser<PendingStatResponse>() {
+      @java.lang.Override
+      public PendingStatResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PendingStatResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PendingStatResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PendingStatResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_smartcitydrone_droneservice_JoinRequest_descriptor;
   private static final 
@@ -2884,6 +7814,46 @@ public final class DroneServiceOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_smartcitydrone_droneservice_OrderResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_StatRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_StatRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_StatResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_StatResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_ElectionRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_ElectionRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_ElectionResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_ElectionResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_ElectedRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_ElectedRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_ElectedResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_ElectedResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_PendingStatRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_PendingStatRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_droneservice_PendingStatResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_droneservice_PendingStatResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2902,13 +7872,37 @@ public final class DroneServiceOuterClass {
       "nY\030\003 \001(\005\022\024\n\014batteryLevel\030\004 \001(\005\022\020\n\010isMast" +
       "er\030\005 \001(\010\022\022\n\nisElecting\030\006 \001(\010\"!\n\014OrderReq" +
       "uest\022\021\n\torderInfo\030\001 \001(\t\"\'\n\rOrderResponse" +
-      "\022\026\n\016droneAvailable\030\001 \001(\t2\352\001\n\014DroneServic" +
-      "e\022j\n\013joinNetwork\022,.com.smartcitydrone.dr" +
-      "oneservice.JoinRequest\032-.com.smartcitydr" +
-      "one.droneservice.JoinResponse\022n\n\rdispatc" +
-      "hOrder\022-.com.smartcitydrone.droneservice" +
-      ".OrderRequest\032..com.smartcitydrone.drone" +
-      "service.OrderResponseb\006proto3"
+      "\022\026\n\016droneAvailable\030\001 \001(\t\"1\n\013StatRequest\022" +
+      "\017\n\007droneID\030\001 \001(\005\022\021\n\tdroneStat\030\002 \001(\t\"&\n\014S" +
+      "tatResponse\022\026\n\016masterResponse\030\001 \001(\t\"8\n\017E" +
+      "lectionRequest\022\024\n\014batteryLevel\030\001 \001(\005\022\017\n\007" +
+      "droneID\030\002 \001(\005\")\n\020ElectionResponse\022\025\n\rdro" +
+      "neResponse\030\001 \001(\t\"!\n\016ElectedRequest\022\017\n\007dr" +
+      "oneID\030\001 \001(\005\"(\n\017ElectedResponse\022\025\n\rdroneR" +
+      "esponse\030\001 \001(\t\"\250\001\n\022PendingStatRequest\022\017\n\007" +
+      "droneID\030\001 \001(\005\022\026\n\016dronePositionX\030\002 \001(\005\022\026\n" +
+      "\016dronePositionY\030\003 \001(\005\022\024\n\014batteryLevel\030\004 " +
+      "\001(\005\022\024\n\014isDelivering\030\005 \001(\010\022\022\n\nisCharging\030" +
+      "\006 \001(\010\022\021\n\tdroneStat\030\007 \001(\t\"-\n\023PendingStatR" +
+      "esponse\022\026\n\016masterResponse\030\001 \001(\t2\273\005\n\014Dron" +
+      "eService\022j\n\013joinNetwork\022,.com.smartcityd" +
+      "rone.droneservice.JoinRequest\032-.com.smar" +
+      "tcitydrone.droneservice.JoinResponse\022n\n\r" +
+      "dispatchOrder\022-.com.smartcitydrone.drone" +
+      "service.OrderRequest\032..com.smartcitydron" +
+      "e.droneservice.OrderResponse\022l\n\rsendDron" +
+      "eStat\022,.com.smartcitydrone.droneservice." +
+      "StatRequest\032-.com.smartcitydrone.dronese" +
+      "rvice.StatResponse\022o\n\010election\0220.com.sma" +
+      "rtcitydrone.droneservice.ElectionRequest" +
+      "\0321.com.smartcitydrone.droneservice.Elect" +
+      "ionResponse\022l\n\007elected\022/.com.smartcitydr" +
+      "one.droneservice.ElectedRequest\0320.com.sm" +
+      "artcitydrone.droneservice.ElectedRespons" +
+      "e\022\201\001\n\024sendPendingDroneStat\0223.com.smartci" +
+      "tydrone.droneservice.PendingStatRequest\032" +
+      "4.com.smartcitydrone.droneservice.Pendin" +
+      "gStatResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2938,6 +7932,54 @@ public final class DroneServiceOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_smartcitydrone_droneservice_OrderResponse_descriptor,
         new java.lang.String[] { "DroneAvailable", });
+    internal_static_com_smartcitydrone_droneservice_StatRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_com_smartcitydrone_droneservice_StatRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_StatRequest_descriptor,
+        new java.lang.String[] { "DroneID", "DroneStat", });
+    internal_static_com_smartcitydrone_droneservice_StatResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_com_smartcitydrone_droneservice_StatResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_StatResponse_descriptor,
+        new java.lang.String[] { "MasterResponse", });
+    internal_static_com_smartcitydrone_droneservice_ElectionRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_com_smartcitydrone_droneservice_ElectionRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_ElectionRequest_descriptor,
+        new java.lang.String[] { "BatteryLevel", "DroneID", });
+    internal_static_com_smartcitydrone_droneservice_ElectionResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_com_smartcitydrone_droneservice_ElectionResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_ElectionResponse_descriptor,
+        new java.lang.String[] { "DroneResponse", });
+    internal_static_com_smartcitydrone_droneservice_ElectedRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_com_smartcitydrone_droneservice_ElectedRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_ElectedRequest_descriptor,
+        new java.lang.String[] { "DroneID", });
+    internal_static_com_smartcitydrone_droneservice_ElectedResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_com_smartcitydrone_droneservice_ElectedResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_ElectedResponse_descriptor,
+        new java.lang.String[] { "DroneResponse", });
+    internal_static_com_smartcitydrone_droneservice_PendingStatRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_com_smartcitydrone_droneservice_PendingStatRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_PendingStatRequest_descriptor,
+        new java.lang.String[] { "DroneID", "DronePositionX", "DronePositionY", "BatteryLevel", "IsDelivering", "IsCharging", "DroneStat", });
+    internal_static_com_smartcitydrone_droneservice_PendingStatResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_com_smartcitydrone_droneservice_PendingStatResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_droneservice_PendingStatResponse_descriptor,
+        new java.lang.String[] { "MasterResponse", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

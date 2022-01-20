@@ -92,6 +92,130 @@ public final class DroneServiceGrpc {
     return getDispatchOrderMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse> getSendDroneStatMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "sendDroneStat",
+      requestType = com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.class,
+      responseType = com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse> getSendDroneStatMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse> getSendDroneStatMethod;
+    if ((getSendDroneStatMethod = DroneServiceGrpc.getSendDroneStatMethod) == null) {
+      synchronized (DroneServiceGrpc.class) {
+        if ((getSendDroneStatMethod = DroneServiceGrpc.getSendDroneStatMethod) == null) {
+          DroneServiceGrpc.getSendDroneStatMethod = getSendDroneStatMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "sendDroneStat"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DroneServiceMethodDescriptorSupplier("sendDroneStat"))
+              .build();
+        }
+      }
+    }
+    return getSendDroneStatMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse> getElectionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "election",
+      requestType = com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.class,
+      responseType = com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse> getElectionMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse> getElectionMethod;
+    if ((getElectionMethod = DroneServiceGrpc.getElectionMethod) == null) {
+      synchronized (DroneServiceGrpc.class) {
+        if ((getElectionMethod = DroneServiceGrpc.getElectionMethod) == null) {
+          DroneServiceGrpc.getElectionMethod = getElectionMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "election"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DroneServiceMethodDescriptorSupplier("election"))
+              .build();
+        }
+      }
+    }
+    return getElectionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse> getElectedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "elected",
+      requestType = com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.class,
+      responseType = com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse> getElectedMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse> getElectedMethod;
+    if ((getElectedMethod = DroneServiceGrpc.getElectedMethod) == null) {
+      synchronized (DroneServiceGrpc.class) {
+        if ((getElectedMethod = DroneServiceGrpc.getElectedMethod) == null) {
+          DroneServiceGrpc.getElectedMethod = getElectedMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "elected"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DroneServiceMethodDescriptorSupplier("elected"))
+              .build();
+        }
+      }
+    }
+    return getElectedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse> getSendPendingDroneStatMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "sendPendingDroneStat",
+      requestType = com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.class,
+      responseType = com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse> getSendPendingDroneStatMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse> getSendPendingDroneStatMethod;
+    if ((getSendPendingDroneStatMethod = DroneServiceGrpc.getSendPendingDroneStatMethod) == null) {
+      synchronized (DroneServiceGrpc.class) {
+        if ((getSendPendingDroneStatMethod = DroneServiceGrpc.getSendPendingDroneStatMethod) == null) {
+          DroneServiceGrpc.getSendPendingDroneStatMethod = getSendPendingDroneStatMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest, com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "sendPendingDroneStat"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DroneServiceMethodDescriptorSupplier("sendPendingDroneStat"))
+              .build();
+        }
+      }
+    }
+    return getSendPendingDroneStatMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -136,6 +260,34 @@ public final class DroneServiceGrpc {
       asyncUnimplementedUnaryCall(getDispatchOrderMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void sendDroneStat(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendDroneStatMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void election(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getElectionMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void elected(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getElectedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void sendPendingDroneStat(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendPendingDroneStatMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -152,6 +304,34 @@ public final class DroneServiceGrpc {
                 com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest,
                 com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse>(
                   this, METHODID_DISPATCH_ORDER)))
+          .addMethod(
+            getSendDroneStatMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest,
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse>(
+                  this, METHODID_SEND_DRONE_STAT)))
+          .addMethod(
+            getElectionMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest,
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse>(
+                  this, METHODID_ELECTION)))
+          .addMethod(
+            getElectedMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest,
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse>(
+                  this, METHODID_ELECTED)))
+          .addMethod(
+            getSendPendingDroneStatMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest,
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse>(
+                  this, METHODID_SEND_PENDING_DRONE_STAT)))
           .build();
     }
   }
@@ -192,6 +372,38 @@ public final class DroneServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getDispatchOrderMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void sendDroneStat(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendDroneStatMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void election(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getElectionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void elected(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getElectedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void sendPendingDroneStat(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendPendingDroneStatMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -227,6 +439,34 @@ public final class DroneServiceGrpc {
     public com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse dispatchOrder(com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest request) {
       return blockingUnaryCall(
           getChannel(), getDispatchOrderMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse sendDroneStat(com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getSendDroneStatMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse election(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getElectionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse elected(com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getElectedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse sendPendingDroneStat(com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getSendPendingDroneStatMethod(), getCallOptions(), request);
     }
   }
 
@@ -266,10 +506,46 @@ public final class DroneServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getDispatchOrderMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse> sendDroneStat(
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendDroneStatMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse> election(
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getElectionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse> elected(
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getElectedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse> sendPendingDroneStat(
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendPendingDroneStatMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_JOIN_NETWORK = 0;
   private static final int METHODID_DISPATCH_ORDER = 1;
+  private static final int METHODID_SEND_DRONE_STAT = 2;
+  private static final int METHODID_ELECTION = 3;
+  private static final int METHODID_ELECTED = 4;
+  private static final int METHODID_SEND_PENDING_DRONE_STAT = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -295,6 +571,22 @@ public final class DroneServiceGrpc {
         case METHODID_DISPATCH_ORDER:
           serviceImpl.dispatchOrder((com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderRequest) request,
               (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.OrderResponse>) responseObserver);
+          break;
+        case METHODID_SEND_DRONE_STAT:
+          serviceImpl.sendDroneStat((com.smartcitydrone.droneservice.DroneServiceOuterClass.StatRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.StatResponse>) responseObserver);
+          break;
+        case METHODID_ELECTION:
+          serviceImpl.election((com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectionResponse>) responseObserver);
+          break;
+        case METHODID_ELECTED:
+          serviceImpl.elected((com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.ElectedResponse>) responseObserver);
+          break;
+        case METHODID_SEND_PENDING_DRONE_STAT:
+          serviceImpl.sendPendingDroneStat((com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.PendingStatResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -359,6 +651,10 @@ public final class DroneServiceGrpc {
               .setSchemaDescriptor(new DroneServiceFileDescriptorSupplier())
               .addMethod(getJoinNetworkMethod())
               .addMethod(getDispatchOrderMethod())
+              .addMethod(getSendDroneStatMethod())
+              .addMethod(getElectionMethod())
+              .addMethod(getElectedMethod())
+              .addMethod(getSendPendingDroneStatMethod())
               .build();
         }
       }
