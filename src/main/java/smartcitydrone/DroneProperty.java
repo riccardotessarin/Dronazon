@@ -516,7 +516,7 @@ public class DroneProperty {
 	// Whenever we need to retrieve the buffer, we also want to clear it (every completed delivery)
 	public List<Double> getAverageBufferPM() {
 		synchronized (averageBufferPM) {
-			List<Double> averageBufferPMCopy = averageBufferPM;
+			List<Double> averageBufferPMCopy = new ArrayList<>(averageBufferPM);
 			averageBufferPM.clear();
 			return averageBufferPMCopy;
 		}

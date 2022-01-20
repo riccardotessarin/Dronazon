@@ -5,6 +5,8 @@ import beans.InitDroneInfo;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.*;
 import org.eclipse.paho.client.mqttv3.*;
+import sensors.DroneSensorBuffer;
+import sensors.PM10Simulator;
 import smartcity.OrderData;
 
 import java.io.IOException;
@@ -99,6 +101,9 @@ public class Drone {
 				e.printStackTrace();
 			}
 		}
+
+		PM10Simulator sensorThread = new PM10Simulator(new DroneSensorBuffer(droneProperty));
+		sensorThread.start();
 
 
 	}

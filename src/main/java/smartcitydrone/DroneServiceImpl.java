@@ -78,9 +78,9 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		int droneID = request.getDroneID();
 
 		droneProperty.addDroneStat(droneStat);
-		droneProperty.updateDroneBatteryLevel(request.getDroneID(), droneStat.getBatteryLeft());
-		droneProperty.updateDronePosition(request.getDroneID(), droneStat.getDronePosition());
-		droneProperty.setDroneIsDelivering(request.getDroneID(), false);
+		droneProperty.updateDroneBatteryLevel(droneID, droneStat.getBatteryLeft());
+		droneProperty.updateDronePosition(droneID, droneStat.getDronePosition());
+		droneProperty.setDroneIsDelivering(droneID, false);
 
 
 		// After we receive stats from a drone we need to look for pending orders inside the queue
