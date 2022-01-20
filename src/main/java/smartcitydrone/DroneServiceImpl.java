@@ -175,6 +175,30 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 	}
 
+	// Master receives all the updated drones properties along with the pending stats (if any)
+	@Override
+	public void sendPendingDroneStat(PendingStatRequest request, StreamObserver<PendingStatResponse> responseObserver) {
+		// Master gives ok signal to drone, meaning it's still online
+		PendingStatResponse response = PendingStatResponse.newBuilder().setMasterResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+		// Get pending stats (if any)
+		if (!request.getDroneStat().equalsIgnoreCase("")) {
+			DroneStat pendingStat = new Gson().fromJson(request.getDroneStat(), DroneStat.class);
+			droneProperty.addDroneStat(pendingStat);
+		}
+
+		int droneID = request.getDroneID();
+
+		// Update properties inside the new master's drone network
+		droneProperty.updateDronePosition(droneID, new int[]{request.getDronePositionX(), request.getDronePositionY()});
+		droneProperty.updateDroneBatteryLevel(droneID, request.getBatteryLevel());
+		droneProperty.setDroneIsDelivering(droneID, request.getIsDelivering());
+		droneProperty.setDroneIsCharging(droneID, request.getIsCharging());
+
+	}
+
 	public DroneProperty getDroneProperty() {
 		return droneProperty;
 	}

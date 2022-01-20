@@ -39,6 +39,9 @@ public class DroneProperty {
 	private DroneInfo thisDroneInfo;
 	private int droneNetworkIdx;
 
+	// For charging functionality
+	private boolean isCharging = false;
+
 	// Variables for mutex lock
 	private Object masterMux = new Object();
 	private Object kmMux = new Object();
@@ -271,6 +274,17 @@ public class DroneProperty {
 		}
 		synchronized (dronesInNetwork) {
 			droneDelivery.setDelivering(start);
+		}
+	}
+
+	public void setDroneIsCharging(int droneID, boolean isCharging) {
+		DroneInfo droneDelivery = findDroneInfoByID(droneID);
+		if (droneDelivery == null) {
+			System.out.println("Couldn't find the drone inside the list, don't know if it's charging");
+			return;
+		}
+		synchronized (dronesInNetwork) {
+			droneDelivery.setCharging(isCharging);
 		}
 	}
 
@@ -553,5 +567,14 @@ public class DroneProperty {
 			this.pendingDroneStat = pendingDroneStat;
 		}
 	}
+
+	public boolean isCharging() {
+		return isCharging;
+	}
+
+	public void setCharging(boolean charging) {
+		isCharging = charging;
+	}
+
 	//endregion
 }

@@ -338,4 +338,59 @@ public class DroneServiceThread extends Thread {
 		//you need this. otherwise the method will terminate before that answers from the server are received
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
+
+	public void sendPendingDroneStat() throws InterruptedException {
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
+
+		// Check if there are pending stats to send
+		String pendingStat = "";
+		DroneStat pendingDroneStat = senderDrone.getPendingDroneStat();
+		if (pendingDroneStat != null) {
+			pendingStat = new Gson().toJson(pendingDroneStat);
+		}
+
+		PendingStatRequest request = PendingStatRequest.newBuilder().setDroneID(senderDrone.getDroneID())
+				.setDronePositionX(senderDrone.getDronePosition()[0]).setDronePositionY(senderDrone.getDronePosition()[1])
+				.setBatteryLevel(senderDrone.getBatteryLevel()).setIsDelivering(senderDrone.isDelivering())
+				.setIsCharging(senderDrone.isCharging()).setDroneStat(pendingStat).build();
+
+
+		stub.sendPendingDroneStat(request, new StreamObserver<PendingStatResponse>() {
+			@Override
+			public void onNext(PendingStatResponse value) {
+				if (value.getMasterResponse().equalsIgnoreCase("OK")) {
+					System.out.println("Received ok from master");
+					// If master is online, we can safely clear pending stats
+					senderDrone.setPendingDroneStat(null);
+				}
+			}
+
+			// If this is triggered, then new master is already down so we start an election
+			@Override
+			public void onError(Throwable t) {
+				System.out.println("New master is down! Couldn't send pending stat\nRestarting election...");
+				senderDrone.setNoMasterDrone();
+				senderDrone.removeFromNetwork(receiverDrone);
+				senderDrone.setParticipant(true);
+				DroneInfo nextDrone = senderDrone.getNextInRing();
+				DroneServiceThread serviceThread =
+						new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+				serviceThread.start();
+
+				channel.shutdown();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdown();
+			}
+		});
+
+		//you need this. otherwise the method will terminate before that answers from the server are received
+		channel.awaitTermination(10, TimeUnit.SECONDS);
+	}
 }

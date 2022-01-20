@@ -61,6 +61,21 @@ message ElectedResponse {
   string droneResponse = 1;
 }
 
+// We need to know all of the updated drone properties along with pending stats (if any)
+message PendingStatRequest {
+  int32 droneID = 1;
+  int32 dronePositionX = 2;
+  int32 dronePositionY = 3;
+  int32 batteryLevel = 4;
+  bool isDelivering = 5;
+  bool isCharging = 6;
+  string droneStat = 7;
+}
+
+message PendingStatResponse {
+  string masterResponse = 1;
+}
+
 // Defining a Service, a Service can have multiple RPC operations
 service DroneService {
   rpc joinNetwork(JoinRequest) returns (JoinResponse);
@@ -68,5 +83,6 @@ service DroneService {
   rpc sendDroneStat(StatRequest) returns (StatResponse);
   rpc election(ElectionRequest) returns (ElectionResponse);
   rpc elected(ElectedRequest) returns (ElectedResponse);
+  rpc sendPendingDroneStat(PendingStatRequest) returns (PendingStatResponse);
 
 }
