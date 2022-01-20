@@ -170,9 +170,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		droneProperty.setMasterDroneByID(electedID);
 		DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), electedID);
 		serviceThread.start();
-		//TODO: Start thread that sends pending stats and updated drone info to new master
-
-
+		DroneServiceThread pendingStatsThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), "pending");
+		pendingStatsThread.start();
 	}
 
 	// Master receives all the updated drones properties along with the pending stats (if any)

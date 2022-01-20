@@ -58,6 +58,12 @@ public class DroneServiceThread extends Thread {
 		this.message = "elected";
 	}
 
+	public DroneServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone, String message) {
+		this.senderDrone = senderDrone;
+		this.receiverDrone = receiverDrone;
+		this.message = message;
+	}
+
 
 	@Override
 	public void run() {
@@ -72,6 +78,8 @@ public class DroneServiceThread extends Thread {
 				election();
 			} else if (message.equalsIgnoreCase("elected")) {
 				elected();
+			} else if (message.equalsIgnoreCase("pending")) {
+				sendPendingDroneStat();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
