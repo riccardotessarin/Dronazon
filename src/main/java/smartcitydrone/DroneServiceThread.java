@@ -80,6 +80,8 @@ public class DroneServiceThread extends Thread {
 				elected();
 			} else if (message.equalsIgnoreCase("pending")) {
 				sendPendingDroneStat();
+			} else if (message.equalsIgnoreCase("check")) {
+				check();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -389,6 +391,50 @@ public class DroneServiceThread extends Thread {
 						new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
 				serviceThread.start();
 
+				channel.shutdown();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdown();
+			}
+		});
+
+		//you need this. otherwise the method will terminate before that answers from the server are received
+		channel.awaitTermination(10, TimeUnit.SECONDS);
+	}
+
+	public void check() throws InterruptedException {
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
+
+		CheckMessage request = CheckMessage.newBuilder().setMessage("OK").build();
+
+		stub.check(request, new StreamObserver<CheckMessage>() {
+			@Override
+			public void onNext(CheckMessage value) {
+				System.out.println("Check ok");
+			}
+
+			// Check if the drone who's down was the master
+			@Override
+			public void onError(Throwable t) {
+				if (senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
+					System.out.println("Master down after check. Starting election...");
+					senderDrone.setNoMasterDrone();
+					senderDrone.removeFromNetwork(receiverDrone);
+					senderDrone.setParticipant(true);
+					DroneInfo nextDrone = senderDrone.getNextInRing();
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					serviceThread.start();
+				} else {
+					System.out.println("Drone " + receiverDrone.getDroneID() + " down after check.");
+					senderDrone.removeFromNetwork(receiverDrone);
+				}
 				channel.shutdown();
 			}
 

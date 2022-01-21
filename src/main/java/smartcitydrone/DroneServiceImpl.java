@@ -198,6 +198,15 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 	}
 
+	// Drone just gives an ok, meaning it's still online
+	@Override
+	public void check(CheckMessage request, StreamObserver<CheckMessage> responseObserver) {
+		// Master gives ok signal to drone, meaning it's still online
+		CheckMessage response = CheckMessage.newBuilder().setMessage("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
 	public DroneProperty getDroneProperty() {
 		return droneProperty;
 	}

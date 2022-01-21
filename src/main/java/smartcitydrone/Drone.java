@@ -105,6 +105,10 @@ public class Drone {
 		PM10Simulator sensorThread = new PM10Simulator(new DroneSensorBuffer(droneProperty));
 		sensorThread.start();
 
+		if (!droneProperty.isMaster()) {
+			DroneCheckThread checkThread = new DroneCheckThread(droneProperty);
+			checkThread.start();
+		}
 
 	}
 

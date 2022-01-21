@@ -76,6 +76,11 @@ message PendingStatResponse {
   string masterResponse = 1;
 }
 
+// We can use this to check if a drone in network is still online
+message CheckMessage {
+  string message = 1;
+}
+
 // Defining a Service, a Service can have multiple RPC operations
 service DroneService {
   rpc joinNetwork(JoinRequest) returns (JoinResponse);
@@ -84,5 +89,5 @@ service DroneService {
   rpc election(ElectionRequest) returns (ElectionResponse);
   rpc elected(ElectedRequest) returns (ElectedResponse);
   rpc sendPendingDroneStat(PendingStatRequest) returns (PendingStatResponse);
-
+  rpc check(CheckMessage) returns (CheckMessage);
 }
