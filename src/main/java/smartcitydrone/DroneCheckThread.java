@@ -28,7 +28,7 @@ public class DroneCheckThread extends Thread {
 		if(!quickCheck) {
 			while(!quit) {
 				try {
-					Thread.sleep(10000);
+					Thread.sleep(30000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

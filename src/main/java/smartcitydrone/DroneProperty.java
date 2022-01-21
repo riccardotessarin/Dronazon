@@ -147,6 +147,12 @@ public class DroneProperty {
 		double y = Math.pow((pickUpPoint[1] - dronePosition[1]), 2);
 		return Math.sqrt(x + y);
 	}
+
+	public void printStat() {
+		System.out.println("Drone " + droneID + " deliveries stat:\n" +
+				"Total deliveries: " + getDeliveryCount() + ", Distance traveled: " +
+				getTraveledKM() + " Km, Battery left: " + getBatteryLevel() + "%");
+	}
 	//endregion
 
 	//region Drone network functions
@@ -575,6 +581,5 @@ public class DroneProperty {
 	public void setCharging(boolean charging) {
 		isCharging = charging;
 	}
-
 	//endregion
 }

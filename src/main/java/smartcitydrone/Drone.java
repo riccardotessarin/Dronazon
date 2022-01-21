@@ -110,6 +110,9 @@ public class Drone {
 			checkThread.start();
 		}
 
+		DronePrintThread printThread = new DronePrintThread(droneProperty);
+		printThread.start();
+
 	}
 
 	public static ClientResponse insertRequest (Client client, String url, DroneInfo dInfo) {
