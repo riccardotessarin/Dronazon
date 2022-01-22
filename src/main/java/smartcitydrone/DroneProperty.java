@@ -1,12 +1,14 @@
 package smartcitydrone;
 
 import beans.DroneInfo;
+import beans.GlobalStat;
 import com.sun.jersey.api.client.Client;
 import sensors.Measurement;
 import smartcity.OrderData;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -347,6 +349,52 @@ public class DroneProperty {
 		}
 	}
 
+	// Function for master drone, this produces global stats to send to S.A.
+	public GlobalStat produceGlobalStat() {
+		List<DroneStat> dronesStatisticsCopy = getDronesStatistics();
+		int deliveriesCount = dronesStatisticsCopy.size();
+		int numberOfDrones =  getDronesInNetwork().size();
+
+		if (deliveriesCount == 0) {
+			System.out.println("No deliveries made");
+			return new GlobalStat(new Timestamp(System.currentTimeMillis()).toString(), 0.0,0.0,0.0,0.0);
+		} else if (numberOfDrones == 0) {
+			System.out.println("No more drones inside the network! Error!");
+			return new GlobalStat(new Timestamp(System.currentTimeMillis()).toString(), 0.0,0.0,0.0,0.0);
+		}
+
+		double averageDeliveriesNumber = (double) deliveriesCount / numberOfDrones;
+
+		// These need to get values from each of the stat
+		double averageTraveledKM = 0.0;
+		double averagePM = 0.0;
+		int pmCount = 0;
+		double averageBatteryLevel = 0.0;
+
+		for (DroneStat droneStat : dronesStatisticsCopy) {
+			averageTraveledKM += droneStat.getKmTraveled();
+			averagePM += droneStat.getAverageBufferPM().stream().mapToDouble(f -> f).sum();
+			pmCount += droneStat.getAverageBufferPM().size();
+			averageBatteryLevel += droneStat.getBatteryLeft();
+		}
+
+		averageTraveledKM = averageTraveledKM / numberOfDrones;
+		if (pmCount != 0) {
+			averagePM = averagePM / pmCount;
+		} else {
+			System.out.println("No PM data found in stats");
+			averagePM = 0.0;
+		}
+		averageBatteryLevel = averageBatteryLevel / deliveriesCount;
+
+		String timestamp = new Timestamp(System.currentTimeMillis()).toString();
+		GlobalStat globalStat = new GlobalStat(timestamp, averageDeliveriesNumber, averageTraveledKM, averagePM, averageBatteryLevel);
+
+		System.out.println(globalStat);
+
+		return globalStat;
+	}
+
 	/*
 	public void  clearPendingStat() {
 		synchronized (pendingStatMux) {
@@ -552,9 +600,12 @@ public class DroneProperty {
 		this.deliveryCount = deliveryCount;
 	}
 
+	// We get the stats list when we want to send them to S.A., when it happens we also want to clear the list
 	public List<DroneStat> getDronesStatistics() {
 		synchronized (dronesStatistics) {
-			return dronesStatistics;
+			List<DroneStat> dronesStatisticsCopy = new ArrayList<>(dronesStatistics);
+			dronesStatistics.clear();
+			return dronesStatisticsCopy;
 		}
 	}
 

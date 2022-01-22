@@ -1,8 +1,6 @@
 package amministratore;
 
-import beans.DroneInfo;
-import beans.DroneInfos;
-import beans.InitDroneInfo;
+import beans.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -11,13 +9,10 @@ import java.util.List;
 @Path("amministratore")
 public class ServerAmministratore {
 
-	// This function gives statistics about the drones
-	// this includes ID, global stats, average number of shippings and average number
-	// of kilometers travelled between two timestamps
 	@GET
 	@Produces({"application/json", "application/xml"})
 	public Response getDronesStat() {
-		return Response.ok(/*Drones.getInstance().getStat()*/).build();
+		return Response.ok().build();
 	}
 
 	// This function
@@ -61,4 +56,18 @@ public class ServerAmministratore {
 		}
 		return Response.status(Response.Status.NOT_FOUND).build();
 	}
+
+	@Path("send_stat")
+	@POST
+	@Consumes({"application/json", "application/xml"})
+	public Response sendStat(GlobalStat globalStat) {
+		// There's no need to check this time, the add will never fail
+		GlobalStats.getInstance().addGlobalStat(globalStat);
+		return Response.ok().build();
+	}
+
+	// This function gives statistics about the drones
+	// this includes ID, global stats, average number of shippings and average number
+	// of kilometers travelled between two timestamps
+
 }

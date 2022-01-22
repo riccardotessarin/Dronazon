@@ -1,6 +1,7 @@
 package smartcitydrone;
 
 import beans.DroneInfo;
+import beans.GlobalStat;
 import beans.InitDroneInfo;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.*;
@@ -118,6 +119,17 @@ public class Drone {
 	public static ClientResponse insertRequest (Client client, String url, DroneInfo dInfo) {
 		WebResource webResource = client.resource(url);
 		String input = new Gson().toJson(dInfo);
+		try {
+			return webResource.type("application/json").post(ClientResponse.class, input);
+		} catch (ClientHandlerException e) {
+			System.out.println("Server unavailable");
+			return null;
+		}
+	}
+
+	public static ClientResponse postRequest (Client client, String url, GlobalStat globalStat) {
+		WebResource webResource = client.resource(url);
+		String input = new Gson().toJson(globalStat);
 		try {
 			return webResource.type("application/json").post(ClientResponse.class, input);
 		} catch (ClientHandlerException e) {
