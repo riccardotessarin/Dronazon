@@ -54,6 +54,7 @@ public class DroneProperty {
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
 	private DroneServerThread serverThread = null;
+	private DroneMasterStatThread masterStatThread = null;
 
 	//region Constructors
 	// Constructor with randomly generated ID and socket port
@@ -198,6 +199,8 @@ public class DroneProperty {
 
 		masterThread = new DroneMasterThread(this);
 		masterThread.start();
+		masterStatThread = new DroneMasterStatThread(this);
+		masterStatThread.start();
 	}
 
 
@@ -557,6 +560,14 @@ public class DroneProperty {
 
 	public void setServerThread(DroneServerThread serverThread) {
 		this.serverThread = serverThread;
+	}
+
+	public DroneMasterStatThread getMasterStatThread() {
+		return masterStatThread;
+	}
+
+	public void setMasterStatThread(DroneMasterStatThread masterStatThread) {
+		this.masterStatThread = masterStatThread;
 	}
 
 	public List<OrderData> getOrdersQueue() {
