@@ -160,10 +160,24 @@ public class DroneProperty {
 
 	//region Drone network functions
 	public void addToNetwork(DroneInfo droneInfo) {
+		DroneInfo droneCheck = findDroneInfoByID(droneInfo.getDroneID());
+		/*
+		//This may be useless
 		if (dronesInNetwork.contains(droneInfo)) {
 			System.out.println("Drone " + droneInfo.getDroneID() + " already in network");
 			return;
 		}
+
+		 */
+
+		// If a drone with the same ID is already inside the network, it means the S.A. let it join because
+		// the duplicate ID has already left and my network is not updated. So we remove the duplicate before
+		// adding the new one
+		if (droneCheck != null) {
+			System.out.println("Drone with same ID in network, removing it before letting same ID join");
+			removeFromNetwork(droneCheck);
+		}
+
 		System.out.println("GRPC network is adding drone " + droneInfo.getDroneID());
 		synchronized (dronesInNetwork) {
 			dronesInNetwork.add(droneInfo);
