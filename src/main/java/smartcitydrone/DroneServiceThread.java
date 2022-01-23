@@ -82,9 +82,12 @@ public class DroneServiceThread extends Thread {
 				sendPendingDroneStat();
 			} else if (message.equalsIgnoreCase("check")) {
 				check();
-			} else if (message.equalsIgnoreCase("lookformaster")) {
+			}
+			/*
+			else if (message.equalsIgnoreCase("lookformaster")) {
 				lookForMaster();
 			}
+			 */
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -447,6 +450,7 @@ public class DroneServiceThread extends Thread {
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
 
+	/*
 	// This resolves the edge case in which the elected message is past the new drone in the ring
 	private void lookForMaster() throws InterruptedException {
 		final ManagedChannel channel = ManagedChannelBuilder
@@ -488,5 +492,7 @@ public class DroneServiceThread extends Thread {
 		//you need this. otherwise the method will terminate before that answers from the server are received
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
+
+	 */
 
 }

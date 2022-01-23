@@ -128,6 +128,11 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			// (if it joins while the second-last drone sets its own isParticipant to false and there is still no master,
 			// it would start a new election)
 			//droneProperty.setParticipant(false);
+
+			// By setting the isMaster to true immediately we can avoid the edge case of the elected message past
+			// the newly joined drone (remember the LookForMaster thread and grpc message you made? This is better)
+			// It doesn't receive deliveries and doesn't need to communicate but with this we can start the check thread
+			droneProperty.setMaster(true);
 			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), bestID);
 			serviceThread.start();
 		} else if (batteryLevel > bestBattery && !droneProperty.isParticipant()) {
@@ -173,6 +178,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		droneProperty.setMasterDroneByID(electedID);
 		DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), electedID);
 		serviceThread.start();
+
+		// We always need to send this to update the new master's network info
 		DroneServiceThread pendingStatsThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), "pending");
 		pendingStatsThread.start();
 	}
@@ -210,6 +217,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		responseObserver.onCompleted();
 	}
 
+	/*
 	@Override
 	public void lookForMaster(CheckMessage request, StreamObserver<LookForMasterResponse> responseObserver) {
 		// We give info about the master to the drone who still doesn't know
@@ -218,6 +226,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
+
+	 */
 
 	public DroneProperty getDroneProperty() {
 		return droneProperty;

@@ -51,6 +51,7 @@ public class DroneProperty {
 	private Object delCountMux = new Object();
 	private Object pendingStatMux = new Object();
 	private Object batteryMux = new Object();
+	private Object participantMux = new Object();
 	private Object ongoingElectionMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
@@ -195,14 +196,14 @@ public class DroneProperty {
 	}
 
 	public void makeMaster() {
-		this.setElectionInProgress(false);
+		// We check if a master thread is already active, this avoids duplicate master threads
+		if (this.masterThread != null) {
+			return;
+		}
 
 		// Set the master as itself, it will be useful when new drones want to know who's master
-		synchronized (masterMux) {
-			isMaster = true;
-			//this.masterDrone = new DroneInfo(this.droneID, this.ipAddress, this.port);
-			this.masterDrone = findDroneInfoByID(this.droneID);
-		}
+		setMaster(true);
+		setMasterDroneByID(this.droneID);
 
 		// All of the new deliveries produced by publisher meanwhile will just be ignored, so no need to get them
 		// BUT we still need to get the stats produced by the drones while there was no master
@@ -496,11 +497,15 @@ public class DroneProperty {
 	}
 
 	public boolean isMaster() {
-		return isMaster;
+		synchronized (masterMux) {
+			return isMaster;
+		}
 	}
 
 	public void setMaster(boolean master) {
-		isMaster = master;
+		synchronized (masterMux) {
+			isMaster = master;
+		}
 	}
 
 	public DroneInfo getMasterDrone() {
@@ -534,11 +539,15 @@ public class DroneProperty {
 	}
 
 	public boolean isParticipant() {
-		return isParticipant;
+		synchronized (participantMux) {
+			return isParticipant;
+		}
 	}
 
 	public void setParticipant(boolean participant) {
-		isParticipant = participant;
+		synchronized (participantMux) {
+			isParticipant = participant;
+		}
 	}
 
 	public boolean isElectionInProgress() {
