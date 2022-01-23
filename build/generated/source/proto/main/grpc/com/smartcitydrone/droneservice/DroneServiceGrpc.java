@@ -247,6 +247,37 @@ public final class DroneServiceGrpc {
     return getCheckMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse> getLookForMasterMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "lookForMaster",
+      requestType = com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage.class,
+      responseType = com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage,
+      com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse> getLookForMasterMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage, com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse> getLookForMasterMethod;
+    if ((getLookForMasterMethod = DroneServiceGrpc.getLookForMasterMethod) == null) {
+      synchronized (DroneServiceGrpc.class) {
+        if ((getLookForMasterMethod = DroneServiceGrpc.getLookForMasterMethod) == null) {
+          DroneServiceGrpc.getLookForMasterMethod = getLookForMasterMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage, com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "lookForMaster"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DroneServiceMethodDescriptorSupplier("lookForMaster"))
+              .build();
+        }
+      }
+    }
+    return getLookForMasterMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -326,6 +357,13 @@ public final class DroneServiceGrpc {
       asyncUnimplementedUnaryCall(getCheckMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void lookForMaster(com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getLookForMasterMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -377,6 +415,13 @@ public final class DroneServiceGrpc {
                 com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage,
                 com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage>(
                   this, METHODID_CHECK)))
+          .addMethod(
+            getLookForMasterMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage,
+                com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse>(
+                  this, METHODID_LOOK_FOR_MASTER)))
           .build();
     }
   }
@@ -457,6 +502,14 @@ public final class DroneServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getCheckMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void lookForMaster(com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getLookForMasterMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -527,6 +580,13 @@ public final class DroneServiceGrpc {
     public com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage check(com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage request) {
       return blockingUnaryCall(
           getChannel(), getCheckMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse lookForMaster(com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage request) {
+      return blockingUnaryCall(
+          getChannel(), getLookForMasterMethod(), getCallOptions(), request);
     }
   }
 
@@ -606,6 +666,14 @@ public final class DroneServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getCheckMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse> lookForMaster(
+        com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage request) {
+      return futureUnaryCall(
+          getChannel().newCall(getLookForMasterMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_JOIN_NETWORK = 0;
@@ -615,6 +683,7 @@ public final class DroneServiceGrpc {
   private static final int METHODID_ELECTED = 4;
   private static final int METHODID_SEND_PENDING_DRONE_STAT = 5;
   private static final int METHODID_CHECK = 6;
+  private static final int METHODID_LOOK_FOR_MASTER = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -660,6 +729,10 @@ public final class DroneServiceGrpc {
         case METHODID_CHECK:
           serviceImpl.check((com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage) request,
               (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage>) responseObserver);
+          break;
+        case METHODID_LOOK_FOR_MASTER:
+          serviceImpl.lookForMaster((com.smartcitydrone.droneservice.DroneServiceOuterClass.CheckMessage) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.droneservice.DroneServiceOuterClass.LookForMasterResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -729,6 +802,7 @@ public final class DroneServiceGrpc {
               .addMethod(getElectedMethod())
               .addMethod(getSendPendingDroneStatMethod())
               .addMethod(getCheckMethod())
+              .addMethod(getLookForMasterMethod())
               .build();
         }
       }

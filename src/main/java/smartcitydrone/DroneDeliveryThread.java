@@ -25,7 +25,6 @@ public class DroneDeliveryThread extends Thread {
 		String timeOfArrival = new Timestamp(System.currentTimeMillis()).toString();
 		System.out.println("Delivery completed");
 
-		// Or maybe send them separate?
 		double orderKM = droneProperty.distance(droneProperty.getDronePosition(), orderData.getPickUpPoint()) +
 				droneProperty.distance(orderData.getPickUpPoint(), orderData.getDeliveryPoint());
 		droneProperty.incrementTraveledKM(orderKM);

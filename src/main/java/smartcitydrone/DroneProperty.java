@@ -29,6 +29,7 @@ public class DroneProperty {
 	private boolean isMaster = false;
 	private DroneInfo masterDrone = null;
 	private boolean isParticipant = false;
+	private boolean electionInProgress = false;
 	private boolean isDelivering = false;
 	private List<OrderData> ordersQueue;
 	private List<Double> averageBufferPM;
@@ -50,6 +51,7 @@ public class DroneProperty {
 	private Object delCountMux = new Object();
 	private Object pendingStatMux = new Object();
 	private Object batteryMux = new Object();
+	private Object ongoingElectionMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
@@ -193,6 +195,8 @@ public class DroneProperty {
 	}
 
 	public void makeMaster() {
+		this.setElectionInProgress(false);
+
 		// Set the master as itself, it will be useful when new drones want to know who's master
 		synchronized (masterMux) {
 			isMaster = true;
@@ -504,6 +508,7 @@ public class DroneProperty {
 	}
 
 	public void setMasterDrone(DroneInfo masterDrone) {
+		this.setElectionInProgress(false);
 		if (dronesInNetwork.contains(masterDrone)) {
 			synchronized (masterMux) {
 				this.masterDrone = masterDrone;
@@ -513,6 +518,7 @@ public class DroneProperty {
 
 	// Custom setter
 	public void setMasterDroneByID(int masterDroneID) {
+		this.setElectionInProgress(false);
 		DroneInfo masterDrone = findDroneInfoByID(masterDroneID);
 		if (masterDrone != null) {
 			synchronized (masterMux) {
@@ -533,6 +539,18 @@ public class DroneProperty {
 
 	public void setParticipant(boolean participant) {
 		isParticipant = participant;
+	}
+
+	public boolean isElectionInProgress() {
+		synchronized (ongoingElectionMux) {
+			return electionInProgress;
+		}
+	}
+
+	public void setElectionInProgress(boolean electionInProgress) {
+		synchronized (ongoingElectionMux) {
+			this.electionInProgress = electionInProgress;
+		}
 	}
 
 	public boolean isDelivering() {

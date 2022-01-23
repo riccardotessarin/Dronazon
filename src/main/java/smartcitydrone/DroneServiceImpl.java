@@ -124,7 +124,10 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		if (droneProperty.getDroneID() == bestID) {
 			System.out.println("I'm the designed master! Sending elected message...");
-			droneProperty.setParticipant(false);
+			// We set it at false when making master, so we avoid the joining drone with a nearly elected issue
+			// (if it joins while the second-last drone sets its own isParticipant to false and there is still no master,
+			// it would start a new election)
+			//droneProperty.setParticipant(false);
 			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), bestID);
 			serviceThread.start();
 		} else if (batteryLevel > bestBattery && !droneProperty.isParticipant()) {
@@ -203,6 +206,15 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 	public void check(CheckMessage request, StreamObserver<CheckMessage> responseObserver) {
 		// Master gives ok signal to drone, meaning it's still online
 		CheckMessage response = CheckMessage.newBuilder().setMessage("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void lookForMaster(CheckMessage request, StreamObserver<LookForMasterResponse> responseObserver) {
+		// We give info about the master to the drone who still doesn't know
+		LookForMasterResponse response = LookForMasterResponse.newBuilder().setDroneID(droneProperty.getDroneID())
+				.setIsMaster(droneProperty.isMaster()).setIsParticipant(droneProperty.isParticipant()).build();
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}

@@ -103,6 +103,21 @@ public class Drone {
 			}
 		}
 
+		// If the new drone doesn't get any info about the master or about an ongoing election, it starts an election
+		if (droneProperty.getMasterDrone() == null && !droneProperty.isElectionInProgress() && !droneProperty.isParticipant()) {
+			droneProperty.setParticipant(true);
+			DroneServiceThread serviceThread =
+					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), droneProperty.getBatteryLevel(), droneProperty.getDroneID());
+			serviceThread.start();
+		} else if (droneProperty.getMasterDrone() == null && droneProperty.isElectionInProgress()) {
+			// Here we need to check for the election message past the drone edge case
+			// If the drone joins the network while the elected message is still going in the ring
+			// BUT the drone places itself before the drone who's now sending the elected message, it will
+			// never know about the end of election and about who's master so it looks for it on its own
+			DroneLookForMasterThread lookForMasterThread = new DroneLookForMasterThread(droneProperty);
+			lookForMasterThread.start();
+		}
+
 		PM10Simulator sensorThread = new PM10Simulator(new DroneSensorBuffer(droneProperty));
 		sensorThread.start();
 

@@ -81,6 +81,12 @@ message CheckMessage {
   string message = 1;
 }
 
+message LookForMasterResponse {
+  int32 droneID = 1;
+  bool isMaster = 2;
+  bool isParticipant = 3;
+}
+
 // Defining a Service, a Service can have multiple RPC operations
 service DroneService {
   rpc joinNetwork(JoinRequest) returns (JoinResponse);
@@ -90,4 +96,5 @@ service DroneService {
   rpc elected(ElectedRequest) returns (ElectedResponse);
   rpc sendPendingDroneStat(PendingStatRequest) returns (PendingStatResponse);
   rpc check(CheckMessage) returns (CheckMessage);
+  rpc lookForMaster(CheckMessage) returns (LookForMasterResponse);
 }

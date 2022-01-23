@@ -82,6 +82,8 @@ public class DroneServiceThread extends Thread {
 				sendPendingDroneStat();
 			} else if (message.equalsIgnoreCase("check")) {
 				check();
+			} else if (message.equalsIgnoreCase("lookformaster")) {
+				lookForMaster();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -116,6 +118,7 @@ public class DroneServiceThread extends Thread {
 					return;
 				}
 				droneInfo.setBatteryLevel(value.getBatteryLevel());
+				droneInfo.setDronePosition(new int[]{value.getDronePositionX(), value.getDronePositionY()});
 
 				// If the drone who wants to join doesn't already know the master
 				// and the one who is talking with it is master, set the master
@@ -124,15 +127,12 @@ public class DroneServiceThread extends Thread {
 					senderDrone.setMasterDrone(receiverDrone);
 				}
 
-				//TODO: Check if this is right
-				/*
 				// If the drone who wants to join doesn't already know there is an ongoing election
-				// and the one who is talking with it is in election, set the election true
-				if (!senderDrone.isParticipant() && value.getIsElecting()) {
-					senderDrone.setParticipant(true);
+				// and the one who is talking with it is participant, set the election in progress true
+				// With this we ensure that the new drone doesn't start an election that may cause issues
+				if (!senderDrone.isElectionInProgress() && value.getIsElecting()) {
+					senderDrone.setElectionInProgress(true);
 				}
-
-				 */
 
 			}
 
@@ -275,7 +275,6 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Next drone in the ring is down! Removing it and trying with next one...");
 				senderDrone.removeFromNetwork(receiverDrone);
 				DroneInfo nextDrone = senderDrone.getNextInRing();
-				//TODO: If next drone is this drone, the network has only one drone so it becomes master
 				//TODO: (CRASH) Check if original receiver was the designed master (or already removed), if it was restart the election
 
 				/*
@@ -447,4 +446,47 @@ public class DroneServiceThread extends Thread {
 		//you need this. otherwise the method will terminate before that answers from the server are received
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
+
+	// This resolves the edge case in which the elected message is past the new drone in the ring
+	private void lookForMaster() throws InterruptedException {
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
+
+		CheckMessage request = CheckMessage.newBuilder().setMessage("OK").build();
+
+		stub.lookForMaster(request, new StreamObserver<LookForMasterResponse>() {
+			@Override
+			public void onNext(LookForMasterResponse value) {
+				// If the master has been elected, we set the master
+				if (senderDrone.getMasterDrone() == null && value.getIsMaster()) {
+					//senderDrone.setMasterDroneByID(value.getDroneID());
+					senderDrone.setMasterDrone(receiverDrone);
+				}
+
+				// If someone is still participant, we set the ongoing election true and try
+				// to find the master again later
+				if (!senderDrone.isElectionInProgress() && value.getIsParticipant()) {
+					senderDrone.setElectionInProgress(true);
+				}
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				senderDrone.removeFromNetwork(receiverDrone);
+				channel.shutdown();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdown();
+			}
+		});
+
+		//you need this. otherwise the method will terminate before that answers from the server are received
+		channel.awaitTermination(10, TimeUnit.SECONDS);
+	}
+
 }
