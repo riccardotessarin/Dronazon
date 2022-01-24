@@ -4,6 +4,7 @@ import beans.DroneInfo;
 import beans.GlobalStat;
 import com.sun.jersey.api.client.Client;
 import sensors.Measurement;
+import sensors.PM10Simulator;
 import smartcity.OrderData;
 
 import java.io.IOException;
@@ -53,11 +54,22 @@ public class DroneProperty {
 	private Object batteryMux = new Object();
 	private Object participantMux = new Object();
 	private Object ongoingElectionMux = new Object();
+	private Object droneForDeliveryMux = new Object();
+	private Object deliveringMux = new Object();
+	private Object quittingMux = new Object();
+	private Object pendingElectionMux = new Object();
+	private Object pendingStatQuittingMux = new Object();
+	private Object postPendingStatMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
 	private DroneServerThread serverThread = null;
 	private DroneMasterStatThread masterStatThread = null;
+	private DroneDeliveryThread deliveryThread = null;
+	private DroneSafeQuitThread safeQuitThread = null;
+	private DroneCheckThread checkThread = null;
+	private DronePrintThread printThread = null;
+	private PM10Simulator sensorThread = null;
 
 	//region Constructors
 	// Constructor with randomly generated ID and socket port
@@ -144,7 +156,7 @@ public class DroneProperty {
 	public void updateIsDeliveringInNetwork(boolean delivering) {
 		synchronized (dronesInNetwork) {
 			dronesInNetwork.get(dronesInNetwork.indexOf(findDroneInfoByID(this.droneID)))
-					.setDelivering(this.isDelivering);
+					.setDelivering(delivering);
 		}
 	}
 
@@ -158,6 +170,30 @@ public class DroneProperty {
 		System.out.println("Drone " + droneID + " deliveries stat:\n" +
 				"Total deliveries: " + getDeliveryCount() + ", Distance traveled: " +
 				getTraveledKM() + " Km, Battery left: " + getBatteryLevel() + "%");
+	}
+
+	public void notifyDroneForDelivery() {
+		synchronized (droneForDeliveryMux) {
+			droneForDeliveryMux.notifyAll();
+		}
+	}
+
+	public void notifyPendingElectionMux() {
+		synchronized (pendingElectionMux) {
+			pendingElectionMux.notifyAll();
+		}
+	}
+
+	public void notifyPendingStatQuittingMux() {
+		synchronized (pendingStatQuittingMux) {
+			pendingStatQuittingMux.notifyAll();
+		}
+	}
+
+	public void notifyPostPendingStatMux() {
+		synchronized (postPendingStatMux) {
+			postPendingStatMux.notifyAll();
+		}
 	}
 	//endregion
 
@@ -209,11 +245,10 @@ public class DroneProperty {
 		// BUT we still need to get the stats produced by the drones while there was no master
 		// If the new master had pending stats to send, we just save them to the list, the other stats will come
 		// with grpc messages
-		synchronized (pendingStatMux) {
-			if (pendingDroneStat != null) {
-				addDroneStat(pendingDroneStat);
-				setPendingDroneStat(null);
-			}
+		if (getPendingDroneStat() != null) {
+			addDroneStat(getPendingDroneStat());
+			setPendingDroneStat(null);
+			notifyPendingStatQuittingMux();
 		}
 
 		masterThread = new DroneMasterThread(this);
@@ -225,8 +260,10 @@ public class DroneProperty {
 
 	// Check if some locks are needed
 	public void quit() {
-		DroneSafeQuitThread safeQuitThread = new DroneSafeQuitThread(this);
-		safeQuitThread.start();
+		if (getSafeQuitThread() == null) {
+			this.setSafeQuitThread(new DroneSafeQuitThread(this));
+			safeQuitThread.start();
+		}
 	}
 
 	// This function returns a list of drones currently not delivering nor charging
@@ -563,11 +600,15 @@ public class DroneProperty {
 	}
 
 	public boolean isDelivering() {
-		return isDelivering;
+		synchronized (deliveringMux) {
+			return isDelivering;
+		}
 	}
 
 	public void setDelivering(boolean delivering) {
-		isDelivering = delivering;
+		synchronized (deliveringMux) {
+			isDelivering = delivering;
+		}
 		updateIsDeliveringInNetwork(delivering);
 	}
 
@@ -611,12 +652,48 @@ public class DroneProperty {
 		this.masterStatThread = masterStatThread;
 	}
 
+	public DroneDeliveryThread getDeliveryThread() {
+		synchronized (deliveringMux) {
+			return deliveryThread;
+		}
+	}
+
+	public void setDeliveryThread(DroneDeliveryThread deliveryThread) {
+		synchronized (deliveringMux) {
+			this.deliveryThread = deliveryThread;
+		}
+	}
+
+	public DroneSafeQuitThread getSafeQuitThread() {
+		synchronized (quittingMux) {
+			return safeQuitThread;
+		}
+	}
+
+	public void setSafeQuitThread(DroneSafeQuitThread safeQuitThread) {
+		synchronized (quittingMux) {
+			this.safeQuitThread = safeQuitThread;
+		}
+	}
+
+	public boolean isQuitting() {
+		if (this.getSafeQuitThread() != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public List<OrderData> getOrdersQueue() {
-		return ordersQueue;
+		synchronized (ordersQueue) {
+			return ordersQueue;
+		}
 	}
 
 	public void setOrdersQueue(List<OrderData> ordersQueue) {
-		this.ordersQueue = ordersQueue;
+		synchronized (ordersQueue) {
+			this.ordersQueue = ordersQueue;
+		}
 	}
 
 	// Whenever we need to retrieve the buffer, we also want to clear it (every completed delivery)
@@ -661,6 +738,13 @@ public class DroneProperty {
 		}
 	}
 
+	// This is for the quitting master drone
+	public List<DroneStat> getPendingDronesStatistics() {
+		synchronized (dronesStatistics) {
+			return dronesStatistics;
+		}
+	}
+
 	public void setDronesStatistics(List<DroneStat> dronesStatistics) {
 		this.dronesStatistics = dronesStatistics;
 	}
@@ -684,5 +768,62 @@ public class DroneProperty {
 	public void setCharging(boolean charging) {
 		isCharging = charging;
 	}
+
+	public Object getDroneForDeliveryMux() {
+		return droneForDeliveryMux;
+	}
+
+	public void setDroneForDeliveryMux(Object droneForDeliveryMux) {
+		this.droneForDeliveryMux = droneForDeliveryMux;
+	}
+
+	public Object getPendingElectionMux() {
+		return pendingElectionMux;
+	}
+
+	public void setPendingElectionMux(Object pendingElectionMux) {
+		this.pendingElectionMux = pendingElectionMux;
+	}
+
+	public Object getPendingStatQuittingMux() {
+		return pendingStatQuittingMux;
+	}
+
+	public void setPendingStatQuittingMux(Object pendingStatQuittingMux) {
+		this.pendingStatQuittingMux = pendingStatQuittingMux;
+	}
+
+	public Object getPostPendingStatMux() {
+		return postPendingStatMux;
+	}
+
+	public void setPostPendingStatMux(Object postPendingStatMux) {
+		this.postPendingStatMux = postPendingStatMux;
+	}
+
+	public DroneCheckThread getCheckThread() {
+		return checkThread;
+	}
+
+	public void setCheckThread(DroneCheckThread checkThread) {
+		this.checkThread = checkThread;
+	}
+
+	public DronePrintThread getPrintThread() {
+		return printThread;
+	}
+
+	public void setPrintThread(DronePrintThread printThread) {
+		this.printThread = printThread;
+	}
+
+	public PM10Simulator getSensorThread() {
+		return sensorThread;
+	}
+
+	public void setSensorThread(PM10Simulator sensorThread) {
+		this.sensorThread = sensorThread;
+	}
+
 	//endregion
 }

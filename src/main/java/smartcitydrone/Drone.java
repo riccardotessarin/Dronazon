@@ -123,16 +123,16 @@ public class Drone {
 
 		 */
 
-		PM10Simulator sensorThread = new PM10Simulator(new DroneSensorBuffer(droneProperty));
-		sensorThread.start();
+		droneProperty.setSensorThread(new PM10Simulator(new DroneSensorBuffer(droneProperty)));
+		droneProperty.getSensorThread().start();
 
 		if (!droneProperty.isMaster()) {
-			DroneCheckThread checkThread = new DroneCheckThread(droneProperty);
-			checkThread.start();
+			droneProperty.setCheckThread(new DroneCheckThread(droneProperty));
+			droneProperty.getCheckThread().start();
 		}
 
-		DronePrintThread printThread = new DronePrintThread(droneProperty);
-		printThread.start();
+		droneProperty.setPrintThread(new DronePrintThread(droneProperty));
+		droneProperty.getPrintThread().start();
 
 	}
 

@@ -34,6 +34,11 @@ public class DroneMasterStatThread  extends Thread {
 				exit(0);
 			}
 
+			// If we have no more stats to post to S.A. and the master is quitting, we let it quit
+			if (droneProperty.isQuitting() && droneProperty.getPendingDronesStatistics().size() == 0) {
+				droneProperty.notifyPostPendingStatMux();
+			}
+
 			System.out.println(clientResponse.toString());
 
 		}

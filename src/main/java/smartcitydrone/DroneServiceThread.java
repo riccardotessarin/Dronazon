@@ -173,9 +173,13 @@ public class DroneServiceThread extends Thread {
 		stub.dispatchOrder(request, new StreamObserver<OrderResponse>() {
 			@Override
 			public void onNext(OrderResponse value) {
+				// In the unfortunate case the exiting master drone and/or two drones who simultaneously get the
+				// receiver drone as the best drone for two different orders, it answers with BUSY and we awake
+				// the quitting master drone (if it is doing so) so it can look for another drone to handle the delivery
 				if (value.getDroneAvailable().equalsIgnoreCase("BUSY")) {
 					System.out.println("Drone answered with BUSY response, adding order to queue");
 					senderDrone.addToOrdersQueue(orderData);
+					senderDrone.notifyDroneForDelivery();
 					channel.shutdownNow();
 					return;
 				}
@@ -378,6 +382,7 @@ public class DroneServiceThread extends Thread {
 					System.out.println("Received ok from master");
 					// If master is online, we can safely clear pending stats
 					senderDrone.setPendingDroneStat(null);
+					senderDrone.notifyPendingStatQuittingMux();
 				}
 			}
 

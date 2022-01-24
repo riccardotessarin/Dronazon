@@ -37,7 +37,9 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		// Complete and end communication
 		responseObserver.onCompleted();
 
-		// TODO: ensure that at least one drone will stay inside the network while a new drone joins
+		// A new drone has joined so we can immediately assign to it a pending order if this drone is trying to exit and
+		// is master
+		droneProperty.notifyDroneForDelivery();
 	}
 
 	@Override
@@ -60,8 +62,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		// Set the drone is now delivering and start delivery thread
 		droneProperty.setDelivering(true);
-		DroneDeliveryThread deliveryThread = new DroneDeliveryThread(droneProperty, orderData);
-		deliveryThread.start();
+		droneProperty.setDeliveryThread(new DroneDeliveryThread(droneProperty, orderData));
+		droneProperty.getDeliveryThread().start();
 	}
 
 	// This is for the master, it receives the message from the drones after they end a delivery
@@ -87,6 +89,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		if (droneProperty.getOrdersQueue().size() == 0) {
 			System.out.println("No orders in pending list");
+			// If we have no more orders to dispatch we can wake the master and complete the exit
+			droneProperty.notifyDroneForDelivery();
 			return;
 		}
 
@@ -122,12 +126,12 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		//System.out.println("Drone: " + droneProperty.getDroneID() + " Best: " + bestID);
 
-		if (droneProperty.getDroneID() == bestID) {
+		if (droneProperty.getDroneID() == bestID /*&& !droneProperty.isMaster*/) {
 			System.out.println("I'm the designed master! Sending elected message...");
 			// We set it at false when making master, so we avoid the joining drone with a nearly elected issue
 			// (if it joins while the second-last drone sets its own isParticipant to false and there is still no master,
 			// it would start a new election)
-			//droneProperty.setParticipant(false);
+			droneProperty.setParticipant(false);
 
 			// By setting the isMaster to true immediately we can avoid the edge case of the elected message past
 			// the newly joined drone (remember the LookForMaster thread and grpc message you made? This is better)
@@ -135,13 +139,13 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			droneProperty.setMaster(true);
 			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), bestID);
 			serviceThread.start();
-		} else if (batteryLevel > bestBattery && !droneProperty.isParticipant()) {
+		} else if (batteryLevel > bestBattery && !droneProperty.isParticipant() /*&& !droneProperty.isMaster*/) {
 			System.out.println("My battery is higher, sending my info in election");
 			droneProperty.setParticipant(true);
 			DroneServiceThread serviceThread =
 					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), batteryLevel, droneProperty.getDroneID());
 			serviceThread.start();
-		} else if (batteryLevel == bestBattery && droneProperty.getDroneID() > bestID && !droneProperty.isParticipant()) {
+		} else if (batteryLevel == bestBattery && droneProperty.getDroneID() > bestID && !droneProperty.isParticipant() /*&& !droneProperty.isMaster*/) {
 			System.out.println("Same battery but higher ID, sending my info in election");
 			droneProperty.setParticipant(true);
 			DroneServiceThread serviceThread =
@@ -167,6 +171,8 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		int electedID = request.getDroneID();
 		droneProperty.setParticipant(false);
+		// We wake any drone who has the quit locked because it was participant
+		droneProperty.notifyPendingElectionMux();
 
 		// When this is true, the elected message chain stops
 		if (droneProperty.getDroneID() == electedID) {
