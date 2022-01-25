@@ -416,10 +416,10 @@ public class DroneProperty {
 
 		if (deliveriesCount == 0) {
 			System.out.println("No deliveries made");
-			return new GlobalStat(new Timestamp(System.currentTimeMillis()).toString(), 0.0,0.0,0.0,0.0);
+			return new GlobalStat(System.currentTimeMillis(), 0.0,0.0,0.0,0.0);
 		} else if (numberOfDrones == 0) {
 			System.out.println("No more drones inside the network! Error!");
-			return new GlobalStat(new Timestamp(System.currentTimeMillis()).toString(), 0.0,0.0,0.0,0.0);
+			return new GlobalStat(System.currentTimeMillis(), 0.0,0.0,0.0,0.0);
 		}
 
 		double averageDeliveriesNumber = (double) deliveriesCount / numberOfDrones;
@@ -446,7 +446,7 @@ public class DroneProperty {
 		}
 		averageBatteryLevel = averageBatteryLevel / deliveriesCount;
 
-		String timestamp = new Timestamp(System.currentTimeMillis()).toString();
+		long timestamp = System.currentTimeMillis();
 		GlobalStat globalStat = new GlobalStat(timestamp, averageDeliveriesNumber, averageTraveledKM, averagePM, averageBatteryLevel);
 
 		System.out.println(globalStat);

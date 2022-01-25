@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class GlobalStat {
-	private String timestamp;
+	private long timestamp;
 	private double averageDeliveriesNumber;
 	private double averageTraveledKM;
 	private double averagePM;
@@ -12,7 +12,7 @@ public class GlobalStat {
 
 	public GlobalStat(){}
 
-	public GlobalStat(String timestamp, double averageDeliveriesNumber, double averageTraveledKM, double averagePM, double averageBatteryLevel) {
+	public GlobalStat(long timestamp, double averageDeliveriesNumber, double averageTraveledKM, double averagePM, double averageBatteryLevel) {
 		this.timestamp = timestamp;
 		this.averageDeliveriesNumber = averageDeliveriesNumber;
 		this.averageTraveledKM = averageTraveledKM;
@@ -20,11 +20,11 @@ public class GlobalStat {
 		this.averageBatteryLevel = averageBatteryLevel;
 	}
 
-	public String getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 

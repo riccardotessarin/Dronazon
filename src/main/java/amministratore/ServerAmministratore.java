@@ -1,6 +1,8 @@
 package amministratore;
 
 import beans.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -8,12 +10,6 @@ import java.util.List;
 
 @Path("amministratore")
 public class ServerAmministratore {
-
-	@GET
-	@Produces({"application/json", "application/xml"})
-	public Response getDronesStat() {
-		return Response.ok().build();
-	}
 
 	// This function
 	@Path("insert")
@@ -66,8 +62,45 @@ public class ServerAmministratore {
 		return Response.ok().build();
 	}
 
-	// This function gives statistics about the drones
-	// this includes ID, global stats, average number of shippings and average number
-	// of kilometers travelled between two timestamps
+	@GET
+	@Produces({"application/json", "application/xml"})
+	public Response getDronesStat() {
+		return Response.ok(DroneInfos.getInstance()).build();
+	}
 
+	@Path("stats/{n}")
+	@GET
+	@Produces({"application/json", "application/xml"})
+	public Response getLastNStats(@PathParam("n") int n) {
+		if (n < 1) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
+		List<GlobalStat> globalStats = GlobalStats.getInstance().getLastNStats(n);
+		String lastStats = new Gson().toJson(globalStats, new TypeToken<List<GlobalStat>>() {}.getType());
+		return Response.ok(lastStats).build();
+	}
+
+	@Path("deliveries/{t1}/{t2}")
+	@GET
+	@Produces({"application/json", "application/xml"})
+	public Response getAverageDeliveries(@PathParam("t1") int t1, @PathParam("t2") int t2) {
+		if (t1 < 0 || t2 < 0) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		} else if (t2 < t1) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		return Response.ok(GlobalStats.getInstance().getAverageDeliveries(t1, t2)).build();
+	}
+
+	@Path("traveled/{t1}/{t2}")
+	@GET
+	@Produces({"application/json", "application/xml"})
+	public Response getAverageTraveledKM(@PathParam("t1") int t1, @PathParam("t2") int t2) {
+		if (t1 < 0 || t2 < 0) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		} else if (t2 < t1) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		return Response.ok(GlobalStats.getInstance().getAverageTraveledKM(t1, t2)).build();
+	}
 }
