@@ -927,10 +927,10 @@ public final class DroneServiceOuterClass {
     boolean getIsMaster();
 
     /**
-     * <code>bool isElecting = 6;</code>
-     * @return The isElecting.
+     * <code>bool isParticipant = 6;</code>
+     * @return The isParticipant.
      */
-    boolean getIsElecting();
+    boolean getIsParticipant();
   }
   /**
    * <pre>
@@ -1010,7 +1010,7 @@ public final class DroneServiceOuterClass {
             }
             case 48: {
 
-              isElecting_ = input.readBool();
+              isParticipant_ = input.readBool();
               break;
             }
             default: {
@@ -1095,14 +1095,14 @@ public final class DroneServiceOuterClass {
       return isMaster_;
     }
 
-    public static final int ISELECTING_FIELD_NUMBER = 6;
-    private boolean isElecting_;
+    public static final int ISPARTICIPANT_FIELD_NUMBER = 6;
+    private boolean isParticipant_;
     /**
-     * <code>bool isElecting = 6;</code>
-     * @return The isElecting.
+     * <code>bool isParticipant = 6;</code>
+     * @return The isParticipant.
      */
-    public boolean getIsElecting() {
-      return isElecting_;
+    public boolean getIsParticipant() {
+      return isParticipant_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1134,8 +1134,8 @@ public final class DroneServiceOuterClass {
       if (isMaster_ != false) {
         output.writeBool(5, isMaster_);
       }
-      if (isElecting_ != false) {
-        output.writeBool(6, isElecting_);
+      if (isParticipant_ != false) {
+        output.writeBool(6, isParticipant_);
       }
       unknownFields.writeTo(output);
     }
@@ -1166,9 +1166,9 @@ public final class DroneServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(5, isMaster_);
       }
-      if (isElecting_ != false) {
+      if (isParticipant_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(6, isElecting_);
+          .computeBoolSize(6, isParticipant_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1195,8 +1195,8 @@ public final class DroneServiceOuterClass {
           != other.getBatteryLevel()) return false;
       if (getIsMaster()
           != other.getIsMaster()) return false;
-      if (getIsElecting()
-          != other.getIsElecting()) return false;
+      if (getIsParticipant()
+          != other.getIsParticipant()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1219,9 +1219,9 @@ public final class DroneServiceOuterClass {
       hash = (37 * hash) + ISMASTER_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getIsMaster());
-      hash = (37 * hash) + ISELECTING_FIELD_NUMBER;
+      hash = (37 * hash) + ISPARTICIPANT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsElecting());
+          getIsParticipant());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1371,7 +1371,7 @@ public final class DroneServiceOuterClass {
 
         isMaster_ = false;
 
-        isElecting_ = false;
+        isParticipant_ = false;
 
         return this;
       }
@@ -1404,7 +1404,7 @@ public final class DroneServiceOuterClass {
         result.dronePositionY_ = dronePositionY_;
         result.batteryLevel_ = batteryLevel_;
         result.isMaster_ = isMaster_;
-        result.isElecting_ = isElecting_;
+        result.isParticipant_ = isParticipant_;
         onBuilt();
         return result;
       }
@@ -1468,8 +1468,8 @@ public final class DroneServiceOuterClass {
         if (other.getIsMaster() != false) {
           setIsMaster(other.getIsMaster());
         }
-        if (other.getIsElecting() != false) {
-          setIsElecting(other.getIsElecting());
+        if (other.getIsParticipant() != false) {
+          setIsParticipant(other.getIsParticipant());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1650,32 +1650,32 @@ public final class DroneServiceOuterClass {
         return this;
       }
 
-      private boolean isElecting_ ;
+      private boolean isParticipant_ ;
       /**
-       * <code>bool isElecting = 6;</code>
-       * @return The isElecting.
+       * <code>bool isParticipant = 6;</code>
+       * @return The isParticipant.
        */
-      public boolean getIsElecting() {
-        return isElecting_;
+      public boolean getIsParticipant() {
+        return isParticipant_;
       }
       /**
-       * <code>bool isElecting = 6;</code>
-       * @param value The isElecting to set.
+       * <code>bool isParticipant = 6;</code>
+       * @param value The isParticipant to set.
        * @return This builder for chaining.
        */
-      public Builder setIsElecting(boolean value) {
+      public Builder setIsParticipant(boolean value) {
         
-        isElecting_ = value;
+        isParticipant_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bool isElecting = 6;</code>
+       * <code>bool isParticipant = 6;</code>
        * @return This builder for chaining.
        */
-      public Builder clearIsElecting() {
+      public Builder clearIsParticipant() {
         
-        isElecting_ = false;
+        isParticipant_ = false;
         onChanged();
         return this;
       }
@@ -9075,50 +9075,51 @@ public final class DroneServiceOuterClass {
       ".droneservice\"o\n\013JoinRequest\022\017\n\007droneID\030" +
       "\001 \001(\005\022\021\n\tipAddress\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\022\026" +
       "\n\016dronePositionX\030\004 \001(\005\022\026\n\016dronePositionY" +
-      "\030\005 \001(\005\"\213\001\n\014JoinResponse\022\017\n\007droneID\030\001 \001(\005" +
+      "\030\005 \001(\005\"\216\001\n\014JoinResponse\022\017\n\007droneID\030\001 \001(\005" +
       "\022\026\n\016dronePositionX\030\002 \001(\005\022\026\n\016dronePositio" +
       "nY\030\003 \001(\005\022\024\n\014batteryLevel\030\004 \001(\005\022\020\n\010isMast" +
-      "er\030\005 \001(\010\022\022\n\nisElecting\030\006 \001(\010\"!\n\014OrderReq" +
-      "uest\022\021\n\torderInfo\030\001 \001(\t\"\'\n\rOrderResponse" +
-      "\022\026\n\016droneAvailable\030\001 \001(\t\"1\n\013StatRequest\022" +
-      "\017\n\007droneID\030\001 \001(\005\022\021\n\tdroneStat\030\002 \001(\t\"&\n\014S" +
-      "tatResponse\022\026\n\016masterResponse\030\001 \001(\t\"8\n\017E" +
-      "lectionRequest\022\024\n\014batteryLevel\030\001 \001(\005\022\017\n\007" +
-      "droneID\030\002 \001(\005\")\n\020ElectionResponse\022\025\n\rdro" +
-      "neResponse\030\001 \001(\t\"!\n\016ElectedRequest\022\017\n\007dr" +
-      "oneID\030\001 \001(\005\"(\n\017ElectedResponse\022\025\n\rdroneR" +
-      "esponse\030\001 \001(\t\"\250\001\n\022PendingStatRequest\022\017\n\007" +
-      "droneID\030\001 \001(\005\022\026\n\016dronePositionX\030\002 \001(\005\022\026\n" +
-      "\016dronePositionY\030\003 \001(\005\022\024\n\014batteryLevel\030\004 " +
-      "\001(\005\022\024\n\014isDelivering\030\005 \001(\010\022\022\n\nisCharging\030" +
-      "\006 \001(\010\022\021\n\tdroneStat\030\007 \001(\t\"-\n\023PendingStatR" +
-      "esponse\022\026\n\016masterResponse\030\001 \001(\t\"\037\n\014Check" +
-      "Message\022\017\n\007message\030\001 \001(\t\"Q\n\025LookForMaste" +
-      "rResponse\022\017\n\007droneID\030\001 \001(\005\022\020\n\010isMaster\030\002" +
-      " \001(\010\022\025\n\risParticipant\030\003 \001(\0102\232\007\n\014DroneSer" +
-      "vice\022j\n\013joinNetwork\022,.com.smartcitydrone" +
-      ".droneservice.JoinRequest\032-.com.smartcit" +
-      "ydrone.droneservice.JoinResponse\022n\n\rdisp" +
-      "atchOrder\022-.com.smartcitydrone.droneserv" +
-      "ice.OrderRequest\032..com.smartcitydrone.dr" +
-      "oneservice.OrderResponse\022l\n\rsendDroneSta" +
-      "t\022,.com.smartcitydrone.droneservice.Stat" +
-      "Request\032-.com.smartcitydrone.droneservic" +
-      "e.StatResponse\022o\n\010election\0220.com.smartci" +
-      "tydrone.droneservice.ElectionRequest\0321.c" +
-      "om.smartcitydrone.droneservice.ElectionR" +
-      "esponse\022l\n\007elected\022/.com.smartcitydrone." +
-      "droneservice.ElectedRequest\0320.com.smartc" +
-      "itydrone.droneservice.ElectedResponse\022\201\001" +
-      "\n\024sendPendingDroneStat\0223.com.smartcitydr" +
-      "one.droneservice.PendingStatRequest\0324.co" +
-      "m.smartcitydrone.droneservice.PendingSta" +
-      "tResponse\022e\n\005check\022-.com.smartcitydrone." +
-      "droneservice.CheckMessage\032-.com.smartcit" +
-      "ydrone.droneservice.CheckMessage\022v\n\rlook" +
-      "ForMaster\022-.com.smartcitydrone.droneserv" +
-      "ice.CheckMessage\0326.com.smartcitydrone.dr" +
-      "oneservice.LookForMasterResponseb\006proto3"
+      "er\030\005 \001(\010\022\025\n\risParticipant\030\006 \001(\010\"!\n\014Order" +
+      "Request\022\021\n\torderInfo\030\001 \001(\t\"\'\n\rOrderRespo" +
+      "nse\022\026\n\016droneAvailable\030\001 \001(\t\"1\n\013StatReque" +
+      "st\022\017\n\007droneID\030\001 \001(\005\022\021\n\tdroneStat\030\002 \001(\t\"&" +
+      "\n\014StatResponse\022\026\n\016masterResponse\030\001 \001(\t\"8" +
+      "\n\017ElectionRequest\022\024\n\014batteryLevel\030\001 \001(\005\022" +
+      "\017\n\007droneID\030\002 \001(\005\")\n\020ElectionResponse\022\025\n\r" +
+      "droneResponse\030\001 \001(\t\"!\n\016ElectedRequest\022\017\n" +
+      "\007droneID\030\001 \001(\005\"(\n\017ElectedResponse\022\025\n\rdro" +
+      "neResponse\030\001 \001(\t\"\250\001\n\022PendingStatRequest\022" +
+      "\017\n\007droneID\030\001 \001(\005\022\026\n\016dronePositionX\030\002 \001(\005" +
+      "\022\026\n\016dronePositionY\030\003 \001(\005\022\024\n\014batteryLevel" +
+      "\030\004 \001(\005\022\024\n\014isDelivering\030\005 \001(\010\022\022\n\nisChargi" +
+      "ng\030\006 \001(\010\022\021\n\tdroneStat\030\007 \001(\t\"-\n\023PendingSt" +
+      "atResponse\022\026\n\016masterResponse\030\001 \001(\t\"\037\n\014Ch" +
+      "eckMessage\022\017\n\007message\030\001 \001(\t\"Q\n\025LookForMa" +
+      "sterResponse\022\017\n\007droneID\030\001 \001(\005\022\020\n\010isMaste" +
+      "r\030\002 \001(\010\022\025\n\risParticipant\030\003 \001(\0102\232\007\n\014Drone" +
+      "Service\022j\n\013joinNetwork\022,.com.smartcitydr" +
+      "one.droneservice.JoinRequest\032-.com.smart" +
+      "citydrone.droneservice.JoinResponse\022n\n\rd" +
+      "ispatchOrder\022-.com.smartcitydrone.drones" +
+      "ervice.OrderRequest\032..com.smartcitydrone" +
+      ".droneservice.OrderResponse\022l\n\rsendDrone" +
+      "Stat\022,.com.smartcitydrone.droneservice.S" +
+      "tatRequest\032-.com.smartcitydrone.droneser" +
+      "vice.StatResponse\022o\n\010election\0220.com.smar" +
+      "tcitydrone.droneservice.ElectionRequest\032" +
+      "1.com.smartcitydrone.droneservice.Electi" +
+      "onResponse\022l\n\007elected\022/.com.smartcitydro" +
+      "ne.droneservice.ElectedRequest\0320.com.sma" +
+      "rtcitydrone.droneservice.ElectedResponse" +
+      "\022\201\001\n\024sendPendingDroneStat\0223.com.smartcit" +
+      "ydrone.droneservice.PendingStatRequest\0324" +
+      ".com.smartcitydrone.droneservice.Pending" +
+      "StatResponse\022e\n\005check\022-.com.smartcitydro" +
+      "ne.droneservice.CheckMessage\032-.com.smart" +
+      "citydrone.droneservice.CheckMessage\022v\n\rl" +
+      "ookForMaster\022-.com.smartcitydrone.drones" +
+      "ervice.CheckMessage\0326.com.smartcitydrone" +
+      ".droneservice.LookForMasterResponseb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9135,7 +9136,7 @@ public final class DroneServiceOuterClass {
     internal_static_com_smartcitydrone_droneservice_JoinResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_smartcitydrone_droneservice_JoinResponse_descriptor,
-        new java.lang.String[] { "DroneID", "DronePositionX", "DronePositionY", "BatteryLevel", "IsMaster", "IsElecting", });
+        new java.lang.String[] { "DroneID", "DronePositionX", "DronePositionY", "BatteryLevel", "IsMaster", "IsParticipant", });
     internal_static_com_smartcitydrone_droneservice_OrderRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_smartcitydrone_droneservice_OrderRequest_fieldAccessorTable = new

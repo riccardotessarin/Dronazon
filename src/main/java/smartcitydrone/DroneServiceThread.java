@@ -133,7 +133,7 @@ public class DroneServiceThread extends Thread {
 				// If the drone who wants to join doesn't already know there is an ongoing election
 				// and the one who is talking with it is participant, set the election in progress true
 				// With this we ensure that the new drone doesn't start an election that may cause issues
-				if (!senderDrone.isElectionInProgress() && value.getIsElecting()) {
+				if (!senderDrone.isElectionInProgress() && value.getIsParticipant()) {
 					senderDrone.setElectionInProgress(true);
 				}
 

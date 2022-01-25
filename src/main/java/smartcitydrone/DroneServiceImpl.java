@@ -29,7 +29,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		JoinResponse response = JoinResponse.newBuilder()
 				.setDroneID(droneProperty.getDroneID()).setDronePositionX(droneProperty.getDronePosition()[0])
 				.setDronePositionY(droneProperty.getDronePosition()[1]).setBatteryLevel(droneProperty.getBatteryLevel())
-				.setIsMaster(droneProperty.isMaster()).setIsElecting(droneProperty.isParticipant()).build();
+				.setIsMaster(droneProperty.isMaster()).setIsParticipant(droneProperty.isParticipant()).build();
 
 		// Give response to stream
 		responseObserver.onNext(response);

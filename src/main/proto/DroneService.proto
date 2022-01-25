@@ -23,7 +23,7 @@ message JoinResponse {
   int32 dronePositionY = 3;
   int32 batteryLevel = 4;
   bool isMaster = 5;
-  bool isElecting = 6;
+  bool isParticipant = 6;
 }
 
 message OrderRequest {
