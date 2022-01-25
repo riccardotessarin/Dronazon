@@ -270,7 +270,7 @@ public class DroneProperty {
 	public List<DroneInfo> getAvailableDronesInNetwork() {
 		List<DroneInfo> dronesInNetworkCopy = getDronesInNetwork();
 		return dronesInNetworkCopy.stream()
-				.filter(droneInfo -> !droneInfo.isDelivering() && !droneInfo.isCharging())
+				.filter(droneInfo -> !droneInfo.isDelivering() && !droneInfo.isCharging() && droneInfo.getBatteryLevel() > 0)
 				.collect(Collectors.toList());
 	}
 

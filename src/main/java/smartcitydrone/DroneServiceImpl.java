@@ -142,7 +142,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			// We set it at false when making master, so we avoid the joining drone with a nearly elected issue
 			// (if it joins while the second-last drone sets its own isParticipant to false and there is still no master,
 			// it would start a new election)
-			//droneProperty.setParticipant(false);
+			droneProperty.setParticipant(false);
 
 			// By setting the isMaster to true immediately we can avoid the edge case of the elected message past
 			// the newly joined drone (remember the LookForMaster thread and grpc message you made? This is better)

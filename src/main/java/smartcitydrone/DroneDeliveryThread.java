@@ -55,7 +55,8 @@ public class DroneDeliveryThread extends Thread {
 		droneProperty.setDelivering(false);
 
 		if (batteryLeft < 15) {
-			System.out.println("Low battery detected!");
+			System.out.println("Low battery detected!\nQuitting network...");
+			droneProperty.quit();
 			//TODO: Send charge request message (make a function inside DroneProperty with a thread)
 		}
 	}
