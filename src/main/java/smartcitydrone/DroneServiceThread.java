@@ -183,6 +183,13 @@ public class DroneServiceThread extends Thread {
 					channel.shutdownNow();
 					return;
 				}
+				if (value.getDroneAvailable().equalsIgnoreCase("QUITTING")) {
+					System.out.println("Drone is safe quitting and can't accept more orders");
+					senderDrone.addToOrdersQueue(orderData);
+					senderDrone.notifyDroneForDelivery();
+					channel.shutdownNow();
+					return;
+				}
 				//Set the drone is now delivering inside master's network list
 				senderDrone.setDroneIsDelivering(receiverDrone.getDroneID(), true);
 

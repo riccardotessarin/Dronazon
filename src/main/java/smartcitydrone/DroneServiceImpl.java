@@ -46,6 +46,17 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 	public void dispatchOrder(OrderRequest request, StreamObserver<OrderResponse> responseObserver) {
 		System.out.println(request);
 
+		// If the drone is trying to safe quit, we don't send it more orders than the one it is eventually
+		// already finishing (worst case: drone may receive an order immediately after it finishes the latter)
+		// We don't include master, since its deliveries are fully controlled and leaves only after all are dispatched
+		if (!droneProperty.isMaster() && droneProperty.isQuitting()) {
+			System.out.println("This drone is in safe quit process, try another one");
+			OrderResponse orderResponse = OrderResponse.newBuilder().setDroneAvailable("QUITTING").build();
+			responseObserver.onNext(orderResponse);
+			responseObserver.onCompleted();
+			return;
+		}
+
 		// First condition: it is not delivering. If it is, we just answer no and close connection
 		if (droneProperty.isDelivering()) {
 			System.out.println("This drone is already delivering, try another one");
@@ -131,7 +142,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			// We set it at false when making master, so we avoid the joining drone with a nearly elected issue
 			// (if it joins while the second-last drone sets its own isParticipant to false and there is still no master,
 			// it would start a new election)
-			droneProperty.setParticipant(false);
+			//droneProperty.setParticipant(false);
 
 			// By setting the isMaster to true immediately we can avoid the edge case of the elected message past
 			// the newly joined drone (remember the LookForMaster thread and grpc message you made? This is better)

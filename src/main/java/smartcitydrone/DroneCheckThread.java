@@ -41,7 +41,7 @@ public class DroneCheckThread extends Thread {
 
 				System.out.println("Started check thread");
 
-				if (droneProperty.getMasterDrone() != null && !droneProperty.isParticipant()) {
+				if (droneProperty.getMasterDrone() != null && !droneProperty.isParticipant() && !quit) {
 					startCheck(droneProperty, droneProperty.getMasterDrone());
 				}
 			}
