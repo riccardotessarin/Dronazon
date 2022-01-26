@@ -45,6 +45,11 @@ public class DroneProperty {
 
 	// For charging functionality
 	private boolean isCharging = false;
+	private boolean isWaitingCharge = false;
+	private DroneChargeThread chargeThread = null;
+	private Object chargeInfoMux = new Object();
+	private List<ChargeInfo> chargingQueue;
+	private Object chargeQueueMux = new Object();
 
 	// Variables for mutex lock
 	private Object masterMux = new Object();
@@ -88,6 +93,7 @@ public class DroneProperty {
 		this.ordersQueue = new ArrayList<>();
 		this.averageBufferPM = new ArrayList<>();
 		this.dronesStatistics = new ArrayList<>();
+		this.chargingQueue = new ArrayList<>();
 	}
 
 
@@ -100,6 +106,7 @@ public class DroneProperty {
 		this.ordersQueue = new ArrayList<>();
 		this.averageBufferPM = new ArrayList<>();
 		this.dronesStatistics = new ArrayList<>();
+		this.chargingQueue = new ArrayList<>();
 	}
 	//endregion
 
@@ -344,17 +351,6 @@ public class DroneProperty {
 		}
 	}
 
-	public void setDroneIsCharging(int droneID, boolean isCharging) {
-		DroneInfo droneDelivery = findDroneInfoByID(droneID);
-		if (droneDelivery == null) {
-			System.out.println("Couldn't find the drone inside the list, don't know if it's charging");
-			return;
-		}
-		synchronized (dronesInNetwork) {
-			droneDelivery.setCharging(isCharging);
-		}
-	}
-
 	public void addToOrdersQueue(OrderData orderData) {
 		synchronized (ordersQueue) {
 			ordersQueue.add(orderData);
@@ -462,6 +458,57 @@ public class DroneProperty {
 	}
 
 	 */
+	//endregion
+
+	//region Drone Charge
+	// This JUST ASKS to charge, permission to charge will be granted later
+	public void charge() {
+		if(getChargeThread() == null && !isCharging() && !isWaitingCharge()) {
+			//setCharging(true);
+			//setDroneIsCharging(this.droneID, true);
+			setWaitingCharge(true);
+
+			ChargeInfo chargeInfo = makeChargeInfo();
+
+			setChargeThread(new DroneChargeThread(this, chargeInfo));
+			getChargeThread().start();
+		}
+	}
+
+	private ChargeInfo makeChargeInfo() {
+		synchronized (chargeInfoMux) {
+			return new ChargeInfo(this.droneID, System.currentTimeMillis());
+		}
+	}
+
+	public void setDroneIsCharging(int droneID, boolean isCharging) {
+		DroneInfo droneDelivery = findDroneInfoByID(droneID);
+		if (droneDelivery == null) {
+			System.out.println("Couldn't find the drone inside the list, don't know if it's charging");
+			return;
+		}
+		synchronized (dronesInNetwork) {
+			droneDelivery.setCharging(isCharging);
+		}
+	}
+
+	public void addToChargingQueue(ChargeInfo chargeInfo) {
+		synchronized (chargingQueue) {
+			if (isCharging() || isWaitingCharge()) {
+				if (chargingQueue.stream().filter(charge -> charge.getDroneID() == chargeInfo.getDroneID()).findFirst().orElse(null) != null) {
+					return;
+				}
+				chargingQueue.add(chargeInfo);
+				chargingQueue.sort(Comparator.comparingLong(ChargeInfo::getTimestamp));
+			}
+		}
+	}
+
+	public void notifyChargeQueueMux() {
+		synchronized (chargeQueueMux) {
+			chargeQueueMux.notifyAll();
+		}
+	}
 	//endregion
 
 	//region Getters & Setters
@@ -823,6 +870,42 @@ public class DroneProperty {
 
 	public void setSensorThread(PM10Simulator sensorThread) {
 		this.sensorThread = sensorThread;
+	}
+
+	public DroneChargeThread getChargeThread() {
+		return chargeThread;
+	}
+
+	public void setChargeThread(DroneChargeThread chargeThread) {
+		this.chargeThread = chargeThread;
+	}
+
+	public boolean isWaitingCharge() {
+		return isWaitingCharge;
+	}
+
+	public void setWaitingCharge(boolean waitingCharge) {
+		isWaitingCharge = waitingCharge;
+	}
+
+	public List<ChargeInfo> getChargingQueue() {
+		synchronized (chargingQueue) {
+			return chargingQueue;
+		}
+	}
+
+	public void setChargingQueue(List<ChargeInfo> chargingQueue) {
+		synchronized (chargingQueue) {
+			this.chargingQueue = chargingQueue;
+		}
+	}
+
+	public Object getChargeQueueMux() {
+		return chargeQueueMux;
+	}
+
+	public void setChargeQueueMux(Object chargeQueueMux) {
+		this.chargeQueueMux = chargeQueueMux;
 	}
 
 	//endregion

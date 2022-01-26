@@ -117,7 +117,7 @@ public class DroneServiceThread extends Thread {
 						.filter(dInfo -> dInfo.getDroneID() == value.getDroneID()).findFirst().orElse(null);
 				if (droneInfo == null) {
 					System.out.println("ID of drone not found in network");
-					channel.shutdownNow();
+					channel.shutdown();
 					return;
 				}
 				droneInfo.setBatteryLevel(value.getBatteryLevel());
@@ -144,12 +144,12 @@ public class DroneServiceThread extends Thread {
 			public void onError(Throwable t) {
 				System.out.println("Error! " + t.getMessage());
 				senderDrone.removeFromNetwork(receiverDrone);
-				channel.shutdownNow();
+				channel.shutdown();
 			}
 
 			@Override
 			public void onCompleted() {
-				channel.shutdownNow();
+				channel.shutdown();
 			}
 		});
 
@@ -180,14 +180,14 @@ public class DroneServiceThread extends Thread {
 					System.out.println("Drone answered with BUSY response, adding order to queue");
 					senderDrone.addToOrdersQueue(orderData);
 					senderDrone.notifyDroneForDelivery();
-					channel.shutdownNow();
+					channel.shutdown();
 					return;
 				}
 				if (value.getDroneAvailable().equalsIgnoreCase("QUITTING")) {
 					System.out.println("Drone is safe quitting and can't accept more orders");
 					senderDrone.addToOrdersQueue(orderData);
 					senderDrone.notifyDroneForDelivery();
-					channel.shutdownNow();
+					channel.shutdown();
 					return;
 				}
 				//Set the drone is now delivering inside master's network list
@@ -202,12 +202,12 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Drone unavailable, adding order to queue and removing drone from network");
 				senderDrone.removeFromNetwork(receiverDrone);
 				senderDrone.addToOrdersQueue(orderData);
-				channel.shutdownNow();
+				channel.shutdown();
 			}
 
 			@Override
 			public void onCompleted() {
-				channel.shutdownNow();
+				channel.shutdown();
 			}
 		});
 
@@ -249,18 +249,24 @@ public class DroneServiceThread extends Thread {
 			public void onError(Throwable t) {
 				System.out.println("Master is down! Starting an election...");
 				senderDrone.setPendingDroneStat(droneStat);
-				senderDrone.setNoMasterDrone();
-				senderDrone.removeFromNetwork(receiverDrone);
-				senderDrone.setParticipant(true);
-				DroneServiceThread serviceThread =
-						new DroneServiceThread(senderDrone, senderDrone.getNextInRing(), senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-				serviceThread.start();
-				channel.shutdownNow();
+				if (!senderDrone.isParticipant()) {
+					senderDrone.setNoMasterDrone();
+					senderDrone.removeFromNetwork(receiverDrone);
+					senderDrone.setParticipant(true);
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, senderDrone.getNextInRing(), senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					serviceThread.start();
+				} else {
+					System.out.println("Drone is participating in an election, saving stats and removing saved master without election start");
+					senderDrone.removeFromNetwork(receiverDrone);
+				}
+
+				channel.shutdown();
 			}
 
 			@Override
 			public void onCompleted() {
-				channel.shutdownNow();
+				channel.shutdown();
 			}
 		});
 

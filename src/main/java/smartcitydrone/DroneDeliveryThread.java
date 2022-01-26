@@ -42,22 +42,14 @@ public class DroneDeliveryThread extends Thread {
 				droneProperty.getDronePosition(), orderKM,
 				droneProperty.getAverageBufferPM(), droneProperty.getBatteryLevel());
 
-		if (!droneProperty.isParticipant()) {
-			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), droneStat);
-			serviceThread.start();
+		DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), droneStat);
+		serviceThread.start();
 
-			try {
-				serviceThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		} else {
-			System.out.println("Drone is participating in an election, saving stats");
-			droneProperty.setPendingDroneStat(droneStat);
+		try {
+			serviceThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-
-
-
 
 		// Since the master could be using this as well, we wait for the thread that sends stats to finish before upd
 		droneProperty.setDelivering(false);

@@ -1,0 +1,14 @@
+syntax = "proto3"; // No need to specify required or optional with proto3
+package com.smartcitydrone.chargeservice;
+
+message ChargeRequest {
+  string request = 1;
+}
+
+message ChargeResponse {
+  string response = 1;
+}
+
+service ChargeService {
+  rpc charge(ChargeRequest) returns (ChargeResponse);
+}
