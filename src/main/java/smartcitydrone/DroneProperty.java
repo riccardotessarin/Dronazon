@@ -504,6 +504,37 @@ public class DroneProperty {
 		}
 	}
 
+	public void removeFromChargingQueue(int droneID) {
+		if (getChargingQueue().size() == 0) {
+			System.out.println("Charging queue error!");
+			return;
+		} else if (getChargingQueue().size() == 1 && getChargingQueue().get(0).getDroneID() == droneID) {
+			getChargingQueue().remove(0);
+			notifyChargeQueueMux();
+			return;
+		}
+		int requestIndex = getChargingQueue().indexOf(getChargingQueue()
+				.stream().filter(c -> c.getDroneID() == droneID).findFirst().orElse(null));
+		if (requestIndex != -1) {
+			getChargingQueue().remove(requestIndex);
+			notifyChargeQueueMux();
+		}
+	}
+
+	public void clearChargingQueue() {
+		if (getChargingQueue().size() == 0) {
+			return;
+		}
+		getChargingQueue().clear();
+	}
+
+	public boolean isMasterInChargingQueue() {
+		if (getMasterDrone() == null || isParticipant()) {
+			return true; // We return true so that it doesn't add the master to the list of drones to call
+		}
+		return getChargingQueue().stream().anyMatch(c -> c.getDroneID() == getMasterDrone().getDroneID());
+	}
+
 	public void notifyChargeQueueMux() {
 		synchronized (chargeQueueMux) {
 			chargeQueueMux.notifyAll();

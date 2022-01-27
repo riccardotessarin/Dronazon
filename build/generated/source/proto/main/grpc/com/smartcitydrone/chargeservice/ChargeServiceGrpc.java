@@ -58,6 +58,68 @@ public final class ChargeServiceGrpc {
     return getChargeMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest,
+      com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> getChargeStartMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "chargeStart",
+      requestType = com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.class,
+      responseType = com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest,
+      com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> getChargeStartMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> getChargeStartMethod;
+    if ((getChargeStartMethod = ChargeServiceGrpc.getChargeStartMethod) == null) {
+      synchronized (ChargeServiceGrpc.class) {
+        if ((getChargeStartMethod = ChargeServiceGrpc.getChargeStartMethod) == null) {
+          ChargeServiceGrpc.getChargeStartMethod = getChargeStartMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "chargeStart"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ChargeServiceMethodDescriptorSupplier("chargeStart"))
+              .build();
+        }
+      }
+    }
+    return getChargeStartMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest,
+      com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> getChargeEndMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "chargeEnd",
+      requestType = com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.class,
+      responseType = com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest,
+      com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> getChargeEndMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> getChargeEndMethod;
+    if ((getChargeEndMethod = ChargeServiceGrpc.getChargeEndMethod) == null) {
+      synchronized (ChargeServiceGrpc.class) {
+        if ((getChargeEndMethod = ChargeServiceGrpc.getChargeEndMethod) == null) {
+          ChargeServiceGrpc.getChargeEndMethod = getChargeEndMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "chargeEnd"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ChargeServiceMethodDescriptorSupplier("chargeEnd"))
+              .build();
+        }
+      }
+    }
+    return getChargeEndMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -92,6 +154,20 @@ public final class ChargeServiceGrpc {
       asyncUnimplementedUnaryCall(getChargeMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void chargeStart(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getChargeStartMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void chargeEnd(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getChargeEndMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -101,6 +177,20 @@ public final class ChargeServiceGrpc {
                 com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeRequest,
                 com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>(
                   this, METHODID_CHARGE)))
+          .addMethod(
+            getChargeStartMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest,
+                com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>(
+                  this, METHODID_CHARGE_START)))
+          .addMethod(
+            getChargeEndMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest,
+                com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>(
+                  this, METHODID_CHARGE_END)))
           .build();
     }
   }
@@ -130,6 +220,22 @@ public final class ChargeServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getChargeMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void chargeStart(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getChargeStartMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void chargeEnd(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getChargeEndMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -155,6 +261,20 @@ public final class ChargeServiceGrpc {
     public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse charge(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeRequest request) {
       return blockingUnaryCall(
           getChannel(), getChargeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse chargeStart(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getChargeStartMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse chargeEnd(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getChargeEndMethod(), getCallOptions(), request);
     }
   }
 
@@ -183,9 +303,27 @@ public final class ChargeServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getChargeMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> chargeStart(
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getChargeStartMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse> chargeEnd(
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getChargeEndMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CHARGE = 0;
+  private static final int METHODID_CHARGE_START = 1;
+  private static final int METHODID_CHARGE_END = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -206,6 +344,14 @@ public final class ChargeServiceGrpc {
       switch (methodId) {
         case METHODID_CHARGE:
           serviceImpl.charge((com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>) responseObserver);
+          break;
+        case METHODID_CHARGE_START:
+          serviceImpl.chargeStart((com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>) responseObserver);
+          break;
+        case METHODID_CHARGE_END:
+          serviceImpl.chargeEnd((com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest) request,
               (io.grpc.stub.StreamObserver<com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeResponse>) responseObserver);
           break;
         default:
@@ -270,6 +416,8 @@ public final class ChargeServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ChargeServiceFileDescriptorSupplier())
               .addMethod(getChargeMethod())
+              .addMethod(getChargeStartMethod())
+              .addMethod(getChargeEndMethod())
               .build();
         }
       }

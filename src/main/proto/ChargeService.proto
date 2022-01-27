@@ -5,10 +5,23 @@ message ChargeRequest {
   string request = 1;
 }
 
+message ChargeStartRequest {
+  int32 droneID = 1;
+}
+
+message ChargeEndRequest {
+  int32 droneID = 1;
+  int32 dronePositionX = 2;
+  int32 dronePositionY = 3;
+  int32 batteryLevel = 4;
+}
+
 message ChargeResponse {
   string response = 1;
 }
 
 service ChargeService {
   rpc charge(ChargeRequest) returns (ChargeResponse);
+  rpc chargeStart(ChargeStartRequest) returns (ChargeResponse);
+  rpc chargeEnd(ChargeEndRequest) returns (ChargeResponse);
 }

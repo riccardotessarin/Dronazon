@@ -580,6 +580,1182 @@ public final class ChargeServiceOuterClass {
 
   }
 
+  public interface ChargeStartRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.chargeservice.ChargeStartRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    int getDroneID();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.chargeservice.ChargeStartRequest}
+   */
+  public  static final class ChargeStartRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.chargeservice.ChargeStartRequest)
+      ChargeStartRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ChargeStartRequest.newBuilder() to construct.
+    private ChargeStartRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ChargeStartRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ChargeStartRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ChargeStartRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              droneID_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.class, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.Builder.class);
+    }
+
+    public static final int DRONEID_FIELD_NUMBER = 1;
+    private int droneID_;
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    public int getDroneID() {
+      return droneID_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (droneID_ != 0) {
+        output.writeInt32(1, droneID_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (droneID_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, droneID_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest other = (com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest) obj;
+
+      if (getDroneID()
+          != other.getDroneID()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneID();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.chargeservice.ChargeStartRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.chargeservice.ChargeStartRequest)
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.class, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneID_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest getDefaultInstanceForType() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest build() {
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest buildPartial() {
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest result = new com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest(this);
+        result.droneID_ = droneID_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest) {
+          return mergeFrom((com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest other) {
+        if (other == com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest.getDefaultInstance()) return this;
+        if (other.getDroneID() != 0) {
+          setDroneID(other.getDroneID());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int droneID_ ;
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return The droneID.
+       */
+      public int getDroneID() {
+        return droneID_;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @param value The droneID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneID(int value) {
+        
+        droneID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneID() {
+        
+        droneID_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.chargeservice.ChargeStartRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.chargeservice.ChargeStartRequest)
+    private static final com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest();
+    }
+
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ChargeStartRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ChargeStartRequest>() {
+      @java.lang.Override
+      public ChargeStartRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ChargeStartRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ChargeStartRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ChargeStartRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeStartRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ChargeEndRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.smartcitydrone.chargeservice.ChargeEndRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    int getDroneID();
+
+    /**
+     * <code>int32 dronePositionX = 2;</code>
+     * @return The dronePositionX.
+     */
+    int getDronePositionX();
+
+    /**
+     * <code>int32 dronePositionY = 3;</code>
+     * @return The dronePositionY.
+     */
+    int getDronePositionY();
+
+    /**
+     * <code>int32 batteryLevel = 4;</code>
+     * @return The batteryLevel.
+     */
+    int getBatteryLevel();
+  }
+  /**
+   * Protobuf type {@code com.smartcitydrone.chargeservice.ChargeEndRequest}
+   */
+  public  static final class ChargeEndRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.smartcitydrone.chargeservice.ChargeEndRequest)
+      ChargeEndRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ChargeEndRequest.newBuilder() to construct.
+    private ChargeEndRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ChargeEndRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ChargeEndRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ChargeEndRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              droneID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              dronePositionX_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              dronePositionY_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              batteryLevel_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.class, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.Builder.class);
+    }
+
+    public static final int DRONEID_FIELD_NUMBER = 1;
+    private int droneID_;
+    /**
+     * <code>int32 droneID = 1;</code>
+     * @return The droneID.
+     */
+    public int getDroneID() {
+      return droneID_;
+    }
+
+    public static final int DRONEPOSITIONX_FIELD_NUMBER = 2;
+    private int dronePositionX_;
+    /**
+     * <code>int32 dronePositionX = 2;</code>
+     * @return The dronePositionX.
+     */
+    public int getDronePositionX() {
+      return dronePositionX_;
+    }
+
+    public static final int DRONEPOSITIONY_FIELD_NUMBER = 3;
+    private int dronePositionY_;
+    /**
+     * <code>int32 dronePositionY = 3;</code>
+     * @return The dronePositionY.
+     */
+    public int getDronePositionY() {
+      return dronePositionY_;
+    }
+
+    public static final int BATTERYLEVEL_FIELD_NUMBER = 4;
+    private int batteryLevel_;
+    /**
+     * <code>int32 batteryLevel = 4;</code>
+     * @return The batteryLevel.
+     */
+    public int getBatteryLevel() {
+      return batteryLevel_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (droneID_ != 0) {
+        output.writeInt32(1, droneID_);
+      }
+      if (dronePositionX_ != 0) {
+        output.writeInt32(2, dronePositionX_);
+      }
+      if (dronePositionY_ != 0) {
+        output.writeInt32(3, dronePositionY_);
+      }
+      if (batteryLevel_ != 0) {
+        output.writeInt32(4, batteryLevel_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (droneID_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, droneID_);
+      }
+      if (dronePositionX_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, dronePositionX_);
+      }
+      if (dronePositionY_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, dronePositionY_);
+      }
+      if (batteryLevel_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, batteryLevel_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest)) {
+        return super.equals(obj);
+      }
+      com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest other = (com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest) obj;
+
+      if (getDroneID()
+          != other.getDroneID()) return false;
+      if (getDronePositionX()
+          != other.getDronePositionX()) return false;
+      if (getDronePositionY()
+          != other.getDronePositionY()) return false;
+      if (getBatteryLevel()
+          != other.getBatteryLevel()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DRONEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDroneID();
+      hash = (37 * hash) + DRONEPOSITIONX_FIELD_NUMBER;
+      hash = (53 * hash) + getDronePositionX();
+      hash = (37 * hash) + DRONEPOSITIONY_FIELD_NUMBER;
+      hash = (53 * hash) + getDronePositionY();
+      hash = (37 * hash) + BATTERYLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + getBatteryLevel();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.smartcitydrone.chargeservice.ChargeEndRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.smartcitydrone.chargeservice.ChargeEndRequest)
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.class, com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.Builder.class);
+      }
+
+      // Construct using com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        droneID_ = 0;
+
+        dronePositionX_ = 0;
+
+        dronePositionY_ = 0;
+
+        batteryLevel_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest getDefaultInstanceForType() {
+        return com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest build() {
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest buildPartial() {
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest result = new com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest(this);
+        result.droneID_ = droneID_;
+        result.dronePositionX_ = dronePositionX_;
+        result.dronePositionY_ = dronePositionY_;
+        result.batteryLevel_ = batteryLevel_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest) {
+          return mergeFrom((com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest other) {
+        if (other == com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest.getDefaultInstance()) return this;
+        if (other.getDroneID() != 0) {
+          setDroneID(other.getDroneID());
+        }
+        if (other.getDronePositionX() != 0) {
+          setDronePositionX(other.getDronePositionX());
+        }
+        if (other.getDronePositionY() != 0) {
+          setDronePositionY(other.getDronePositionY());
+        }
+        if (other.getBatteryLevel() != 0) {
+          setBatteryLevel(other.getBatteryLevel());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int droneID_ ;
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return The droneID.
+       */
+      public int getDroneID() {
+        return droneID_;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @param value The droneID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDroneID(int value) {
+        
+        droneID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 droneID = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDroneID() {
+        
+        droneID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int dronePositionX_ ;
+      /**
+       * <code>int32 dronePositionX = 2;</code>
+       * @return The dronePositionX.
+       */
+      public int getDronePositionX() {
+        return dronePositionX_;
+      }
+      /**
+       * <code>int32 dronePositionX = 2;</code>
+       * @param value The dronePositionX to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDronePositionX(int value) {
+        
+        dronePositionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 dronePositionX = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDronePositionX() {
+        
+        dronePositionX_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int dronePositionY_ ;
+      /**
+       * <code>int32 dronePositionY = 3;</code>
+       * @return The dronePositionY.
+       */
+      public int getDronePositionY() {
+        return dronePositionY_;
+      }
+      /**
+       * <code>int32 dronePositionY = 3;</code>
+       * @param value The dronePositionY to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDronePositionY(int value) {
+        
+        dronePositionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 dronePositionY = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDronePositionY() {
+        
+        dronePositionY_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int batteryLevel_ ;
+      /**
+       * <code>int32 batteryLevel = 4;</code>
+       * @return The batteryLevel.
+       */
+      public int getBatteryLevel() {
+        return batteryLevel_;
+      }
+      /**
+       * <code>int32 batteryLevel = 4;</code>
+       * @param value The batteryLevel to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBatteryLevel(int value) {
+        
+        batteryLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 batteryLevel = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBatteryLevel() {
+        
+        batteryLevel_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.smartcitydrone.chargeservice.ChargeEndRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.smartcitydrone.chargeservice.ChargeEndRequest)
+    private static final com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest();
+    }
+
+    public static com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ChargeEndRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ChargeEndRequest>() {
+      @java.lang.Override
+      public ChargeEndRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ChargeEndRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ChargeEndRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ChargeEndRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.smartcitydrone.chargeservice.ChargeServiceOuterClass.ChargeEndRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface ChargeResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.smartcitydrone.chargeservice.ChargeResponse)
       com.google.protobuf.MessageOrBuilder {
@@ -1152,6 +2328,16 @@ public final class ChargeServiceOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_smartcitydrone_chargeservice_ChargeRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_smartcitydrone_chargeservice_ChargeResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -1167,11 +2353,20 @@ public final class ChargeServiceOuterClass {
     java.lang.String[] descriptorData = {
       "\n\023ChargeService.proto\022 com.smartcitydron" +
       "e.chargeservice\" \n\rChargeRequest\022\017\n\007requ" +
-      "est\030\001 \001(\t\"\"\n\016ChargeResponse\022\020\n\010response\030" +
-      "\001 \001(\t2|\n\rChargeService\022k\n\006charge\022/.com.s" +
-      "martcitydrone.chargeservice.ChargeReques" +
-      "t\0320.com.smartcitydrone.chargeservice.Cha" +
-      "rgeResponseb\006proto3"
+      "est\030\001 \001(\t\"%\n\022ChargeStartRequest\022\017\n\007drone" +
+      "ID\030\001 \001(\005\"i\n\020ChargeEndRequest\022\017\n\007droneID\030" +
+      "\001 \001(\005\022\026\n\016dronePositionX\030\002 \001(\005\022\026\n\016dronePo" +
+      "sitionY\030\003 \001(\005\022\024\n\014batteryLevel\030\004 \001(\005\"\"\n\016C" +
+      "hargeResponse\022\020\n\010response\030\001 \001(\t2\346\002\n\rChar" +
+      "geService\022k\n\006charge\022/.com.smartcitydrone" +
+      ".chargeservice.ChargeRequest\0320.com.smart" +
+      "citydrone.chargeservice.ChargeResponse\022u" +
+      "\n\013chargeStart\0224.com.smartcitydrone.charg" +
+      "eservice.ChargeStartRequest\0320.com.smartc" +
+      "itydrone.chargeservice.ChargeResponse\022q\n" +
+      "\tchargeEnd\0222.com.smartcitydrone.chargese" +
+      "rvice.ChargeEndRequest\0320.com.smartcitydr" +
+      "one.chargeservice.ChargeResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1183,8 +2378,20 @@ public final class ChargeServiceOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_smartcitydrone_chargeservice_ChargeRequest_descriptor,
         new java.lang.String[] { "Request", });
-    internal_static_com_smartcitydrone_chargeservice_ChargeResponse_descriptor =
+    internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_chargeservice_ChargeStartRequest_descriptor,
+        new java.lang.String[] { "DroneID", });
+    internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_smartcitydrone_chargeservice_ChargeEndRequest_descriptor,
+        new java.lang.String[] { "DroneID", "DronePositionX", "DronePositionY", "BatteryLevel", });
+    internal_static_com_smartcitydrone_chargeservice_ChargeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_com_smartcitydrone_chargeservice_ChargeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_smartcitydrone_chargeservice_ChargeResponse_descriptor,

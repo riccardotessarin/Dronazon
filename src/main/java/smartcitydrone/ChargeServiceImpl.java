@@ -67,6 +67,32 @@ public class ChargeServiceImpl extends ChargeServiceImplBase {
 		responseObserver.onCompleted();
 	}
 
+	@Override
+	public void chargeStart(ChargeStartRequest request, StreamObserver<ChargeResponse> responseObserver) {
+		droneProperty.setDroneIsCharging(request.getDroneID(), true);
+		ChargeResponse response = ChargeResponse.newBuilder().setResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void chargeEnd(ChargeEndRequest request, StreamObserver<ChargeResponse> responseObserver) {
+		ChargeResponse response = ChargeResponse.newBuilder().setResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+		if (droneProperty.isMaster()) {
+			droneProperty.updateDronePosition(request.getDroneID(), new int[]{request.getDronePositionX(), request.getDronePositionY()});
+			droneProperty.updateDroneBatteryLevel(request.getDroneID(), request.getBatteryLevel());
+			droneProperty.setDroneIsCharging(request.getDroneID(), false);
+			if (!droneProperty.isWaitingCharge()) {
+				return;
+			}
+		}
+
+		droneProperty.removeFromChargingQueue(request.getDroneID());
+	}
+
 	public DroneProperty getDroneProperty() {
 		return droneProperty;
 	}

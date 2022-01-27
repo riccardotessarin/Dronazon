@@ -60,8 +60,14 @@ public class DroneChargeThread extends Thread {
 
 		System.out.println("CHARGE START");
 
+		// If it is participant in an election, there's no point in telling the master since master is down
+		// If this is master it already knows when it starts to charge
+		if (!droneProperty.isParticipant() && !droneProperty.isMaster()) {
+			ChargeServiceThread startChargeThread =
+					new ChargeServiceThread(droneProperty, droneProperty.getMasterDrone(), "startcharge");
+			startChargeThread.start();
+		}
 
-		//TODO: Send message to master telling it has started the charge (so this is unavailable for deliveries)
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
@@ -73,10 +79,48 @@ public class DroneChargeThread extends Thread {
 		droneProperty.setDronePosition(new int[]{0, 0});
 		droneProperty.setBatteryLevel(100);
 		droneProperty.updateBatteryLevelInNetwork();
-
 		droneProperty.setCharging(false);
 
-		//TODO: Send end of charge message to all waiting and master
+		droneProperty.removeFromChargingQueue(droneProperty.getDroneID());
+
+		// If this was the only drone who wanted to charge then there's nothing more to do
+		if (droneProperty.getChargingQueue().size() == 0) {
+			return;
+		}
+
+		// Sending to the drones GRPC network the charge request message in broadcast (myself included)
+		List<ChargeServiceThread> threadList = new ArrayList<>();
+		List<ChargeInfo> chargeInfos = droneProperty.getChargingQueue();
+		List<DroneInfo> dronesToCall = new ArrayList<>();
+		dronesInNetworkCopy = droneProperty.getDronesInNetwork(); // The list may be different now
+
+		// If this drone is (or has become meanwhile) master, it isn't inside the list because we removed it earlier
+		// anyway. If this is master we don't need to send anything because it already updated its properties
+		if (!droneProperty.isMasterInChargingQueue()) {
+			System.out.println("Adding master to queue");
+			dronesToCall.add(droneProperty.getMasterDrone());
+		}
+
+		for (ChargeInfo chargeInfo : chargeInfos) {
+			dronesInNetworkCopy.stream().filter(c -> c.getDroneID() == chargeInfo.getDroneID()).findFirst().ifPresent(dronesToCall::add);
+		}
+
+		for (DroneInfo droneInfo : dronesToCall) {
+			ChargeServiceThread serviceThread = new ChargeServiceThread(droneProperty, droneInfo, "endcharge");
+			serviceThread.start();
+			threadList.add(serviceThread);
+		}
+
+		// Joining all threads
+		for (ChargeServiceThread thread : threadList) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		droneProperty.clearChargingQueue();
 	}
 
 	public DroneProperty getDroneProperty() {

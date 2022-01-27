@@ -402,15 +402,18 @@ public class DroneServiceThread extends Thread {
 			// If this is triggered, then new master is already down so we start an election
 			@Override
 			public void onError(Throwable t) {
-				System.out.println("New master is down! Couldn't send pending stat\nRestarting election...");
-				senderDrone.setNoMasterDrone();
-				senderDrone.removeFromNetwork(receiverDrone);
-				senderDrone.setParticipant(true);
-				DroneInfo nextDrone = senderDrone.getNextInRing();
-				DroneServiceThread serviceThread =
-						new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-				serviceThread.start();
-
+				if (!senderDrone.isParticipant()) {
+					System.out.println("New master is down! Couldn't send pending stat\nRestarting election...");
+					senderDrone.setNoMasterDrone();
+					senderDrone.removeFromNetwork(receiverDrone);
+					senderDrone.setParticipant(true);
+					DroneInfo nextDrone = senderDrone.getNextInRing();
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					serviceThread.start();
+				} else {
+					senderDrone.removeFromNetwork(receiverDrone);
+				}
 				channel.shutdown();
 			}
 
@@ -442,7 +445,7 @@ public class DroneServiceThread extends Thread {
 			// Check if the drone who's down was the master
 			@Override
 			public void onError(Throwable t) {
-				if (senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
+				if (!senderDrone.isParticipant() && senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
 					System.out.println("Master down after check. Starting election...");
 					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);

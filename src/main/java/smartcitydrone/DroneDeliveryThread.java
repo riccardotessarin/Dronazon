@@ -42,13 +42,19 @@ public class DroneDeliveryThread extends Thread {
 				droneProperty.getDronePosition(), orderKM,
 				droneProperty.getAverageBufferPM(), droneProperty.getBatteryLevel());
 
-		DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), droneStat);
-		serviceThread.start();
 
-		try {
-			serviceThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (droneProperty.getMasterDrone() != null) {
+			DroneServiceThread serviceThread = new DroneServiceThread(droneProperty, droneProperty.getMasterDrone(), droneStat);
+			serviceThread.start();
+
+			try {
+				serviceThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Couldn't retrive master info after delivery, saving stats in pending");
+			droneProperty.setPendingDroneStat(droneStat);
 		}
 
 		// Since the master could be using this as well, we wait for the thread that sends stats to finish before upd

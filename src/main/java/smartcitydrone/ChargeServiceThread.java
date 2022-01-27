@@ -25,10 +25,10 @@ public class ChargeServiceThread extends Thread {
 		this.message = "charge";
 	}
 
-	public ChargeServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone) {
+	public ChargeServiceThread(DroneProperty senderDrone, DroneInfo receiverDrone, String message) {
 		this.senderDrone = senderDrone;
 		this.receiverDrone = receiverDrone;
-		this.message = "endcharge";
+		this.message = message;
 	}
 
 	@Override
@@ -36,8 +36,10 @@ public class ChargeServiceThread extends Thread {
 		try {
 			if (message.equalsIgnoreCase("charge")) {
 				charge();
+			} else if (message.equalsIgnoreCase("startcharge")) {
+				chargeStart();
 			} else if (message.equalsIgnoreCase("endcharge")) {
-				endCharge();
+				chargeEnd();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -76,7 +78,7 @@ public class ChargeServiceThread extends Thread {
 
 			@Override
 			public void onError(Throwable t) {
-				if(receiverDrone.getDroneID() == senderDrone.getMasterDrone().getDroneID() && !senderDrone.isParticipant()) {
+				if(!senderDrone.isParticipant() && receiverDrone.getDroneID() == senderDrone.getMasterDrone().getDroneID()) {
 					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
 					senderDrone.setParticipant(true);
@@ -100,7 +102,48 @@ public class ChargeServiceThread extends Thread {
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
 
-	private void endCharge() throws InterruptedException {
+	private void chargeStart() throws InterruptedException {
+		System.out.println("Sending to master the start of charge message");
+
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		ChargeServiceStub stub = ChargeServiceGrpc.newStub(channel);
+
+		ChargeStartRequest request = ChargeStartRequest.newBuilder().setDroneID(senderDrone.getDroneID()).build();
+
+		stub.chargeStart(request, new StreamObserver<ChargeResponse>() {
+			@Override
+			public void onNext(ChargeResponse value) {
+				System.out.println("Master received charge start");
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				if (!senderDrone.isParticipant()) {
+					senderDrone.setNoMasterDrone();
+					senderDrone.removeFromNetwork(receiverDrone);
+					senderDrone.setParticipant(true);
+					DroneInfo nextDrone = senderDrone.getNextInRing();
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					serviceThread.start();
+				}
+				channel.shutdown();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdown();
+			}
+		});
+
+		//you need this. otherwise the method will terminate before that answers from the server are received
+		channel.awaitTermination(10, TimeUnit.SECONDS);
+	}
+
+	private void chargeEnd() throws InterruptedException {
 		System.out.println("Sending end of charge message");
 
 		final ManagedChannel channel = ManagedChannelBuilder
@@ -109,17 +152,32 @@ public class ChargeServiceThread extends Thread {
 		//creating an asynchronous stub on the channel
 		ChargeServiceStub stub = ChargeServiceGrpc.newStub(channel);
 
-		String chargeMessage = "end";
-		ChargeRequest request = ChargeRequest.newBuilder().setRequest(chargeMessage).build();
+		ChargeEndRequest request = ChargeEndRequest.newBuilder().setDroneID(senderDrone.getDroneID())
+				.setDronePositionX(0).setDronePositionY(0).setBatteryLevel(100).build();
 
-		stub.charge(request, new StreamObserver<ChargeResponse>() {
+		stub.chargeEnd(request, new StreamObserver<ChargeResponse>() {
 			@Override
 			public void onNext(ChargeResponse value) {
-
+				if (!senderDrone.isParticipant() && receiverDrone.getDroneID() == senderDrone.getMasterDrone().getDroneID()) {
+					System.out.println("Master online");
+				} else {
+					System.out.println("Drone online");
+				}
 			}
 
 			@Override
 			public void onError(Throwable t) {
+				if (!senderDrone.isParticipant() && receiverDrone.getDroneID() == senderDrone.getMasterDrone().getDroneID()) {
+					senderDrone.setNoMasterDrone();
+					senderDrone.removeFromNetwork(receiverDrone);
+					senderDrone.setParticipant(true);
+					DroneInfo nextDrone = senderDrone.getNextInRing();
+					DroneServiceThread serviceThread =
+							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					serviceThread.start();
+				} else {
+					senderDrone.removeFromNetwork(receiverDrone);
+				}
 				channel.shutdown();
 			}
 
