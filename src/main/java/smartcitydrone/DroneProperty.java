@@ -13,6 +13,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class DroneProperty {
@@ -50,6 +54,8 @@ public class DroneProperty {
 	private Object chargeInfoMux = new Object();
 	private List<ChargeInfo> chargingQueue;
 	private Object chargeQueueMux = new Object();
+	private Object chargeThreadMux = new Object();
+	private Object waitingChargeMux = new Object();
 
 	// Variables for mutex lock
 	private Object masterMux = new Object();
@@ -177,6 +183,8 @@ public class DroneProperty {
 		System.out.println("Drone " + droneID + " deliveries stat:\n" +
 				"Total deliveries: " + getDeliveryCount() + ", Distance traveled: " +
 				getTraveledKM() + " Km, Battery left: " + getBatteryLevel() + "%");
+		System.out.println("Participant " + isParticipant());
+		System.out.println(getMasterDrone() != null ? getMasterDrone() : "Master is null");
 	}
 
 	public void notifyDroneForDelivery() {
@@ -201,6 +209,12 @@ public class DroneProperty {
 		synchronized (postPendingStatMux) {
 			postPendingStatMux.notifyAll();
 		}
+	}
+
+	// Credits to Stuart Marks, on StackOverflow: https://stackoverflow.com/questions/23699371/java-8-distinct-by-property
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		Set<Object> seen = ConcurrentHashMap.newKeySet();
+		return t -> seen.add(keyExtractor.apply(t));
 	}
 	//endregion
 
@@ -408,17 +422,17 @@ public class DroneProperty {
 	public GlobalStat produceGlobalStat() {
 		List<DroneStat> dronesStatisticsCopy = getDronesStatistics();
 		int deliveriesCount = dronesStatisticsCopy.size();
-		int numberOfDrones =  getDronesInNetwork().size();
+		int differentDrones = (int) dronesStatisticsCopy.stream().filter(distinctByKey(DroneStat::getDroneID)).count();
 
 		if (deliveriesCount == 0) {
 			System.out.println("No deliveries made");
 			return new GlobalStat(System.currentTimeMillis(), 0.0,0.0,0.0,0.0);
-		} else if (numberOfDrones == 0) {
-			System.out.println("No more drones inside the network! Error!");
+		} else if (differentDrones == 0) {
+			System.out.println("No different drones in stats! Error!");
 			return new GlobalStat(System.currentTimeMillis(), 0.0,0.0,0.0,0.0);
 		}
 
-		double averageDeliveriesNumber = (double) deliveriesCount / numberOfDrones;
+		double averageDeliveriesNumber = (double) deliveriesCount / differentDrones;
 
 		// These need to get values from each of the stat
 		double averageTraveledKM = 0.0;
@@ -433,7 +447,7 @@ public class DroneProperty {
 			averageBatteryLevel += droneStat.getBatteryLeft();
 		}
 
-		averageTraveledKM = averageTraveledKM / numberOfDrones;
+		averageTraveledKM = averageTraveledKM / differentDrones;
 		if (pmCount != 0) {
 			averagePM = averagePM / pmCount;
 		} else {
@@ -449,23 +463,17 @@ public class DroneProperty {
 
 		return globalStat;
 	}
-
-	/*
-	public void  clearPendingStat() {
-		synchronized (pendingStatMux) {
-			this.pendingDroneStat = null;
-		}
-	}
-
-	 */
 	//endregion
 
 	//region Drone Charge
 	// This JUST ASKS to charge, permission to charge will be granted later
 	public void charge() {
-		if(getChargeThread() == null && !isCharging() && !isWaitingCharge()) {
-			//setCharging(true);
-			//setDroneIsCharging(this.droneID, true);
+		if (isQuitting()) {
+			System.out.println("Can't charge, drone is performing safe quit from network");
+			return;
+		}
+
+		if(!isCharging() && !isWaitingCharge()) {
 			setWaitingCharge(true);
 
 			ChargeInfo chargeInfo = makeChargeInfo();
@@ -624,7 +632,9 @@ public class DroneProperty {
 	}
 
 	public DroneInfo getMasterDrone() {
-		return masterDrone;
+		synchronized (masterMux) {
+			return masterDrone;
+		}
 	}
 
 	public void setMasterDrone(DroneInfo masterDrone) {
@@ -904,19 +914,27 @@ public class DroneProperty {
 	}
 
 	public DroneChargeThread getChargeThread() {
-		return chargeThread;
+		synchronized (chargeThreadMux) {
+			return chargeThread;
+		}
 	}
 
 	public void setChargeThread(DroneChargeThread chargeThread) {
-		this.chargeThread = chargeThread;
+		synchronized (chargeThreadMux) {
+			this.chargeThread = chargeThread;
+		}
 	}
 
 	public boolean isWaitingCharge() {
-		return isWaitingCharge;
+		synchronized (waitingChargeMux) {
+			return isWaitingCharge;
+		}
 	}
 
 	public void setWaitingCharge(boolean waitingCharge) {
-		isWaitingCharge = waitingCharge;
+		synchronized (waitingChargeMux) {
+			isWaitingCharge = waitingCharge;
+		}
 	}
 
 	public List<ChargeInfo> getChargingQueue() {

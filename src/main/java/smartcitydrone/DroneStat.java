@@ -4,13 +4,15 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class DroneStat {
+	private int droneID;
 	String timestamp;
 	private int[] dronePosition;
 	double kmTraveled;
 	List<Double> averageBufferPM;
 	int batteryLeft;
 
-	public DroneStat(String timestamp, int[] dronePosition, double kmTraveled, List<Double> averageBufferPM, int batteryLeft) {
+	public DroneStat(int droneID, String timestamp, int[] dronePosition, double kmTraveled, List<Double> averageBufferPM, int batteryLeft) {
+		this.droneID = droneID;
 		this.timestamp = timestamp;
 		this.dronePosition = dronePosition;
 		this.kmTraveled = kmTraveled;
@@ -56,5 +58,13 @@ public class DroneStat {
 
 	public void setBatteryLeft(int batteryLeft) {
 		this.batteryLeft = batteryLeft;
+	}
+
+	public int getDroneID() {
+		return droneID;
+	}
+
+	public void setDroneID(int droneID) {
+		this.droneID = droneID;
 	}
 }
