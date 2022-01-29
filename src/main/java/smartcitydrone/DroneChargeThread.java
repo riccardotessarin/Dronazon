@@ -47,6 +47,7 @@ public class DroneChargeThread extends Thread {
 			}
 		}
 
+		// The drone can't charge if it is delivering, and can't deliver if it is charging
 		if (droneProperty.getDeliveryThread() != null && droneProperty.isDelivering()) {
 			try {
 				droneProperty.getDeliveryThread().join();
@@ -84,7 +85,18 @@ public class DroneChargeThread extends Thread {
 		droneProperty.removeFromChargingQueue(droneProperty.getDroneID());
 
 		// If this was the only drone who wanted to charge then there's nothing more to do
+		// We just send to the master drone the end of charge message
+		// Charging queue is already empty so there's nothing to clear and no one else to inform
 		if (droneProperty.getChargingQueue().size() == 0) {
+			if (!droneProperty.isMaster() && !droneProperty.isParticipant() && droneProperty.getMasterDrone() != null) {
+				ChargeServiceThread serviceThread = new ChargeServiceThread(droneProperty, droneProperty.getMasterDrone(), "endcharge");
+				serviceThread.start();
+				try {
+					serviceThread.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			return;
 		}
 
@@ -96,7 +108,7 @@ public class DroneChargeThread extends Thread {
 
 		// If this drone is (or has become meanwhile) master, it isn't inside the list because we removed it earlier
 		// anyway. If this is master we don't need to send anything because it already updated its properties
-		if (!droneProperty.isMasterInChargingQueue()) {
+		if (!droneProperty.isMasterInChargingQueue() && !droneProperty.isMaster()) {
 			System.out.println("Adding master to queue");
 			dronesToCall.add(droneProperty.getMasterDrone());
 		}

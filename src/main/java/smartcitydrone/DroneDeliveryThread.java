@@ -38,7 +38,7 @@ public class DroneDeliveryThread extends Thread {
 		droneProperty.setBatteryLevel(batteryLeft);
 		droneProperty.updateBatteryLevelInNetwork();
 
-		DroneStat droneStat = new DroneStat(timeOfArrival,
+		DroneStat droneStat = new DroneStat(droneProperty.getDroneID(), timeOfArrival,
 				droneProperty.getDronePosition(), orderKM,
 				droneProperty.getAverageBufferPM(), droneProperty.getBatteryLevel());
 
