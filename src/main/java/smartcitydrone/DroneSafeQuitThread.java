@@ -25,6 +25,15 @@ public class DroneSafeQuitThread extends Thread {
 			droneProperty.setCheckThread(null);
 		}
 
+		if (droneProperty.getChargeThread() != null) {
+			try {
+				droneProperty.getChargeThread().join();
+				droneProperty.setChargeThread(null);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
 		// End drone delivery (if any)
 		if (droneProperty.isDelivering() && droneProperty.getDeliveryThread() != null) {
 			try {
