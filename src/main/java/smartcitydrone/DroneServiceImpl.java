@@ -182,13 +182,13 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		int electedID = request.getDroneID();
 		droneProperty.setParticipant(false);
-		// We wake any drone who has the quit locked because it was participant
-		droneProperty.notifyPendingElectionMux();
 
 		// When this is true, the elected message chain stops
 		if (droneProperty.getDroneID() == electedID) {
 			System.out.println("I'm becoming the new master after the election");
 			droneProperty.makeMaster();
+			// Now we can wake the master if it wants to quit
+			droneProperty.notifyPendingElectionMux();
 			return;
 		}
 

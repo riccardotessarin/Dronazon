@@ -333,6 +333,11 @@ public class DroneServiceThread extends Thread {
 		stub.elected(request, new StreamObserver<ElectedResponse>() {
 			@Override
 			public void onNext(ElectedResponse value) {
+				if (!senderDrone.isMaster()) {
+					// We wake any drone who has the quit locked because it was participant after elected has been
+					// sent successfully. If the master wants to quit we wake it after the election has finished
+					senderDrone.notifyPendingElectionMux();
+				}
 				System.out.println(value.getDroneResponse());
 			}
 
