@@ -128,6 +128,17 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 
+		/*
+		// When a re-election occurs, another (correct) election could have been already in progress
+		// (ex: a new election started without taking the crashed master into account)
+		// the elected message is already in network, so no need to send more
+		if (droneProperty.isMaster()) {
+			System.out.println("New master is stopping a duplicate election");
+			return;
+		}
+
+		 */
+
 		int batteryLevel = 0;
 		if (!droneProperty.isDelivering()) {
 			batteryLevel = droneProperty.getBatteryLevel();

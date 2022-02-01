@@ -57,6 +57,9 @@ public class DroneProperty {
 	private Object chargeThreadMux = new Object();
 	private Object waitingChargeMux = new Object();
 
+	// For crashes fix
+	private DeliveryCheckThread deliveryCheckThread = null;
+
 	// Variables for mutex lock
 	private Object masterMux = new Object();
 	private Object kmMux = new Object();
@@ -276,6 +279,10 @@ public class DroneProperty {
 		masterThread.start();
 		masterStatThread = new DroneMasterStatThread(this);
 		masterStatThread.start();
+
+		// Master opens thread to check crashes during deliveries
+		deliveryCheckThread = new DeliveryCheckThread(this);
+		deliveryCheckThread.start();
 	}
 
 
@@ -955,6 +962,14 @@ public class DroneProperty {
 
 	public void setChargeQueueMux(Object chargeQueueMux) {
 		this.chargeQueueMux = chargeQueueMux;
+	}
+
+	public DeliveryCheckThread getDeliveryCheckThread() {
+		return deliveryCheckThread;
+	}
+
+	public void setDeliveryCheckThread(DeliveryCheckThread deliveryCheckThread) {
+		this.deliveryCheckThread = deliveryCheckThread;
 	}
 
 	//endregion

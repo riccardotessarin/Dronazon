@@ -83,6 +83,12 @@ public class DroneSafeQuitThread extends Thread {
 			}
 		}
 
+		// For crashes during deliveries
+		if (droneProperty.isMaster() && droneProperty.getDeliveryCheckThread() != null) {
+			droneProperty.getDeliveryCheckThread().quit();
+			droneProperty.setDeliveryCheckThread(null);
+		}
+
 		if (droneProperty.getSensorThread() != null) {
 			droneProperty.getSensorThread().stopMeGently();
 			droneProperty.setSensorThread(null);
