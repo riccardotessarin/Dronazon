@@ -186,8 +186,8 @@ public class DroneProperty {
 		System.out.println("Drone " + droneID + " deliveries stat:\n" +
 				"Total deliveries: " + getDeliveryCount() + ", Distance traveled: " +
 				getTraveledKM() + " Km, Battery left: " + getBatteryLevel() + "%");
-		System.out.println("Participant " + isParticipant());
-		System.out.println(getMasterDrone() != null ? getMasterDrone() : "Master is null");
+		//System.out.println("Participant " + isParticipant());
+		//System.out.println(getMasterDrone() != null ? getMasterDrone() : "Master is null");
 	}
 
 	public void notifyDroneForDelivery() {
@@ -555,6 +555,32 @@ public class DroneProperty {
 			chargeQueueMux.notifyAll();
 		}
 	}
+	//endregion
+
+	//region Crash fixing
+	public List<ChargeInfo> getChargingQueueBeforeMe(ChargeInfo chargeInfo) {
+		List<ChargeInfo> chargeQueue = getChargingQueue();
+		if (chargeQueue.size() == 0) {
+			System.out.println("Charging queue error!");
+			return null;
+		} else if (chargeQueue.size() == 1) {
+			System.out.println("There's just one drone in list so no one is before this");
+			return null;
+		}
+
+		int index = chargeQueue.indexOf(chargeInfo);
+
+		if (index == -1) {
+			System.out.println("An error occurred while retrieving the drone from charge waiting list!");
+			return null;
+		} else if (index == 0) {
+			System.out.println("There's no one before this drone");
+			return  null;
+		}
+
+		return chargeQueue.subList(0, index);
+	}
+
 	//endregion
 
 	//region Getters & Setters

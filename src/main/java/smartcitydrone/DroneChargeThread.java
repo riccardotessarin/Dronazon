@@ -9,6 +9,7 @@ import java.util.Objects;
 public class DroneChargeThread extends Thread {
 	private DroneProperty droneProperty;
 	private ChargeInfo chargeInfo;
+	private ChargeCheckThread chargeCheckThread = null;
 
 	public DroneChargeThread(DroneProperty droneProperty, ChargeInfo chargeInfo) {
 		this.droneProperty = droneProperty;
@@ -36,6 +37,13 @@ public class DroneChargeThread extends Thread {
 			}
 		}
 
+		// If we have a single drone waiting to charge it's this one, so we don't need to check
+		if (droneProperty.getChargingQueue().size() > 1) {
+			chargeCheckThread = new ChargeCheckThread(droneProperty, chargeInfo);
+			chargeCheckThread.start();
+		}
+
+
 		while (droneProperty.getChargingQueue().size() > 0 && !droneProperty.getChargingQueue().get(0).equals(chargeInfo)) {
 			try {
 				System.out.println("WAITING");
@@ -58,6 +66,11 @@ public class DroneChargeThread extends Thread {
 
 		droneProperty.setWaitingCharge(false);
 		droneProperty.setCharging(true);
+
+		// If we are ready to charge then everything went well and there's no need to check anymore
+		if (chargeCheckThread != null) {
+			chargeCheckThread.quit();
+		}
 
 		System.out.println("CHARGE START");
 

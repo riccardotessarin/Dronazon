@@ -1,0 +1,11 @@
+syntax = "proto3"; // No need to specify required or optional with proto3
+package com.smartcitydrone.crashservice;
+
+// We can use this to check if a drone in network is still online
+message CheckMessage {
+  string message = 1;
+}
+
+service CrashService {
+  rpc checkCharge(CheckMessage) returns (CheckMessage);
+}

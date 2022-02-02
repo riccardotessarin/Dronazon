@@ -19,7 +19,8 @@ public class DroneServerThread extends Thread {
 
 		try {
 			server = ServerBuilder.forPort(droneProperty.getPort()).addService(new DroneServiceImpl(droneProperty))
-					.addService(new ChargeServiceImpl(droneProperty)).build();
+					.addService(new ChargeServiceImpl(droneProperty))
+					.addService(new CrashServiceImpl(droneProperty)).build();
 			server.start();
 
 			System.out.println("Drone server started!");
