@@ -65,6 +65,18 @@ public class DroneChargeThread extends Thread {
 		}
 
 		droneProperty.setWaitingCharge(false);
+
+		// If someone sends a start charge while another drone is charging then the latter surely has crashed
+		if (droneProperty.isMaster()) {
+			DroneInfo crashedInCharge = droneProperty.getDronesInNetwork()
+					.stream().filter(DroneInfo::isCharging).findFirst().orElse(null);
+
+			if (crashedInCharge != null) {
+				DroneServiceThread droneServiceThread = new DroneServiceThread(droneProperty, crashedInCharge, "check");
+				droneServiceThread.start();
+			}
+		}
+
 		droneProperty.setCharging(true);
 
 		// If we are ready to charge then everything went well and there's no need to check anymore

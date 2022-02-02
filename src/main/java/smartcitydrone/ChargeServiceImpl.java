@@ -1,5 +1,6 @@
 package smartcitydrone;
 
+import beans.DroneInfo;
 import com.google.gson.Gson;
 import com.smartcitydrone.chargeservice.ChargeServiceGrpc.ChargeServiceImplBase;
 import com.smartcitydrone.chargeservice.ChargeServiceOuterClass.*;
@@ -69,6 +70,15 @@ public class ChargeServiceImpl extends ChargeServiceImplBase {
 
 	@Override
 	public void chargeStart(ChargeStartRequest request, StreamObserver<ChargeResponse> responseObserver) {
+		// If someone sends a start charge while another drone is charging then the latter surely has crashed
+		DroneInfo crashedInCharge = droneProperty.getDronesInNetwork()
+				.stream().filter(DroneInfo::isCharging).findFirst().orElse(null);
+
+		if (crashedInCharge != null) {
+			DroneServiceThread droneServiceThread = new DroneServiceThread(droneProperty, crashedInCharge, "check");
+			droneServiceThread.start();
+		}
+
 		droneProperty.setDroneIsCharging(request.getDroneID(), true);
 		ChargeResponse response = ChargeResponse.newBuilder().setResponse("OK").build();
 		responseObserver.onNext(response);
