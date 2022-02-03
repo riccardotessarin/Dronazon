@@ -58,6 +58,37 @@ public final class CrashServiceGrpc {
     return getCheckChargeMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection,
+      com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection> getRestartElectionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "restartElection",
+      requestType = com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection.class,
+      responseType = com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection,
+      com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection> getRestartElectionMethod() {
+    io.grpc.MethodDescriptor<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection, com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection> getRestartElectionMethod;
+    if ((getRestartElectionMethod = CrashServiceGrpc.getRestartElectionMethod) == null) {
+      synchronized (CrashServiceGrpc.class) {
+        if ((getRestartElectionMethod = CrashServiceGrpc.getRestartElectionMethod) == null) {
+          CrashServiceGrpc.getRestartElectionMethod = getRestartElectionMethod =
+              io.grpc.MethodDescriptor.<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection, com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "restartElection"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection.getDefaultInstance()))
+              .setSchemaDescriptor(new CrashServiceMethodDescriptorSupplier("restartElection"))
+              .build();
+        }
+      }
+    }
+    return getRestartElectionMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -92,6 +123,13 @@ public final class CrashServiceGrpc {
       asyncUnimplementedUnaryCall(getCheckChargeMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void restartElection(com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection> responseObserver) {
+      asyncUnimplementedUnaryCall(getRestartElectionMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -101,6 +139,13 @@ public final class CrashServiceGrpc {
                 com.smartcitydrone.crashservice.CrashServiceOuterClass.CheckMessage,
                 com.smartcitydrone.crashservice.CrashServiceOuterClass.CheckMessage>(
                   this, METHODID_CHECK_CHARGE)))
+          .addMethod(
+            getRestartElectionMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection,
+                com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection>(
+                  this, METHODID_RESTART_ELECTION)))
           .build();
     }
   }
@@ -130,6 +175,14 @@ public final class CrashServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getCheckChargeMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void restartElection(com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection request,
+        io.grpc.stub.StreamObserver<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getRestartElectionMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -155,6 +208,13 @@ public final class CrashServiceGrpc {
     public com.smartcitydrone.crashservice.CrashServiceOuterClass.CheckMessage checkCharge(com.smartcitydrone.crashservice.CrashServiceOuterClass.CheckMessage request) {
       return blockingUnaryCall(
           getChannel(), getCheckChargeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection restartElection(com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection request) {
+      return blockingUnaryCall(
+          getChannel(), getRestartElectionMethod(), getCallOptions(), request);
     }
   }
 
@@ -183,9 +243,18 @@ public final class CrashServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getCheckChargeMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection> restartElection(
+        com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection request) {
+      return futureUnaryCall(
+          getChannel().newCall(getRestartElectionMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CHECK_CHARGE = 0;
+  private static final int METHODID_RESTART_ELECTION = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -207,6 +276,10 @@ public final class CrashServiceGrpc {
         case METHODID_CHECK_CHARGE:
           serviceImpl.checkCharge((com.smartcitydrone.crashservice.CrashServiceOuterClass.CheckMessage) request,
               (io.grpc.stub.StreamObserver<com.smartcitydrone.crashservice.CrashServiceOuterClass.CheckMessage>) responseObserver);
+          break;
+        case METHODID_RESTART_ELECTION:
+          serviceImpl.restartElection((com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection) request,
+              (io.grpc.stub.StreamObserver<com.smartcitydrone.crashservice.CrashServiceOuterClass.ResetElection>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -270,6 +343,7 @@ public final class CrashServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new CrashServiceFileDescriptorSupplier())
               .addMethod(getCheckChargeMethod())
+              .addMethod(getRestartElectionMethod())
               .build();
         }
       }

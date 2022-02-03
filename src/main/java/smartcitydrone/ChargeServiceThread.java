@@ -79,13 +79,8 @@ public class ChargeServiceThread extends Thread {
 			@Override
 			public void onError(Throwable t) {
 				if(!senderDrone.isParticipant() && receiverDrone.getDroneID() == senderDrone.getMasterDrone().getDroneID()) {
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneInfo nextDrone = senderDrone.getNextInRing();
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					senderDrone.removeFromNetwork(receiverDrone);
 				}
@@ -122,13 +117,10 @@ public class ChargeServiceThread extends Thread {
 			@Override
 			public void onError(Throwable t) {
 				if (!senderDrone.isParticipant()) {
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneInfo nextDrone = senderDrone.getNextInRing();
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
+				} else {
+					senderDrone.removeFromNetwork(receiverDrone);
 				}
 				channel.shutdown();
 			}
@@ -168,13 +160,8 @@ public class ChargeServiceThread extends Thread {
 			@Override
 			public void onError(Throwable t) {
 				if (!senderDrone.isParticipant() && receiverDrone.getDroneID() == senderDrone.getMasterDrone().getDroneID()) {
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneInfo nextDrone = senderDrone.getNextInRing();
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					senderDrone.removeFromNetwork(receiverDrone);
 				}

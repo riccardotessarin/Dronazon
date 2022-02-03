@@ -250,12 +250,8 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Master is down! Starting an election...");
 				senderDrone.setPendingDroneStat(droneStat);
 				if (!senderDrone.isParticipant()) {
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, senderDrone.getNextInRing(), senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					System.out.println("Drone is participating in an election, saving stats and removing saved master without election start");
 					senderDrone.removeFromNetwork(receiverDrone);
@@ -350,11 +346,7 @@ public class DroneServiceThread extends Thread {
 				// If the one who had to receive was the new master, start a new election (everyone already not participant)
 				if (senderDrone.getMasterDrone() != null && senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
 					System.out.println("Elected master down! Starting new election...");
-					senderDrone.setNoMasterDrone();
-					senderDrone.setParticipant(true);
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					DroneServiceThread serviceThread =
 							new DroneServiceThread(senderDrone, nextDrone, electedID);
@@ -409,13 +401,8 @@ public class DroneServiceThread extends Thread {
 			public void onError(Throwable t) {
 				if (!senderDrone.isParticipant()) {
 					System.out.println("New master is down! Couldn't send pending stat\nRestarting election...");
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneInfo nextDrone = senderDrone.getNextInRing();
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					senderDrone.removeFromNetwork(receiverDrone);
 				}
@@ -452,13 +439,8 @@ public class DroneServiceThread extends Thread {
 			public void onError(Throwable t) {
 				if (!senderDrone.isParticipant() && senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
 					System.out.println("Master down after check. Starting election...");
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneInfo nextDrone = senderDrone.getNextInRing();
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					System.out.println("Drone " + receiverDrone.getDroneID() + " down after check.");
 					senderDrone.removeFromNetwork(receiverDrone);

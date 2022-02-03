@@ -123,11 +123,6 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		int bestBattery = request.getBatteryLevel();
 		int bestID = request.getDroneID();
 
-		// Drone gives ok signal to its preceding in the ring, meaning it's still online
-		ElectionResponse response = ElectionResponse.newBuilder().setDroneResponse("OK").build();
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
-
 		/*
 		// When a re-election occurs, another (correct) election could have been already in progress
 		// (ex: a new election started without taking the crashed master into account)
@@ -154,6 +149,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			// (if it joins while the second-last drone sets its own isParticipant to false and there is still no master,
 			// it would start a new election)
 			droneProperty.setParticipant(false);
+			droneProperty.stopTokenLossThread();
 
 			// By setting the isMaster to true immediately we can avoid the edge case of the elected message past
 			// the newly joined drone (remember the LookForMaster thread and grpc message you made? This is better)
@@ -167,21 +163,29 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 			DroneServiceThread serviceThread =
 					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), batteryLevel, droneProperty.getDroneID());
 			serviceThread.start();
+			droneProperty.startTokenLossThread();
 		} else if (batteryLevel == bestBattery && droneProperty.getDroneID() > bestID && !droneProperty.isParticipant() /*&& !droneProperty.isMaster*/) {
 			System.out.println("Same battery but higher ID, sending my info in election");
 			droneProperty.setParticipant(true);
 			DroneServiceThread serviceThread =
 					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), batteryLevel, droneProperty.getDroneID());
 			serviceThread.start();
+			droneProperty.startTokenLossThread();
 		} else if (batteryLevel < bestBattery || (batteryLevel == bestBattery && droneProperty.getDroneID() < bestID)) {
 			System.out.println("Battery/ID worse, forwarding");
 			droneProperty.setParticipant(true);
 			DroneServiceThread serviceThread =
 					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), bestBattery, bestID);
 			serviceThread.start();
+			droneProperty.startTokenLossThread();
 		} else {
 			System.out.println("Stopping election message, better and already participant");
 		}
+
+		// Drone gives ok signal to its preceding in the ring, meaning it's still online
+		ElectionResponse response = ElectionResponse.newBuilder().setDroneResponse("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
 	}
 
 	@Override
@@ -193,6 +197,7 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 
 		int electedID = request.getDroneID();
 		droneProperty.setParticipant(false);
+		droneProperty.stopTokenLossThread();
 
 		// When this is true, the elected message chain stops
 		if (droneProperty.getDroneID() == electedID) {

@@ -26,11 +26,9 @@ public class CrashServiceThread extends Thread {
 		try {
 			if (message.equalsIgnoreCase("checkcharge")) {
 				checkCharge();
-			} /*else if (message.equalsIgnoreCase("delivery")) {
-				dispatchOrder();
+			} else if (message.equalsIgnoreCase("restartelection")) {
+				restartElection();
 			}
-
-			*/
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -57,18 +55,45 @@ public class CrashServiceThread extends Thread {
 			public void onError(Throwable t) {
 				if (!senderDrone.isParticipant() && senderDrone.getMasterDrone().getDroneID() == receiverDrone.getDroneID()) {
 					System.out.println("Master waiting for charge is down. Starting election...");
-					senderDrone.setNoMasterDrone();
 					senderDrone.removeFromNetwork(receiverDrone);
-					senderDrone.setParticipant(true);
-					DroneInfo nextDrone = senderDrone.getNextInRing();
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
-					serviceThread.start();
+					senderDrone.startElection();
 				} else {
 					System.out.println("Drone " + receiverDrone.getDroneID() + " waiting for charge is down.");
 					senderDrone.removeFromNetwork(receiverDrone);
 				}
 				senderDrone.removeFromChargingQueue(receiverDrone.getDroneID());
+				channel.shutdown();
+			}
+
+			@Override
+			public void onCompleted() {
+				channel.shutdown();
+			}
+		});
+
+		//you need this. otherwise the method will terminate before that answers from the server are received
+		channel.awaitTermination(10, TimeUnit.SECONDS);
+	}
+
+	public void restartElection() throws InterruptedException {
+		final ManagedChannel channel = ManagedChannelBuilder
+				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
+
+		//creating an asynchronous stub on the channel
+		CrashServiceStub stub = CrashServiceGrpc.newStub(channel);
+
+		ResetElection request = ResetElection.newBuilder().setMessage("OK").build();
+
+		stub.restartElection(request, new StreamObserver<ResetElection>() {
+			@Override
+			public void onNext(ResetElection value) {
+				System.out.println("Sent correctly");
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				System.out.println("Drone is down, removing it");
+				senderDrone.removeFromNetwork(receiverDrone);
 				channel.shutdown();
 			}
 

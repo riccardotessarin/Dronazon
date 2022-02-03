@@ -6,6 +6,11 @@ message CheckMessage {
   string message = 1;
 }
 
+message ResetElection {
+  string message = 1;
+}
+
 service CrashService {
   rpc checkCharge(CheckMessage) returns (CheckMessage);
+  rpc restartElection(ResetElection) returns (ResetElection);
 }

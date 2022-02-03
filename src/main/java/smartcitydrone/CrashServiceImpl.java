@@ -18,4 +18,16 @@ public class CrashServiceImpl extends CrashServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
+
+	@Override
+	public void restartElection(ResetElection request, StreamObserver<ResetElection> responseObserver) {
+		if (droneProperty.isParticipant()) {
+			droneProperty.setParticipant(false);
+			droneProperty.stopTokenLossThread();
+		}
+
+		ResetElection response = ResetElection.newBuilder().setMessage("OK").build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
 }

@@ -59,6 +59,8 @@ public class DroneProperty {
 
 	// For crashes fix
 	private DeliveryCheckThread deliveryCheckThread = null;
+	private TokenLossCheckThread tokenLossCheckThread = null;
+	private Object tokenLossThreadMux = new Object();
 
 	// Variables for mutex lock
 	private Object masterMux = new Object();
@@ -253,6 +255,17 @@ public class DroneProperty {
 		synchronized (dronesInNetwork) {
 			dronesInNetwork.remove(droneInfo);
 		}
+	}
+
+	public void startElection() {
+		setNoMasterDrone();
+		setParticipant(true);
+		DroneInfo nextDrone = getNextInRing();
+		DroneServiceThread serviceThread =
+				new DroneServiceThread(this, nextDrone, this.getBatteryLevel(), this.getDroneID());
+		serviceThread.start();
+
+		startTokenLossThread();
 	}
 
 	public void makeMaster() {
@@ -581,6 +594,56 @@ public class DroneProperty {
 		return chargeQueue.subList(0, index);
 	}
 
+	// We send in broadcast a message telling all the drones to set themselves as non-participant because
+	// the election needs to be restarted
+	public void restartElection() {
+		if (getTokenLossCheckThread() != null) {
+			getTokenLossCheckThread().quit();
+			setTokenLossCheckThread(null);
+		}
+
+		sendBroadcastElectionRestart();
+		startElection();
+	}
+
+	private void sendBroadcastElectionRestart() {
+		List<CrashServiceThread> threads = new ArrayList<>();
+		List<DroneInfo> dronesInNetworkCopy = getDronesInNetwork();
+
+		for (DroneInfo droneInfo : dronesInNetworkCopy) {
+			CrashServiceThread serviceThread = new CrashServiceThread(this, droneInfo, "restartelection");
+			serviceThread.start();
+			threads.add(serviceThread);
+		}
+
+		// Joining all threads
+		for (CrashServiceThread thread : threads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void startTokenLossThread() {
+		// We don't want duplicate token loss threads
+		if (getTokenLossCheckThread() != null) {
+			return;
+		}
+
+		setTokenLossCheckThread(new TokenLossCheckThread(this));
+		getTokenLossCheckThread().start();
+	}
+
+	public void stopTokenLossThread() {
+		if (getTokenLossCheckThread() == null) {
+			return;
+		}
+
+		getTokenLossCheckThread().quit();
+		setTokenLossCheckThread(null);
+	}
 	//endregion
 
 	//region Getters & Setters
@@ -998,5 +1061,16 @@ public class DroneProperty {
 		this.deliveryCheckThread = deliveryCheckThread;
 	}
 
+	public TokenLossCheckThread getTokenLossCheckThread() {
+		synchronized (tokenLossThreadMux) {
+			return tokenLossCheckThread;
+		}
+	}
+
+	public void setTokenLossCheckThread(TokenLossCheckThread tokenLossCheckThread) {
+		synchronized (tokenLossThreadMux) {
+			this.tokenLossCheckThread = tokenLossCheckThread;
+		}
+	}
 	//endregion
 }

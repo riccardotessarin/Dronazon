@@ -105,10 +105,7 @@ public class Drone {
 
 		// If the new drone doesn't get any info about the master or about an ongoing election, it starts an election
 		if (droneProperty.getMasterDrone() == null && !droneProperty.isElectionInProgress() && !droneProperty.isParticipant()) {
-			droneProperty.setParticipant(true);
-			DroneServiceThread serviceThread =
-					new DroneServiceThread(droneProperty, droneProperty.getNextInRing(), droneProperty.getBatteryLevel(), droneProperty.getDroneID());
-			serviceThread.start();
+			droneProperty.startElection();
 		}
 		/*
 		// Now useless but let's keep it
