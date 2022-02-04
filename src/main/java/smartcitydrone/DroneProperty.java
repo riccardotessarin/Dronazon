@@ -64,6 +64,7 @@ public class DroneProperty {
 
 	// Variables for mutex lock
 	private Object masterMux = new Object();
+	private Object masterThreadMux = new Object();
 	private Object kmMux = new Object();
 	private Object delCountMux = new Object();
 	private Object pendingStatMux = new Object();
@@ -270,7 +271,7 @@ public class DroneProperty {
 
 	public void makeMaster() {
 		// We check if a master thread is already active, this avoids duplicate master threads
-		if (this.masterThread != null) {
+		if (getMasterThread() != null) {
 			return;
 		}
 
@@ -288,8 +289,8 @@ public class DroneProperty {
 			notifyPendingStatQuittingMux();
 		}
 
-		masterThread = new DroneMasterThread(this);
-		masterThread.start();
+		setMasterThread(new DroneMasterThread(this));
+		getMasterThread().start();
 		masterStatThread = new DroneMasterStatThread(this);
 		masterStatThread.start();
 
@@ -813,11 +814,15 @@ public class DroneProperty {
 	}
 
 	public DroneMasterThread getMasterThread() {
-		return masterThread;
+		synchronized (masterThreadMux) {
+			return masterThread;
+		}
 	}
 
 	public void setMasterThread(DroneMasterThread masterThread) {
-		this.masterThread = masterThread;
+		synchronized (masterThreadMux) {
+			this.masterThread = masterThread;
+		}
 	}
 
 	public DroneServerThread getServerThread() {

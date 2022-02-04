@@ -291,19 +291,17 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Next drone in the ring is down! Removing it and trying with next one...");
 				senderDrone.removeFromNetwork(receiverDrone);
 				DroneInfo nextDrone = senderDrone.getNextInRing();
-				//TODO: (CRASH) Check if original receiver was the designed master (or already removed), if it was restart the election
 
-				/*
-				// Code to test for crashes
+				// If the one who had to receive the message was the best drone, then we restart the election
+				// If it wasn't we just send it to the next available one
 				if (receiverDrone.getDroneID() == bestID) {
 					System.out.println("Drone designed to be master crashed! Restarting election...");
-					DroneServiceThread serviceThread =
-							new DroneServiceThread(senderDrone, nextDrone, senderDrone.getBatteryLevel(), senderDrone.getDroneID());
+					senderDrone.restartElection();
+				} else {
+					DroneServiceThread serviceThread = new DroneServiceThread(senderDrone, nextDrone, bestBattery, bestID);
 					serviceThread.start();
-				} else {}
-				 */
-				DroneServiceThread serviceThread = new DroneServiceThread(senderDrone, nextDrone, bestBattery, bestID);
-				serviceThread.start();
+				}
+
 				channel.shutdown();
 			}
 
