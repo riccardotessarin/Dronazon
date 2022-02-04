@@ -217,14 +217,6 @@ public class DroneServiceThread extends Thread {
 
 	// The drone sends the stats to the master, if it gives an error the master is down
 	public void sendDroneStat() throws InterruptedException {
-		// If the master made the delivery, there's no point in opening the connection
-		if (senderDrone.getDroneID() == receiverDrone.getDroneID()) {
-			System.out.println("Master made the delivery, saving stats");
-			senderDrone.addDroneStat(droneStat);
-			// If this is master, then position, battery and delivery status are already updated inside DeliveryThread
-			return;
-		}
-
 		System.out.println("Sending stats to master with ID " + receiverDrone.getDroneID());
 
 		final ManagedChannel channel = ManagedChannelBuilder
