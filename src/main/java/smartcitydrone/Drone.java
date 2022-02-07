@@ -155,6 +155,17 @@ public class Drone {
 		}
 	}
 
+	public static ClientResponse putRequest (Client client, String url, int droneID) {
+		WebResource webResource = client.resource(url);
+		String input = new Gson().toJson(droneID);
+		try {
+			return webResource.type("application/json").put(ClientResponse.class, input);
+		} catch (ClientHandlerException e) {
+			System.out.println("Server unavailable");
+			return null;
+		}
+	}
+
 	public static ClientResponse removeRequest (Client client, String url, int droneID) {
 		WebResource webResource = client.resource(url);
 		String input = new Gson().toJson(droneID);

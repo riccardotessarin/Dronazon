@@ -49,11 +49,9 @@ public class DroneInfos {
 	public synchronized boolean removeDroneInfo(int droneID) {
 		DroneInfo droneToRemove = findDroneInfo(droneID);
 		if (droneToRemove != null) {
-			System.out.println("Got it!");
 			dronesInfo.remove(droneToRemove);
 			return true;
 		}
-		System.out.println("Nope :c");
 		return false;
 	}
 
@@ -66,5 +64,16 @@ public class DroneInfos {
 			}
 		}
 		return null;
+	}
+
+	public boolean updateDroneIsCrashed(DroneInfo droneInfo) {
+		int index = dronesInfo.indexOf(droneInfo);
+		if (index == -1) return false;
+		if (!dronesInfo.get(index).isCrashed()) {
+			dronesInfo.get(index).setCrashed(true);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

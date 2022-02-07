@@ -30,13 +30,21 @@ public class ServerAmministratore {
 		return Response.status(Response.Status.CONFLICT).build();
 	}
 
-	//La put potrebbe servire se faccio la recharge per metterlo a 0,0 e 100%
-	//tieni d'occhio
-
-	@Path("update/{drone}")
+	// This updates the isCrashed boolean
+	@Path("update")
 	@PUT
 	@Consumes({"application/json", "application/xml"})
-	public Response updateDrone(/*@PathParam("drone") int id, Drone droneToUpdate*/) {
+	public Response updateDrone(int droneToUpdateID) {
+		DroneInfo droneInfoToUpdate = DroneInfos.getInstance().findDroneInfo(droneToUpdateID);
+		if (droneInfoToUpdate == null) {
+			System.out.println("Drone already performed safe quit");
+			return Response.ok().build();
+		}
+		if (DroneInfos.getInstance().updateDroneIsCrashed(droneInfoToUpdate)) {
+			System.out.println("Updated drone " + droneToUpdateID + " status to crashed");
+		} else {
+			System.out.println("Drone already updated to crashed status");
+		}
 		return Response.ok().build();
 	}
 

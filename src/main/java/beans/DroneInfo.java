@@ -19,6 +19,8 @@ public class DroneInfo {
 	private boolean isDelivering;
 	@XmlAttribute
 	private boolean isCharging;
+	@XmlAttribute
+	private boolean isCrashed;
 
 	public DroneInfo(){}
 
@@ -28,6 +30,7 @@ public class DroneInfo {
 		this.port = port;
 		this.isDelivering = false;
 		this.isCharging = false;
+		this.isCrashed = false;
 	}
 
 	public int getDroneID() {
@@ -84,6 +87,14 @@ public class DroneInfo {
 
 	public void setCharging(boolean charging) {
 		isCharging = charging;
+	}
+
+	public boolean isCrashed() {
+		return isCrashed;
+	}
+
+	public void setCrashed(boolean crashed) {
+		isCrashed = crashed;
 	}
 
 	@Override

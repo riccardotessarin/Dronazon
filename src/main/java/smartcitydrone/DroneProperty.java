@@ -645,6 +645,13 @@ public class DroneProperty {
 		getTokenLossCheckThread().quit();
 		setTokenLossCheckThread(null);
 	}
+
+	public void updateIsCrashedSA(int droneID) {
+		// Ask Server Amministratore to update isCrashed to true for the drone
+		String serverAddress = "http://localhost:1337";
+		String putPath = "/amministratore/update";
+		Drone.putRequest(this.getClientHTTP(), serverAddress + putPath, droneID);
+	}
 	//endregion
 
 	//region Getters & Setters
