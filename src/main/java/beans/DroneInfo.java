@@ -99,6 +99,10 @@ public class DroneInfo {
 
 	@Override
 	public String toString() {
-		return "\nDrone " + droneID + ".\nAvailable for connection on " + ipAddress + " with port " + port + "\n";
+		if (isCrashed) {
+			return "\nDrone " + droneID + ".\nStatus: CRASHED\n";
+		} else {
+			return "\nDrone " + droneID + ".\nAvailable for connection on " + ipAddress + " with port " + port + "\n";
+		}
 	}
 }
