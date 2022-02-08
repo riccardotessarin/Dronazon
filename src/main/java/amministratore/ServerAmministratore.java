@@ -23,7 +23,7 @@ public class ServerAmministratore {
 		 */
 		if(DroneInfos.getInstance().addDroneInfo(dInfo)) {
 			System.out.println("Drone placed in the smart city.");
-			List<DroneInfo> dronesInNetwork = DroneInfos.getInstance().getDronesInfo();
+			List<DroneInfo> dronesInNetwork = DroneInfos.getInstance().getDronesInfoNotCrashed();
 			InitDroneInfo initDroneInfo = new InitDroneInfo(dronesInNetwork);
 			return Response.ok(initDroneInfo).build();
 		}
@@ -36,16 +36,20 @@ public class ServerAmministratore {
 	@Consumes({"application/json", "application/xml"})
 	public Response updateDrone(int droneToUpdateID) {
 		DroneInfo droneInfoToUpdate = DroneInfos.getInstance().findDroneInfo(droneToUpdateID);
+		String responseMessage = "";
 		if (droneInfoToUpdate == null) {
 			System.out.println("Drone already performed safe quit");
-			return Response.ok().build();
+			responseMessage = "Drone already performed safe quit";
+			return Response.ok(responseMessage).build();
 		}
 		if (DroneInfos.getInstance().updateDroneIsCrashed(droneInfoToUpdate)) {
 			System.out.println("Updated drone " + droneToUpdateID + " status to crashed");
+			responseMessage = "Updated drone " + droneToUpdateID + " status to crashed";
 		} else {
 			System.out.println("Drone already updated to crashed status");
+			responseMessage = "Drone already updated to crashed status";
 		}
-		return Response.ok().build();
+		return Response.ok(responseMessage).build();
 	}
 
 	// This removes a drone from the smart city

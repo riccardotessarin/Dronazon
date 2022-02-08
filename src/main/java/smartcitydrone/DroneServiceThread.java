@@ -144,6 +144,7 @@ public class DroneServiceThread extends Thread {
 			public void onError(Throwable t) {
 				System.out.println("Error! " + t.getMessage());
 				senderDrone.removeFromNetwork(receiverDrone);
+				senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
 				channel.shutdown();
 			}
 
@@ -201,6 +202,7 @@ public class DroneServiceThread extends Thread {
 				System.out.println("Error! " + t.getMessage());
 				System.out.println("Drone unavailable, adding order to queue and removing drone from network");
 				senderDrone.removeFromNetwork(receiverDrone);
+				senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
 				senderDrone.addToOrdersQueue(orderData);
 				channel.shutdown();
 			}
@@ -282,6 +284,7 @@ public class DroneServiceThread extends Thread {
 			public void onError(Throwable t) {
 				System.out.println("Next drone in the ring is down! Removing it and trying with next one...");
 				senderDrone.removeFromNetwork(receiverDrone);
+				senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
 				DroneInfo nextDrone = senderDrone.getNextInRing();
 
 				// If the one who had to receive the message was the best drone, then we restart the election
@@ -338,6 +341,7 @@ public class DroneServiceThread extends Thread {
 					System.out.println("Elected master down! Starting new election...");
 					senderDrone.startElection();
 				} else {
+					senderDrone.updateIsCrashedSA(receiverDrone.getDroneID()); // startElection already has this call
 					DroneServiceThread serviceThread =
 							new DroneServiceThread(senderDrone, nextDrone, electedID);
 					serviceThread.start();
@@ -434,6 +438,9 @@ public class DroneServiceThread extends Thread {
 				} else {
 					System.out.println("Drone " + receiverDrone.getDroneID() + " down after check.");
 					senderDrone.removeFromNetwork(receiverDrone);
+					if (senderDrone.isMaster()) {
+						senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
+					}
 				}
 				channel.shutdown();
 			}

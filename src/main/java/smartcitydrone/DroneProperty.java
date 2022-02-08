@@ -3,6 +3,7 @@ package smartcitydrone;
 import beans.DroneInfo;
 import beans.GlobalStat;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import sensors.Measurement;
 import sensors.PM10Simulator;
 import smartcity.OrderData;
@@ -259,6 +260,9 @@ public class DroneProperty {
 	}
 
 	public void startElection() {
+		if (getMasterDrone() != null) {
+			updateIsCrashedSA(getMasterDrone().getDroneID());
+		}
 		setNoMasterDrone();
 		setParticipant(true);
 		DroneInfo nextDrone = getNextInRing();
@@ -650,7 +654,9 @@ public class DroneProperty {
 		// Ask Server Amministratore to update isCrashed to true for the drone
 		String serverAddress = "http://localhost:1337";
 		String putPath = "/amministratore/update";
-		Drone.putRequest(this.getClientHTTP(), serverAddress + putPath, droneID);
+		ClientResponse clientResponse = Drone.putRequest(this.getClientHTTP(), serverAddress + putPath, droneID);
+		assert clientResponse != null;
+		System.out.println(clientResponse.getEntity(String.class));
 	}
 	//endregion
 
