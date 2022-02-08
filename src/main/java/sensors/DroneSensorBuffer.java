@@ -44,7 +44,7 @@ public class DroneSensorBuffer implements Buffer {
 		if (bufferPMCopy.size() < 9) {
 			return bufferPMCopy;
 		} else {
-			return bufferPMCopy.subList(0, 7);
+			return bufferPMCopy.subList(0, 8);
 		}
 	}
 
