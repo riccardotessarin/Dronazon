@@ -83,11 +83,6 @@ public class DroneServiceThread extends Thread {
 			} else if (message.equalsIgnoreCase("check")) {
 				check();
 			}
-			/*
-			else if (message.equalsIgnoreCase("lookformaster")) {
-				lookForMaster();
-			}
-			 */
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -454,50 +449,4 @@ public class DroneServiceThread extends Thread {
 		//you need this. otherwise the method will terminate before that answers from the server are received
 		channel.awaitTermination(10, TimeUnit.SECONDS);
 	}
-
-	/*
-	// This resolves the edge case in which the elected message is past the new drone in the ring
-	private void lookForMaster() throws InterruptedException {
-		final ManagedChannel channel = ManagedChannelBuilder
-				.forTarget(receiverDrone.getIpAddress() + ":" + receiverDrone.getPort()).usePlaintext().build();
-
-		//creating an asynchronous stub on the channel
-		DroneServiceStub stub = DroneServiceGrpc.newStub(channel);
-
-		CheckMessage request = CheckMessage.newBuilder().setMessage("OK").build();
-
-		stub.lookForMaster(request, new StreamObserver<LookForMasterResponse>() {
-			@Override
-			public void onNext(LookForMasterResponse value) {
-				// If the master has been elected, we set the master
-				if (senderDrone.getMasterDrone() == null && value.getIsMaster()) {
-					//senderDrone.setMasterDroneByID(value.getDroneID());
-					senderDrone.setMasterDrone(receiverDrone);
-				}
-
-				// If someone is still participant, we set the ongoing election true and try
-				// to find the master again later
-				if (!senderDrone.isElectionInProgress() && value.getIsParticipant()) {
-					senderDrone.setElectionInProgress(true);
-				}
-			}
-
-			@Override
-			public void onError(Throwable t) {
-				senderDrone.removeFromNetwork(receiverDrone);
-				channel.shutdown();
-			}
-
-			@Override
-			public void onCompleted() {
-				channel.shutdown();
-			}
-		});
-
-		//you need this. otherwise the method will terminate before that answers from the server are received
-		channel.awaitTermination(10, TimeUnit.SECONDS);
-	}
-
-	 */
-
 }

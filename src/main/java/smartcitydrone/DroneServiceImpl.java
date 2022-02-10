@@ -272,18 +272,6 @@ public class DroneServiceImpl extends DroneServiceImplBase {
 		responseObserver.onCompleted();
 	}
 
-	/*
-	@Override
-	public void lookForMaster(CheckMessage request, StreamObserver<LookForMasterResponse> responseObserver) {
-		// We give info about the master to the drone who still doesn't know
-		LookForMasterResponse response = LookForMasterResponse.newBuilder().setDroneID(droneProperty.getDroneID())
-				.setIsMaster(droneProperty.isMaster()).setIsParticipant(droneProperty.isParticipant()).build();
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
-	}
-
-	 */
-
 	public DroneProperty getDroneProperty() {
 		return droneProperty;
 	}
