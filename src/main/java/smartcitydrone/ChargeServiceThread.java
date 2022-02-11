@@ -83,6 +83,9 @@ public class ChargeServiceThread extends Thread {
 					senderDrone.startElection();
 				} else {
 					senderDrone.removeFromNetwork(receiverDrone);
+					if (senderDrone.isMaster()) {
+						senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
+					}
 				}
 				channel.shutdown();
 			}
@@ -164,6 +167,9 @@ public class ChargeServiceThread extends Thread {
 					senderDrone.startElection();
 				} else {
 					senderDrone.removeFromNetwork(receiverDrone);
+					if (senderDrone.isMaster()) {
+						senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
+					}
 				}
 				channel.shutdown();
 			}

@@ -60,6 +60,9 @@ public class CrashServiceThread extends Thread {
 				} else {
 					System.out.println("Drone " + receiverDrone.getDroneID() + " waiting for charge is down.");
 					senderDrone.removeFromNetwork(receiverDrone);
+					if (senderDrone.isMaster()) {
+						senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
+					}
 				}
 				senderDrone.removeFromChargingQueue(receiverDrone.getDroneID());
 				channel.shutdown();
@@ -94,6 +97,7 @@ public class CrashServiceThread extends Thread {
 			public void onError(Throwable t) {
 				System.out.println("Drone is down, removing it");
 				senderDrone.removeFromNetwork(receiverDrone);
+				senderDrone.updateIsCrashedSA(receiverDrone.getDroneID());
 				channel.shutdown();
 			}
 
