@@ -78,6 +78,7 @@ public class DroneProperty {
 	private Object pendingElectionMux = new Object();
 	private Object pendingStatQuittingMux = new Object();
 	private Object postPendingStatMux = new Object();
+	private Object makeMasterMux = new Object();
 
 	// Invoked threads handlers, used to call class functions from outside class
 	private DroneMasterThread masterThread = null;
@@ -274,11 +275,6 @@ public class DroneProperty {
 	}
 
 	public void makeMaster() {
-		// We check if a master thread is already active, this avoids duplicate master threads
-		if (getMasterThread() != null) {
-			return;
-		}
-
 		// Set the master as itself, it will be useful when new drones want to know who's master
 		setMaster(true);
 		setMasterDroneByID(this.droneID);
@@ -293,8 +289,15 @@ public class DroneProperty {
 			notifyPendingStatQuittingMux();
 		}
 
-		setMasterThread(new DroneMasterThread(this));
-		getMasterThread().start();
+		// We check if a master thread is already active, this avoids duplicate master threads
+		synchronized (makeMasterMux) {
+			if (getMasterThread() != null) {
+				return;
+			}
+			setMasterThread(new DroneMasterThread(this));
+			getMasterThread().start();
+		}
+
 		masterStatThread = new DroneMasterStatThread(this);
 		masterStatThread.start();
 
