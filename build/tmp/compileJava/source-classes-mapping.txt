@@ -1,2 +1,211 @@
-Main.java
- Main
+smartcity/Dronazon.java
+ smartcity.Dronazon
+smartcitydrone/DroneStat.java
+ smartcitydrone.DroneStat
+StartServer.java
+ StartServer
+com/smartcitydrone/chargeservice/ChargeServiceGrpc.java
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$1
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceBaseDescriptorSupplier
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceBlockingStub
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceFileDescriptorSupplier
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceFutureStub
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceImplBase
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceMethodDescriptorSupplier
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$ChargeServiceStub
+ com.smartcitydrone.chargeservice.ChargeServiceGrpc$MethodHandlers
+com/smartcitydrone/chargeservice/ChargeServiceOuterClass.java
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$1
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeEndRequest
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeEndRequest$1
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeEndRequest$Builder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeEndRequestOrBuilder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeRequest
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeRequest$1
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeRequest$Builder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeRequestOrBuilder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeResponse
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeResponse$1
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeResponse$Builder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeResponseOrBuilder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeStartRequest
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeStartRequest$1
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeStartRequest$Builder
+ com.smartcitydrone.chargeservice.ChargeServiceOuterClass$ChargeStartRequestOrBuilder
+com/smartcitydrone/crashservice/CrashServiceGrpc.java
+ com.smartcitydrone.crashservice.CrashServiceGrpc
+ com.smartcitydrone.crashservice.CrashServiceGrpc$1
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceBaseDescriptorSupplier
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceBlockingStub
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceFileDescriptorSupplier
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceFutureStub
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceImplBase
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceMethodDescriptorSupplier
+ com.smartcitydrone.crashservice.CrashServiceGrpc$CrashServiceStub
+ com.smartcitydrone.crashservice.CrashServiceGrpc$MethodHandlers
+beans/InitDroneInfo.java
+ beans.InitDroneInfo
+com/smartcitydrone/droneservice/DroneServiceGrpc.java
+ com.smartcitydrone.droneservice.DroneServiceGrpc
+ com.smartcitydrone.droneservice.DroneServiceGrpc$1
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceBaseDescriptorSupplier
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceBlockingStub
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceFileDescriptorSupplier
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceFutureStub
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceImplBase
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceMethodDescriptorSupplier
+ com.smartcitydrone.droneservice.DroneServiceGrpc$DroneServiceStub
+ com.smartcitydrone.droneservice.DroneServiceGrpc$MethodHandlers
+smartcitydrone/ChargeInfo.java
+ smartcitydrone.ChargeInfo
+sensors/Buffer.java
+ sensors.Buffer
+com/smartcitydrone/crashservice/CrashServiceOuterClass.java
+ com.smartcitydrone.crashservice.CrashServiceOuterClass
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$1
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$CheckMessage
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$CheckMessage$1
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$CheckMessage$Builder
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$CheckMessageOrBuilder
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$ResetElection
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$ResetElection$1
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$ResetElection$Builder
+ com.smartcitydrone.crashservice.CrashServiceOuterClass$ResetElectionOrBuilder
+smartcity/OrderData.java
+ smartcity.OrderData
+sensors/Simulator.java
+ sensors.Simulator
+com/smartcitydrone/droneservice/DroneServiceOuterClass.java
+ com.smartcitydrone.droneservice.DroneServiceOuterClass
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$CheckMessage
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$CheckMessage$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$CheckMessage$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$CheckMessageOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedRequest
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedRequest$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedRequest$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedRequestOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectedResponseOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionRequest
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionRequest$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionRequest$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionRequestOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$ElectionResponseOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinRequest
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinRequest$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinRequest$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinRequestOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$JoinResponseOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$LookForMasterResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$LookForMasterResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$LookForMasterResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$LookForMasterResponseOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderRequest
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderRequest$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderRequest$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderRequestOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$OrderResponseOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatRequest
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatRequest$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatRequest$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatRequestOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$PendingStatResponseOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatRequest
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatRequest$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatRequest$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatRequestOrBuilder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatResponse
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatResponse$1
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatResponse$Builder
+ com.smartcitydrone.droneservice.DroneServiceOuterClass$StatResponseOrBuilder
+beans/GlobalStat.java
+ beans.GlobalStat
+sensors/Measurement.java
+ sensors.Measurement
+beans/GlobalStats.java
+ beans.GlobalStats
+sensors/PM10Simulator.java
+ sensors.PM10Simulator
+beans/DroneInfos.java
+ beans.DroneInfos
+beans/DroneInfo.java
+ beans.DroneInfo
+amministratore/ServerAmministratore.java
+ amministratore.ServerAmministratore
+ amministratore.ServerAmministratore$1
+amministratore/ClientAmministratore.java
+ amministratore.ClientAmministratore
+ amministratore.ClientAmministratore$1
+smartcitydrone/DroneConsoleThread.java
+ smartcitydrone.DroneConsoleThread
+smartcitydrone/TokenLossCheckThread.java
+ smartcitydrone.TokenLossCheckThread
+smartcitydrone/DroneMasterStatThread.java
+ smartcitydrone.DroneMasterStatThread
+smartcitydrone/DroneSafeQuitThread.java
+ smartcitydrone.DroneSafeQuitThread
+smartcitydrone/DroneDeliveryThread.java
+ smartcitydrone.DroneDeliveryThread
+smartcitydrone/DroneServiceImpl.java
+ smartcitydrone.DroneServiceImpl
+sensors/DroneSensorBuffer.java
+ sensors.DroneSensorBuffer
+smartcitydrone/DronePrintThread.java
+ smartcitydrone.DronePrintThread
+smartcitydrone/DeliveryCheckThread.java
+ smartcitydrone.DeliveryCheckThread
+smartcitydrone/CrashServiceThread.java
+ smartcitydrone.CrashServiceThread
+ smartcitydrone.CrashServiceThread$1
+ smartcitydrone.CrashServiceThread$2
+smartcitydrone/DroneMasterThread.java
+ smartcitydrone.DroneMasterThread
+ smartcitydrone.DroneMasterThread$1
+smartcitydrone/DroneCheckThread.java
+ smartcitydrone.DroneCheckThread
+smartcitydrone/DroneProperty.java
+ smartcitydrone.DroneProperty
+smartcitydrone/ChargeServiceImpl.java
+ smartcitydrone.ChargeServiceImpl
+smartcitydrone/CrashServiceImpl.java
+ smartcitydrone.CrashServiceImpl
+smartcitydrone/DroneServiceThread.java
+ smartcitydrone.DroneServiceThread
+ smartcitydrone.DroneServiceThread$1
+ smartcitydrone.DroneServiceThread$2
+ smartcitydrone.DroneServiceThread$3
+ smartcitydrone.DroneServiceThread$4
+ smartcitydrone.DroneServiceThread$5
+ smartcitydrone.DroneServiceThread$6
+ smartcitydrone.DroneServiceThread$7
+smartcitydrone/Drone.java
+ smartcitydrone.Drone
+smartcitydrone/DroneChargeThread.java
+ smartcitydrone.DroneChargeThread
+smartcitydrone/DroneServerThread.java
+ smartcitydrone.DroneServerThread
+smartcitydrone/ChargeServiceThread.java
+ smartcitydrone.ChargeServiceThread
+ smartcitydrone.ChargeServiceThread$1
+ smartcitydrone.ChargeServiceThread$2
+ smartcitydrone.ChargeServiceThread$3
+smartcitydrone/ChargeCheckThread.java
+ smartcitydrone.ChargeCheckThread
