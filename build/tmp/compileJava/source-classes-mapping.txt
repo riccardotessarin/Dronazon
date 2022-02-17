@@ -140,20 +140,21 @@ beans/GlobalStat.java
  beans.GlobalStat
 sensors/Measurement.java
  sensors.Measurement
-beans/GlobalStats.java
- beans.GlobalStats
+smartcitydrone/DroneServerThread.java
+ smartcitydrone.DroneServerThread
 sensors/PM10Simulator.java
  sensors.PM10Simulator
 beans/DroneInfos.java
  beans.DroneInfos
 beans/DroneInfo.java
  beans.DroneInfo
-amministratore/ServerAmministratore.java
- amministratore.ServerAmministratore
- amministratore.ServerAmministratore$1
-amministratore/ClientAmministratore.java
- amministratore.ClientAmministratore
- amministratore.ClientAmministratore$1
+smartcitydrone/ChargeServiceThread.java
+ smartcitydrone.ChargeServiceThread
+ smartcitydrone.ChargeServiceThread$1
+ smartcitydrone.ChargeServiceThread$2
+ smartcitydrone.ChargeServiceThread$3
+smartcitydrone/ChargeCheckThread.java
+ smartcitydrone.ChargeCheckThread
 smartcitydrone/DroneConsoleThread.java
  smartcitydrone.DroneConsoleThread
 smartcitydrone/TokenLossCheckThread.java
@@ -200,12 +201,11 @@ smartcitydrone/Drone.java
  smartcitydrone.Drone
 smartcitydrone/DroneChargeThread.java
  smartcitydrone.DroneChargeThread
-smartcitydrone/DroneServerThread.java
- smartcitydrone.DroneServerThread
-smartcitydrone/ChargeServiceThread.java
- smartcitydrone.ChargeServiceThread
- smartcitydrone.ChargeServiceThread$1
- smartcitydrone.ChargeServiceThread$2
- smartcitydrone.ChargeServiceThread$3
-smartcitydrone/ChargeCheckThread.java
- smartcitydrone.ChargeCheckThread
+amministratore/ClientAmministratore.java
+ amministratore.ClientAmministratore
+ amministratore.ClientAmministratore$1
+amministratore/ServerAmministratore.java
+ amministratore.ServerAmministratore
+ amministratore.ServerAmministratore$1
+beans/GlobalStats.java
+ beans.GlobalStats

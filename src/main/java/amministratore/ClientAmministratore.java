@@ -30,7 +30,7 @@ public class ClientAmministratore {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		while (!quit) {
-			System.out.println("\nAvailable commands:\ndrones (shows the list of active drones\nstatistics [n]" +
+			System.out.println("\nAvailable commands:\ndrones (shows the list of active drones)\nstatistics [n]" +
 					" (shows the last n global statistics)\ndeliveries [t1] [t2] (gets the average deliveries between t1 and t2)" +
 					"\ntraveled [t1] [t2] (gets the average km traveled between t1 and t2)\nquit (to close the admin interface)");
 

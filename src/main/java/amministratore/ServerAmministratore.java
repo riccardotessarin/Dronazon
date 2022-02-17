@@ -95,7 +95,7 @@ public class ServerAmministratore {
 	@Path("deliveries/{t1}/{t2}")
 	@GET
 	@Produces({"application/json", "application/xml"})
-	public Response getAverageDeliveries(@PathParam("t1") int t1, @PathParam("t2") int t2) {
+	public Response getAverageDeliveries(@PathParam("t1") long t1, @PathParam("t2") long t2) {
 		if (t1 < 0 || t2 < 0) {
 			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
 		} else if (t2 < t1) {
@@ -107,7 +107,7 @@ public class ServerAmministratore {
 	@Path("traveled/{t1}/{t2}")
 	@GET
 	@Produces({"application/json", "application/xml"})
-	public Response getAverageTraveledKM(@PathParam("t1") int t1, @PathParam("t2") int t2) {
+	public Response getAverageTraveledKM(@PathParam("t1") long t1, @PathParam("t2") long t2) {
 		if (t1 < 0 || t2 < 0) {
 			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
 		} else if (t2 < t1) {
