@@ -181,12 +181,14 @@ public class DroneProperty {
 		}
 	}
 
+	// It returns the distance between the two points in the smart city map
 	public double distance(int[] dronePosition, int[] pickUpPoint) {
 		double x = Math.pow((pickUpPoint[0] - dronePosition[0]), 2);
 		double y = Math.pow((pickUpPoint[1] - dronePosition[1]), 2);
 		return Math.sqrt(x + y);
 	}
 
+	// This prints the drone stats, used by the print thread
 	public void printStat() {
 		System.out.println("Drone " + droneID + " deliveries stat:\n" +
 				"Total deliveries: " + getDeliveryCount() + ", Distance traveled: " +
@@ -195,24 +197,28 @@ public class DroneProperty {
 		//System.out.println(getMasterDrone() != null ? getMasterDrone() : "Master is null");
 	}
 
+	// Notifies the master waiting to quit that a drone is available for delivery assignment
 	public void notifyDroneForDelivery() {
 		synchronized (droneForDeliveryMux) {
 			droneForDeliveryMux.notifyAll();
 		}
 	}
 
+	// Notifies the drone waiting to quit that it is no longer participant
 	public void notifyPendingElectionMux() {
 		synchronized (pendingElectionMux) {
 			pendingElectionMux.notifyAll();
 		}
 	}
 
+	// Notifies that the drone stats have been saved or sent
 	public void notifyPendingStatQuittingMux() {
 		synchronized (pendingStatQuittingMux) {
 			pendingStatQuittingMux.notifyAll();
 		}
 	}
 
+	// Notifies master that stats have been sent to S.A.
 	public void notifyPostPendingStatMux() {
 		synchronized (postPendingStatMux) {
 			postPendingStatMux.notifyAll();
@@ -229,15 +235,6 @@ public class DroneProperty {
 	//region Drone network functions
 	public void addToNetwork(DroneInfo droneInfo) {
 		DroneInfo droneCheck = findDroneInfoByID(droneInfo.getDroneID());
-		/*
-		//This may be useless
-		if (dronesInNetwork.contains(droneInfo)) {
-			System.out.println("Drone " + droneInfo.getDroneID() + " already in network");
-			return;
-		}
-
-		 */
-
 		// If a drone with the same ID is already inside the network, it means the S.A. let it join because
 		// the duplicate ID has already left and my network is not updated. So we remove the duplicate before
 		// adding the new one
@@ -306,8 +303,6 @@ public class DroneProperty {
 		deliveryCheckThread.start();
 	}
 
-
-	// Check if some locks are needed
 	public void quit() {
 		if (getSafeQuitThread() == null) {
 			this.setSafeQuitThread(new DroneSafeQuitThread(this));
@@ -408,6 +403,7 @@ public class DroneProperty {
 		}
 	}
 
+	// This adds the average of the PM buffer to the list that will be sent with the stats
 	public void addSensorMeasurement(List<Measurement> bufferPM) {
 		if (bufferPM.size() == 0) {
 			System.out.println("PM Buffer error!");
